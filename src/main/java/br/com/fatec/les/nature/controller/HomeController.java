@@ -79,12 +79,22 @@ public class HomeController {
 	}
 	
 	/**
-	 * Método utilizado para direcionar o cliente à view com informações sobre o grupo NatuÊ
+	 * Método utilizado para direcionar o cliente à view com informações sobre o grupo NaturÊ
 	 * @return
 	 */
 	@RequestMapping(value = "/sobre_nos")
 	public String sobreNos() {
 		return "sobre_nos";
+		
+	}
+	
+	/**
+	 * Método utilizado para direcionar o cliente à view de contatos com o grupo NaturÊ
+	 * @return
+	 */
+	@RequestMapping(value = "/contato")
+	public String contato() {
+		return "contato";
 		
 	}
 	

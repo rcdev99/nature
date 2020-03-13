@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="https://thymeleaf.org">
   <head>
     <title>NaturÊ | Home page</title>
     <meta charset="utf-8">
@@ -46,30 +46,30 @@
 		</div>
 		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="index.html">
-			<img src="images\logos\nature\nature_logo3.png" alt="Logo NaturÊ">
+			<a class="navbar-brand" href="/home">
+				<img src="images\logos\nature\nature_logo3.png" alt="Logo NaturÊ">
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="oi oi-menu"></span> Menu
+				<span class="oi oi-menu"></span> Menu
 			</button>
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item"><a href="index.html" class="nav-link">Início</a></li>
+				<li class="nav-item"><a href="/home" class="nav-link">Início</a></li>
 				<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Produtos</a>
 				<div class="dropdown-menu" aria-labelledby="dropdown04">
 					<a class="dropdown-item" href="/produtos">Produtos</a>
 					<a class="dropdown-item" href="/lista_de_desejos">Lista de Desejos</a>
-					<a class="dropdown-item" href="/produto" method="POST">Produto</a>
+					<a class="dropdown-item" href="/produto">Produto</a>
 					<a class="dropdown-item" href="/carrinho">Carrinho</a>
-					<a class="dropdown-item" href="/conclusao">Sair</a>
+					<a class="dropdown-item" href="/conclusao">Concluir compra</a>
 				</div>
 				</li>
 				<li class="nav-item active"><a href="/sobre_nos" class="nav-link">Sobre nós</a></li>
-				<li class="nav-item"><a href="contato.html" class="nav-link">Contate-nos</a></li>
-				<li class="nav-item cta cta-colored"><a href="carrinho.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-
+				<li class="nav-item"><a href="/contato" class="nav-link">Contate-nos</a></li>
+				<li class="nav-item cta cta-colored"><a href="/carrinho" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+				<li class="nav-item cta cta-colored"><a href="/login" class="nav-link"><span class="icon-user"></span>Entrar</a></li>
 			</ul>
 			</div>
 		</div>
@@ -122,19 +122,19 @@
 									<div class="text text-center">
 										<h2>Variedade</h2>
 										<p>Produtos para a saúde de toda a família</p>
-										<p><a href="produtos.html" class="btn btn-primary">Conferir</a></p>
+										<p><a href="/produtos" class="btn btn-primary">Conferir</a></p>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-1.jpg);">
 									<div class="text px-3 py-1">
-										<h2 class="mb-0"><a href="#">Vegetais</a></h2>
+										<h2 class="mb-0"><a href="/produtos">Vegetais</a></h2>
 									</div>
 								</div>
 								<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/category-2.jpg);">
 									<div class="text px-3 py-1">
-										<h2 class="mb-0"><a href="#">Frutas</a></h2>
+										<h2 class="mb-0"><a href="/produtos">Frutas</a></h2>
 									</div>
 								</div>
 							</div>
@@ -144,12 +144,12 @@
 					<div class="col-md-4">
 						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-3.jpg);">
 							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a href="#">Sucos naturais e Detox</a></h2>
+								<h2 class="mb-0"><a href="/produtos">Sucos naturais e Detox</a></h2>
 							</div>		
 						</div>
 						<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/category-4.jpg);">
 							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a href="#">Grãos</a></h2>
+								<h2 class="mb-0"><a href="/produtos">Grãos</a></h2>
 							</div>
 						</div>
 					</div>
@@ -171,7 +171,7 @@
     		<div class="row">
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
+    					<a href="/produto" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
     						<span class="status">30%</span>
     						<div class="overlay"></div>
     					</a>
@@ -184,13 +184,13 @@
 	    					</div>
 	    					<div class="bottom-area d-flex px-3">
 	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+	    							<a href="/produto" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 	    								<span><i class="ion-ios-menu"></i></span>
 	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    							<a href="/carrinho" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
+	    							<a href="/lista_de_desejos" class="heart d-flex justify-content-center align-items-center ">
 	    								<span><i class="ion-ios-heart"></i></span>
 	    							</a>
     							</div>
@@ -424,8 +424,8 @@
     <hr>
 	
 	
-<!--Rodapé-->
-<footer class="ftco-footer ftco-section">
+  <!--Rodapé-->
+  <footer class="ftco-footer ftco-section">
 	<div class="container">
 		<div class="row">
 			<div class="mouse">
@@ -453,10 +453,10 @@
 		  <div class="ftco-footer-widget mb-4 ml-md-5">
 			<h2 class="ftco-heading-2">Menu</h2>
 			<ul class="list-unstyled">
-			  <li><a href="#" class="py-2 d-block">Produtos</a></li>
-			  <li><a href="#" class="py-2 d-block">Sobre nós</a></li>
-			  <li><a href="#" class="py-2 d-block">Página inicial</a></li>
-			  <li><a href="#" class="py-2 d-block">Cadastre-se</a></li>
+			  <li><a href="/produtos" class="py-2 d-block">Produtos</a></li>
+			  <li><a href="/sobre_nos" class="py-2 d-block">Sobre nós</a></li>
+			  <li><a href="/home" class="py-2 d-block">Página inicial</a></li>
+			  <li><a href="/cadastro" class="py-2 d-block">Cadastre-se</a></li>
 			</ul>
 		  </div>
 		</div>
@@ -476,8 +476,8 @@
 	  </div>
 	  <div class="row">
 		<div class="col-md-12 text-center">
-		  <a href="index.html">
-			<img src="images\logos\nature\nature_logo1.png" alt="Logo da Naturê" href="index.html">
+		  <a href="/home">
+			<img src="images\logos\nature\nature_logo1.png" alt="Logo da Naturê" href="/home">
 		  </a>
 		  <p class="copyright">&copy; Copyright Naturê - 2020</p>
 		</div>
