@@ -98,6 +98,15 @@ public class HomeController {
 		
 	}
 	
+	/**
+	 * Método utilizado para direcionar o cliente à view de cadastro de usuários
+	 * @return
+	 */
+	@RequestMapping(value = "/cadastro")
+	public String cadastrarUsuario() {
+		return "cadastro";
+		
+	}
 	
 	
 }
