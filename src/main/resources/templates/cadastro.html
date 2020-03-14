@@ -79,9 +79,139 @@
 	<!--Conteúdo principal da página-->
     <section class="ftco-section">
 		<div class="container">
-
-			Dentro da div
-
+			<div class="row justify-content-center">
+				<div class="col-xl-7 ftco-animate">
+					<form action="#" class="billing-form">
+						<h3 class="mb-4 billing-heading">Cadastro</h3>
+						<div class="row align-items-end">
+							<legend>Informações Pessoais</legend>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="nome">Nome</label>
+								 	<input type="text" id="nome" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="sobrenome">Sobrenome</label>
+								 	<input type="text" id="sobrenome" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="dt_nasc">Data de Nascimento</label>
+									<input type="date" id="dt_nasc" class="form-control" maxlength="10" required placeholder="DD/MM/AAAA">
+								</div>
+							</div>
+							<div class="col-md-6"></div>							
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="cpf">CPF</label>
+									<input type="text" id="cpf" class="form-control" maxlength="11" required placeholder="Apenas números" pattern="[0-9]+$">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="rg">RG</label>
+									<input type="text" id="rg" class="form-control" maxlength="11" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Gênero</label>
+									<div>
+										<label for="genero-masc" class="radio"><input type="radio" name="genero" value="M" id="genero-masc">Masculino</label>
+										<label for="genero-fem" class="radio"><input type="radio" name="genero" value="F" id="genero-fem">Feminino</label>
+										<label for="genero-others" class="radio"><input type="radio" name="genero" value="O" id="genero-masc" checked>Outros</label>
+									</div>
+								</div>
+							</div>
+							<legend>Credenciais de acesso</legend>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="email">E-mail</label>
+									<input type="email" id="email" class="form-control" placeholder="Exemplo: email@dominio.com.br" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="senha">Senha</label>
+									<input type="password" id="senha" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="conf_senha">Confirmar Senha</label>
+									<input type="password" id="conf_senha" class="form-control" required>
+								</div>
+							</div>
+							<legend>Endereço</legend>
+							<div class="col-md-10">
+								<div class="form-group">
+									<label for="lodradouro">Logradouro</label>
+									<input type="text" id="lodradouro" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="numero">Nº</label>
+									<input type="number" id="numero" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-8">
+								<div class="form-group">
+									<label for="bairro">Bairro</label>
+									<input type="text" id="bairro" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="cep">CEP</label>
+									<input type="search" id="cep" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-10">
+								<div class="form-group">
+									<label for="cidade">Cidade</label>
+									<input type="text" id="cidade" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="numero">Estado</label>
+									<div class="select-wrap">
+										<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+										<select name="pre_cadastrado" id="pre_cadastrado" class="form-control">
+										  <option value="">AM</option>
+										  <option value="">RJ</option>
+										  <option value="">SP</option>
+										</select>
+									</div>		
+								</div>
+							</div>
+							<legend>Contato</legend>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="telefone">Telefone</label>
+									<input type="tel" id="telefone" class="form-control">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="celular">Celular</label>
+									<input type="tel" id="celular" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="checkbox"><input type="checkbox" checked>Gostaria de receber nossas novidades por e-mail?</label>
+							</div>
+							<div class="col-md-12" align=center>
+								<input type="submit" class="btn btn-primary py-3 px-4" value="Cadastrar">					
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</section>	
 
