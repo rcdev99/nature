@@ -13,7 +13,7 @@ public class testeEndereco {
 		
 		//Estado
 		estado.setNomeEstado("São Paulo");
-		estado.setRegiao(TipoRegiao.NORDESTE);
+		estado.setRegiao(TipoRegiao.SULDESTE);
 		estado.setSigla("SP");
 		
 		//Cidade
@@ -25,8 +25,9 @@ public class testeEndereco {
 		logradouro.setTipo(TipoLogradouro.AVENIDA);
 		
 		//Endereço
+		endereco.setDescricao("Minha casa");
 		endereco.setBairro("Jardim Bela Vista");
-		endereco.setCEP("08820-235");
+		endereco.setCep("08820-235");
 		endereco.setCidade(cidade);
 		endereco.setLogradouro(logradouro);
 		endereco.setNumero(94);

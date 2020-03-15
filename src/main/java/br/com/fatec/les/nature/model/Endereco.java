@@ -9,13 +9,15 @@ public class Endereco extends EntidadeDominio{
 	private String cep;
 	private Cidade cidade;
 	private String pais;
+	private String descricao;
+	
 	
 	
 	public String toString() {
 		
 		String string;
-		string = "Tipo de Residência: " + tipoResidencia.getDescricao() +"\nLogradouro: " + logradouro.getTipo() 
-				+" " + logradouro.getLogradouro() + "\nCidade: " + cidade.getCidade() + " - " + cidade.getEstado().getSigla()
+		string = "Tipo de Residência: " + tipoResidencia.getDescricao() + "\nDescrição: " + this.descricao
+				+"\nLogradouro: " + logradouro.getTipo() +" " + logradouro.getLogradouro() + "\nCidade: " + cidade.getCidade() + " - " + cidade.getEstado().getSigla()
 				+"\nBairro: " + bairro + " CEP: " + cep + " Região: " + cidade.getEstado().getRegiao(); 
 		
 		return string;
@@ -46,12 +48,6 @@ public class Endereco extends EntidadeDominio{
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
-	public String getCEP() {
-		return cep;
-	}
-	public void setCEP(String cep) {
-		this.cep = cep;
-	}
 	public Cidade getCidade() {
 		return cidade;
 	}
@@ -64,8 +60,20 @@ public class Endereco extends EntidadeDominio{
 	public void setPais(String pais) {
 		this.pais = pais;
 	}
-	
-	
-	
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 	
 }
