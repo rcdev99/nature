@@ -1,5 +1,7 @@
 package br.com.fatec.les.nature.model;
 
+import br.com.fatec.les.nature.util.Criptografia;
+
 public class Usuario extends Pessoa{
 
 	private String email;
@@ -14,10 +16,14 @@ public class Usuario extends Pessoa{
 		this.email = email;
 	}
 	public String getSenha() {
+		
 		return senha;
 	}
 	public void setSenha(String senha) {
-		this.senha = senha;
+		
+		Criptografia util = new Criptografia();
+		
+		this.senha = util.criptografar(senha);
 	}
 	public TipoUsuario getTipo() {
 		return tipo;
