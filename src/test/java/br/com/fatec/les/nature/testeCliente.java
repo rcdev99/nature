@@ -27,7 +27,6 @@ public class testeCliente {
 		Cliente cliente = new Cliente();
 		Calendar dt = Calendar.getInstance();
 		
-		
 		//Estado
 		estado.setNomeEstado("São Paulo");
 		estado.setRegiao(TipoRegiao.SULDESTE);
@@ -40,7 +39,6 @@ public class testeCliente {
 		//Logradouro
 		logradouro.setLogradouro("Antonio Bóz Vidal");
 		logradouro.setTipo(TipoLogradouro.AVENIDA);
-		
 		
 		//Cliente
 		cliente.setNome("Ricardo");
@@ -106,6 +104,4 @@ public class testeCliente {
 		System.out.println(cliente);
 		
 	}
-	
-	
 }

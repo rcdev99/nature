@@ -12,7 +12,6 @@ public class Pessoa extends EntidadeDominio {
 	private boolean status;
 	private Calendar dtNasc;
 	
-	
 	//Getters and Setters
 	public String getNome() {
 		return nome;

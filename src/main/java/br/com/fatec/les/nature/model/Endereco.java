@@ -11,8 +11,6 @@ public class Endereco extends EntidadeDominio{
 	private String pais;
 	private String descricao;
 	
-	
-	
 	public String toString() {
 		
 		String string;

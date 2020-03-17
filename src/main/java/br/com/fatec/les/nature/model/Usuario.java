@@ -22,7 +22,6 @@ public class Usuario extends Pessoa{
 	public void setSenha(String senha) {
 		
 		Criptografia util = new Criptografia();
-		
 		this.senha = util.criptografar(senha);
 	}
 	public TipoUsuario getTipo() {

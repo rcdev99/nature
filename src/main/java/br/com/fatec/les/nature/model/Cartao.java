@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 import br.com.fatec.les.nature.util.FormataData;
 
-public class Cartao {
+public class Cartao extends EntidadeDominio {
 
 	private String titular;
 	private String numCartao;

@@ -12,7 +12,6 @@ public class testeCartao {
 	@SuppressWarnings("deprecation")
 	public static void main(String args[]) {
 	
-		
 		Date d = new Date("03/04/2020");
 		Calendar data = Calendar.getInstance();
 		data.setTime(d);
@@ -21,8 +20,7 @@ public class testeCartao {
 		System.out.println( df.format(data.getTime()));
 		
 		Cartao cartao = new Cartao();
-		
-		
+			
 		cartao.setTitular("Ricardo");
 		cartao.setNumCartao("0000.0000.0000.0000");
 		cartao.setBandeira(TipoBandeira.MASTERCARD);

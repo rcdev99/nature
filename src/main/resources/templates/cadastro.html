@@ -146,7 +146,7 @@
 								</div>
 							</div>
 							<legend>Endereço</legend>
-							<div class="col-md-10">
+							<div class="col-md-6">
 								<div class="form-group">
 									<label for="lodradouro">Logradouro</label>
 									<input type="text" id="lodradouro" class="form-control" required>
@@ -156,6 +156,20 @@
 								<div class="form-group">
 									<label for="numero">Nº</label>
 									<input type="number" id="numero" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="numero">Tipo de Residência</label>
+									<div class="select-wrap">
+										<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+										<select name="tipo_residencia" id="tipo_residencia" class="form-control">
+										  <option value="">Apartamento</option>
+										  <option value="">Casa</option>
+										  <option value="">Fazenda</option>
+										  <option value="">Sítio</option>
+										</select>
+									</div>	
 								</div>
 							</div>
 							<div class="col-md-8">
@@ -181,12 +195,18 @@
 									<label for="numero">Estado</label>
 									<div class="select-wrap">
 										<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-										<select name="pre_cadastrado" id="pre_cadastrado" class="form-control">
+										<select name="estado" id="estado" class="form-control">
 										  <option value="">AM</option>
 										  <option value="">RJ</option>
 										  <option value="">SP</option>
 										</select>
 									</div>		
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="descricao">Descrição</label>
+									<input type="text" id="descricao" class="form-control" placeholder="Breve identificação do endereço,ex.: (Comercial, Minha Casa, etc)" required>
 								</div>
 							</div>
 							<legend>Contato</legend>
