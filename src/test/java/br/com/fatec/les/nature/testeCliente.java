@@ -9,11 +9,13 @@ import br.com.fatec.les.nature.model.Cliente;
 import br.com.fatec.les.nature.model.Endereco;
 import br.com.fatec.les.nature.model.Estado;
 import br.com.fatec.les.nature.model.Logradouro;
+import br.com.fatec.les.nature.model.Telefone;
 import br.com.fatec.les.nature.model.TipoBandeira;
 import br.com.fatec.les.nature.model.TipoGenero;
 import br.com.fatec.les.nature.model.TipoLogradouro;
 import br.com.fatec.les.nature.model.TipoRegiao;
 import br.com.fatec.les.nature.model.TipoResidencia;
+import br.com.fatec.les.nature.model.TipoTelefone;
 import br.com.fatec.les.nature.model.TipoUsuario;
 
 public class testeCliente {
@@ -71,6 +73,17 @@ public class testeCliente {
 		endereco2.setNumero(999);
 		endereco2.setPais("Brasil");
 		endereco2.setTipoResidencia(TipoResidencia.CASA);
+		
+		//Instancias de telefone
+		Telefone telefone1 = new Telefone();
+		telefone1.setDdd("11");
+		telefone1.setNumero("99919-1999");
+		telefone1.setTipo(TipoTelefone.CELULAR);
+				
+		Telefone telefone2 = new Telefone();
+		telefone2.setDdd("11");
+		telefone2.setNumero("4747-7474");
+		telefone2.setTipo(TipoTelefone.RESIDENCIAL);		
 						
 		//Instancia de data para atribuir ao vencimento do cartão
 		Date d = new Date("03/04/2020");
@@ -96,6 +109,10 @@ public class testeCliente {
 		//Atribuindo Endreços ao Cliente
 		cliente.addEndereco(endereco1);
 		cliente.addEndereco(endereco2);
+		
+		//Adicionando telefones à Listagem
+		cliente.addTelefone(telefone1);
+		cliente.addTelefone(telefone2);
 		
 		//Atribuindo Cartões ao Cliente
 		cliente.addCartao(cartao1);
