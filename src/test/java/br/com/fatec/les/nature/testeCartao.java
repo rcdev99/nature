@@ -7,7 +7,7 @@ import java.util.Date;
 import br.com.fatec.les.nature.model.Cartao;
 import br.com.fatec.les.nature.model.TipoBandeira;
 
-public class testeCartao {
+public class TesteCartao {
 
 	@SuppressWarnings("deprecation")
 	public static void main(String args[]) {

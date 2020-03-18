@@ -3,7 +3,7 @@ package br.com.fatec.les.nature;
 import br.com.fatec.les.nature.model.Usuario;
 import br.com.fatec.les.nature.util.Criptografia;
 
-public class testeCriptografia {
+public class TesteCriptografia {
 
 	public static void main(String args[]) {
 		

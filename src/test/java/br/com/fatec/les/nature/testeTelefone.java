@@ -6,7 +6,7 @@ import java.util.List;
 import br.com.fatec.les.nature.model.Telefone;
 import br.com.fatec.les.nature.model.TipoTelefone;
 
-public class testeTelefone {
+public class TesteTelefone {
 	
 	public static void main(String[] args) {
 		
