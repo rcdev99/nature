@@ -1,24 +1,18 @@
 package br.com.fatec.les.nature;
 
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 
 import br.com.fatec.les.nature.model.Cartao;
 import br.com.fatec.les.nature.model.TipoBandeira;
+import br.com.fatec.les.nature.util.FormataData;
 
 public class TesteCartao {
 
-	@SuppressWarnings("deprecation")
 	public static void main(String args[]) {
 	
-		Date d = new Date("03/04/2020");
-		Calendar data = Calendar.getInstance();
-		data.setTime(d);
-		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
-		
-		System.out.println( df.format(data.getTime()));
-		
+		FormataData formato = new FormataData();
+		LocalDate data = LocalDate.parse("20/06/2020", formato.getFormato());
+			
 		Cartao cartao = new Cartao();
 			
 		cartao.setTitular("Ricardo");

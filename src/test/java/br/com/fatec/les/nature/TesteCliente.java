@@ -1,7 +1,6 @@
 package br.com.fatec.les.nature;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 
 import br.com.fatec.les.nature.model.Cartao;
 import br.com.fatec.les.nature.model.Cidade;
@@ -17,17 +16,19 @@ import br.com.fatec.les.nature.model.TipoRegiao;
 import br.com.fatec.les.nature.model.TipoResidencia;
 import br.com.fatec.les.nature.model.TipoTelefone;
 import br.com.fatec.les.nature.model.TipoUsuario;
+import br.com.fatec.les.nature.util.FormataData;
 
 public class TesteCliente {
 
-	@SuppressWarnings("deprecation")
 	public static void main(String args[]) {
 		
 		Estado estado = new Estado();
 		Cidade cidade = new Cidade();
 		Logradouro logradouro = new Logradouro();
 		Cliente cliente = new Cliente();
-		Calendar dt = Calendar.getInstance();
+		LocalDate dt = LocalDate.now();
+		
+		FormataData fd = new FormataData(); 
 		
 		//Estado
 		estado.setNomeEstado("São Paulo");
@@ -86,9 +87,7 @@ public class TesteCliente {
 		telefone2.setTipo(TipoTelefone.RESIDENCIAL);		
 						
 		//Instancia de data para atribuir ao vencimento do cartão
-		Date d = new Date("03/04/2020");
-		Calendar data = Calendar.getInstance();
-		data.setTime(d);
+		LocalDate data = LocalDate.parse("03/04/2020", fd.getFormato());
 		
 		//Cartao1
 		Cartao cartao1 = new Cartao();

@@ -20,7 +20,7 @@ public class Cliente extends Usuario{
 		
 		string = "Nome: " + super.getNome() + " Sobrenome: " + super.getSobrenome() 
 				+ "\nRG: " + super.getRg() + " CPF: " + super.getCpf()
-				+ "\nGênero: " + super.getGenero() + " E-mail: " + super.getEmail()
+				+ "\nGênero: " + super.getGenero().getDescricao() + " E-mail: " + super.getEmail()
 				+ "\nTipo de usuário: " + super.getTipo() + "\n";
 				//Exibir os cartões registrados
 				for (Cartao cartao : cartoes) {

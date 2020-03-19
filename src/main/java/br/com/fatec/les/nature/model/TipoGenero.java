@@ -2,9 +2,9 @@ package br.com.fatec.les.nature.model;
 
 public enum TipoGenero {
 
-	F("Feminino"),
-	M("Masculino"),
-	O("Outros");
+	F("F"),
+	M("M"),
+	O("O");
 	
 	 public String getDescricao() {
 		return descricao;
