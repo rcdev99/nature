@@ -2,7 +2,7 @@ package br.com.fatec.les.nature;
 
 import br.com.fatec.les.nature.model.*;;
 
-public class testeEndereco {
+public class TesteEndereco {
 
 	public static void main(String[] args) {
 		

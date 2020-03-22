@@ -18,7 +18,7 @@ import br.com.fatec.les.nature.model.TipoResidencia;
 import br.com.fatec.les.nature.model.TipoTelefone;
 import br.com.fatec.les.nature.model.TipoUsuario;
 
-public class testeCliente {
+public class TesteCliente {
 
 	@SuppressWarnings("deprecation")
 	public static void main(String args[]) {
