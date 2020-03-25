@@ -5,6 +5,7 @@ public class Telefone extends EntidadeDominio{
 	private String ddd;
 	private String numero;
 	private TipoTelefone tipo;
+	private Integer idPessoa;
 	
 	//Re-escrita de métodos
 	public String toString() {
@@ -32,5 +33,12 @@ public class Telefone extends EntidadeDominio{
 	public void setTipo(TipoTelefone tipo) {
 		this.tipo = tipo;
 	}
+	public Integer getIdPessoa() {
+		return idPessoa;
+	}
+	public void setIdPessoa(Integer idPessoa) {
+		this.idPessoa = idPessoa;
+	}
+
 	
 }

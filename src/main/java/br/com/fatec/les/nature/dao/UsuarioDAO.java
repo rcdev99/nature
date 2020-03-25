@@ -238,8 +238,8 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 		
 		
 		try {
-			pst = connection.prepareStatement(sql.toString());
 			
+			pst = connection.prepareStatement(sql.toString());
 			rs = pst.executeQuery();
 			
 			List<EntidadeDominio> usuarios = new ArrayList<EntidadeDominio>();
