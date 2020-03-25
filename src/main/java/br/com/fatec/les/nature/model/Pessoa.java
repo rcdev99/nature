@@ -2,7 +2,7 @@ package br.com.fatec.les.nature.model;
 
 import java.time.LocalDate;
 
-public class Pessoa extends EntidadeDominio {
+public abstract class Pessoa extends EntidadeDominio {
 
 	private Integer id;
 	private String nome;

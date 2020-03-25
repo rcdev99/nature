@@ -2,11 +2,13 @@ package br.com.fatec.les.nature;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 import br.com.fatec.les.nature.dao.ClienteDAO;
 import br.com.fatec.les.nature.dao.IDAO;
 import br.com.fatec.les.nature.model.Cliente;
 import br.com.fatec.les.nature.model.TipoGenero;
+import br.com.fatec.les.nature.model.TipoUsuario;
 import br.com.fatec.les.nature.util.FormataData;
 
 @SuppressWarnings("unused")
@@ -27,8 +29,10 @@ public class TesteClienteDao {
 //		cliente.setDtNasc(data);
 //		cliente.setId(1002);
 		
-		System.out.println("Qtd retorno: " + cliDAO.consultar(cliente).size());
-	
+		System.out.println("Retorno: \n" + cliDAO.consultaById(1002));
+
+		
+		
 	}
 	
 }
