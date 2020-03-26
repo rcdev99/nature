@@ -1,13 +1,13 @@
-package br.com.fatec.les.command;
+package br.com.fatec.les.nature.command;
 
 import br.com.fatec.les.nature.Resultado;
 import br.com.fatec.les.nature.model.EntidadeDominio;
 
-public class ConsultarCommand extends AbstractCommand {
+public class AlterarCommand extends AbstractCommand {
 
 	@Override
 	public Resultado execute(EntidadeDominio entidadeDominio) {
-		return fachada.consultar(entidadeDominio);
+		return fachada.alterar(entidadeDominio);
 	}
 
 }
