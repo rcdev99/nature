@@ -70,10 +70,10 @@ public class EnderecoDAO extends AbstractJDBCDAO {
 				pst.executeUpdate();
 
 				rs = pst.getGeneratedKeys();
-				int idUsuario = 0;
+				int idEndereco= 0;
 				if(rs.next())
-					idUsuario = rs.getInt(1);
-				endereco.setId_endereco(idUsuario);
+					idEndereco = rs.getInt(1);
+				endereco.setId_endereco(idEndereco);
 				
 				connection.commit();
 			
@@ -135,7 +135,7 @@ public class EnderecoDAO extends AbstractJDBCDAO {
 			pst.setString(8, endereco.getDescricao());
 			pst.setInt(9, endereco.getIdPessoa());
 			pst.setInt(10, endereco.getId_endereco());
-			pst.executeUpdate();pst.executeUpdate();
+			pst.executeUpdate();
 			
 			connection.commit();
 			

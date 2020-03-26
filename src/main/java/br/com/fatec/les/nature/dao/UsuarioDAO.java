@@ -122,7 +122,7 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 			pst.setInt(4, cliente.getId());
 			pst.setInt(5, cliente.getUsr_id());
 			
-			pst.executeUpdate();pst.executeUpdate();
+			pst.executeUpdate();
 			
 			connection.commit();
 			
