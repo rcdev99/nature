@@ -16,6 +16,7 @@ import br.com.fatec.les.nature.model.TipoRegiao;
 import br.com.fatec.les.nature.model.TipoResidencia;
 import br.com.fatec.les.nature.model.TipoTelefone;
 import br.com.fatec.les.nature.model.TipoUsuario;
+import br.com.fatec.les.nature.negocio.ValidadorNome;
 import br.com.fatec.les.nature.util.FormataData;
 
 public class TesteCliente {
@@ -27,6 +28,9 @@ public class TesteCliente {
 		Logradouro logradouro = new Logradouro();
 		Cliente cliente = new Cliente();
 		LocalDate dt = LocalDate.now();
+		
+		//Validadores
+		ValidadorNome validador = new ValidadorNome();
 		
 		FormataData fd = new FormataData(); 
 		
@@ -44,8 +48,8 @@ public class TesteCliente {
 		logradouro.setTipo(TipoLogradouro.AVENIDA);
 		
 		//Cliente
-		cliente.setNome("Ricardo");
-		cliente.setSobrenome("Floriano");
+		cliente.setNome(null);
+		cliente.setSobrenome(" ");
 		cliente.setCpf("439.244.438-04");
 		cliente.setRg("41.934.653-3");
 		cliente.setDtNasc(dt);
@@ -118,6 +122,9 @@ public class TesteCliente {
 		cliente.addCartao(cartao2);
 		
 		System.out.println(cliente);
+		System.out.println(validador.processar(cliente));
+		
+		
 		
 	}
 }

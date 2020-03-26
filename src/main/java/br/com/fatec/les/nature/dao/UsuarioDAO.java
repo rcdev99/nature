@@ -374,4 +374,54 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 	}
 
 
+	public Cliente consultaByLogin(String login) {
+		//Abrindo conexão caso nula
+		if(connection == null) {
+			openConnection();
+		}
+		//Instanciando cliente
+		Cliente cliente = new Cliente();
+		
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append("SELECT * FROM ");
+		sql.append(table);
+		sql.append(" LEFT JOIN tbl_tipo_usuario ON  usr_in_tipo = tusr_in_id ");
+		sql.append("WHERE usr_st_email" + " = '" + login + "'");
+		
+		try {
+			pst = connection.prepareStatement(sql.toString());
+			
+			rs = pst.executeQuery();
+			if(rs.next()) {
+				
+				cliente = new Cliente();
+				TipoUsuario tipo = TipoUsuario.valueOf(rs.getString("tusr_st_acesso"));
+				
+				
+				cliente.setEmail(rs.getString("usr_st_email"));
+				cliente.setSenhaBD(rs.getString("usr_st_senha"));
+				cliente.setTipo(tipo);
+				cliente.setId(rs.getInt("usr_pes_in_id"));
+				cliente.setUsr_status(rs.getBoolean("usr_bo_status"));
+				
+				return cliente;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+				if(ctrlTransaction == true) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//Caso não encontre o cliente do id informado.
+		return null;
+	}
+
 }
