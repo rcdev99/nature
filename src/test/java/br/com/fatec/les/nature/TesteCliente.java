@@ -16,7 +16,8 @@ import br.com.fatec.les.nature.model.TipoRegiao;
 import br.com.fatec.les.nature.model.TipoResidencia;
 import br.com.fatec.les.nature.model.TipoTelefone;
 import br.com.fatec.les.nature.model.TipoUsuario;
-import br.com.fatec.les.nature.negocio.ValidadorNome;
+import br.com.fatec.les.nature.negocio.ValidadorDadosObrigatoriosCliente;
+import br.com.fatec.les.nature.negocio.ValidadorEndereco;
 import br.com.fatec.les.nature.util.FormataData;
 
 public class TesteCliente {
@@ -30,7 +31,8 @@ public class TesteCliente {
 		LocalDate dt = LocalDate.now();
 		
 		//Validadores
-		ValidadorNome validador = new ValidadorNome();
+		ValidadorDadosObrigatoriosCliente validador = new ValidadorDadosObrigatoriosCliente();
+		ValidadorEndereco validadorEndereco = new ValidadorEndereco();
 		
 		FormataData fd = new FormataData(); 
 		
@@ -48,8 +50,8 @@ public class TesteCliente {
 		logradouro.setTipo(TipoLogradouro.AVENIDA);
 		
 		//Cliente
-		cliente.setNome(null);
-		cliente.setSobrenome(" ");
+		cliente.setNome("Ricardo");
+		cliente.setSobrenome("F. R. Júnior");
 		cliente.setCpf("439.244.438-04");
 		cliente.setRg("41.934.653-3");
 		cliente.setDtNasc(dt);
@@ -110,6 +112,8 @@ public class TesteCliente {
 		cartao2.setDtVenc(data);
 		
 		//Atribuindo Endreços ao Cliente
+		
+		System.out.println("Endereco: " + validadorEndereco.processar(endereco1));
 		cliente.addEndereco(endereco1);
 		cliente.addEndereco(endereco2);
 		
@@ -123,8 +127,6 @@ public class TesteCliente {
 		
 		System.out.println(cliente);
 		System.out.println(validador.processar(cliente));
-		
-		
 		
 	}
 }
