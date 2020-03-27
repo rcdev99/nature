@@ -1,7 +1,12 @@
 package br.com.fatec.les.nature.negocio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.fatec.les.nature.model.Cliente;
+import br.com.fatec.les.nature.model.Endereco;
 import br.com.fatec.les.nature.model.EntidadeDominio;
+import br.com.fatec.les.nature.model.Telefone;
 
 public class ValidadorDadosObrigatoriosCliente implements IStrategy{
 
@@ -13,7 +18,8 @@ public class ValidadorDadosObrigatoriosCliente implements IStrategy{
 	ValidadorNome validaNome = new ValidadorNome();
 	ValidadorCPF validaCPF = new ValidadorCPF();
 	ValidadorRG validaRG = new ValidadorRG();
-	
+	ValidadorEndereco validaEndereco = new ValidadorEndereco();
+	ValidadorTelefone validaTelefone = new ValidadorTelefone();
 	
 	@Override
 	public String processar(EntidadeDominio entidadeDominio) {
@@ -21,6 +27,10 @@ public class ValidadorDadosObrigatoriosCliente implements IStrategy{
 		if(entidadeDominio instanceof Cliente) {
 			//Casting para cliente
 			Cliente cliente = (Cliente) entidadeDominio;
+			
+			//Instanciando variaveis necessarias
+			List<Telefone> telefones = new ArrayList<>(); 
+			List<Endereco> enderecos = new ArrayList<>(); 
 			
 			//Validando dados pessoais
 			sb.append(validaNome.processar(cliente));
@@ -45,12 +55,31 @@ public class ValidadorDadosObrigatoriosCliente implements IStrategy{
 				incorreto = true;
 				sb.append("\nO cliente deve ter ao menos um endereço cadastrado.");
 				
+			}else {
+				
+				enderecos = cliente.getEnderecos();
+				
+				for (Endereco endereco : enderecos) {
+					
+					sb.append(validaEndereco.processar(endereco));
+				}
+				
+				
 			}
 			//Validação da lista de telefones
 			if(cliente.getTelefones().isEmpty() || cliente.getTelefones().equals(null)) {
 				
 				incorreto = true;
 				sb.append("\nO cliente deve ter ao menos um telefone cadastrado.");
+				
+			}else {
+				
+				telefones = cliente.getTelefones();
+				
+				for (Telefone telefone: telefones) {
+					
+					sb.append(validaEndereco.processar(telefone));
+				}
 				
 			}
 			
