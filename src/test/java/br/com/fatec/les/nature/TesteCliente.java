@@ -17,7 +17,6 @@ import br.com.fatec.les.nature.model.TipoResidencia;
 import br.com.fatec.les.nature.model.TipoTelefone;
 import br.com.fatec.les.nature.model.TipoUsuario;
 import br.com.fatec.les.nature.negocio.ValidadorDadosObrigatoriosCliente;
-import br.com.fatec.les.nature.negocio.ValidadorEndereco;
 import br.com.fatec.les.nature.util.FormataData;
 
 public class TesteCliente {
@@ -29,10 +28,10 @@ public class TesteCliente {
 		Logradouro logradouro = new Logradouro();
 		Cliente cliente = new Cliente();
 		LocalDate dt = LocalDate.now();
+		String retorno = new String();
 		
 		//Validadores
 		ValidadorDadosObrigatoriosCliente validador = new ValidadorDadosObrigatoriosCliente();
-		ValidadorEndereco validadorEndereco = new ValidadorEndereco();
 		
 		FormataData fd = new FormataData(); 
 		
@@ -58,6 +57,7 @@ public class TesteCliente {
 		cliente.setEmail("ric@ricardo");
 		cliente.setGenero(TipoGenero.M);
 		cliente.setTipo(TipoUsuario.DESENVOLVEDOR);
+		cliente.setId(1000);
 		
 		//Endereço 1
 		Endereco endereco1 = new Endereco();
@@ -112,12 +112,14 @@ public class TesteCliente {
 		cartao2.setDtVenc(data);
 		
 		//Atribuindo Endreços ao Cliente
-		
-		System.out.println("Endereco: " + validadorEndereco.processar(endereco1));
+		endereco1.setIdPessoa(cliente.getId());
+		endereco2.setIdPessoa(cliente.getId());
 		cliente.addEndereco(endereco1);
 		cliente.addEndereco(endereco2);
 		
 		//Adicionando telefones à Listagem
+		telefone1.setIdPessoa(cliente.getId());
+		telefone2.setIdPessoa(cliente.getId());
 		cliente.addTelefone(telefone1);
 		cliente.addTelefone(telefone2);
 		
@@ -125,8 +127,14 @@ public class TesteCliente {
 		cliente.addCartao(cartao1);
 		cliente.addCartao(cartao2);
 		
-		System.out.println(cliente);
-		System.out.println(validador.processar(cliente));
+		retorno = validador.processar(cliente);
+		retorno = retorno.replace("null", "");
+		if(retorno.isBlank()) {
+			System.out.println("Cliente: " + cliente.getNome() + " validado com sucesso !");
+		}else {
+			System.out.println(retorno);
+		}
+		
 		
 	}
 }

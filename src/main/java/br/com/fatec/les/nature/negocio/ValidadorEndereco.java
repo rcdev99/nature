@@ -77,10 +77,8 @@ public class ValidadorEndereco implements IStrategy {
 			}
 			
 		}else {
-			return "Impossível validar, pois entidade não é um endereço.";
+			return "\nImpossível validar, pois entidade não é um endereço.";
 		}
-		
-		
 		
 		return null;
 	}

@@ -29,8 +29,8 @@ public class ValidadorDadosObrigatoriosCliente implements IStrategy{
 			Cliente cliente = (Cliente) entidadeDominio;
 			
 			//Instanciando variaveis necessarias
-			List<Telefone> telefones = new ArrayList<>(); 
-			List<Endereco> enderecos = new ArrayList<>(); 
+			List<Telefone> telefones = new ArrayList<Telefone>(); 
+			List<Endereco> enderecos = new ArrayList<Endereco>(); 
 			
 			//Validando dados pessoais
 			sb.append(validaNome.processar(cliente));
@@ -61,7 +61,10 @@ public class ValidadorDadosObrigatoriosCliente implements IStrategy{
 				
 				for (Endereco endereco : enderecos) {
 					
-					sb.append(validaEndereco.processar(endereco));
+					Endereco end = (Endereco) endereco;
+					end = endereco;
+					
+					sb.append(validaEndereco.processar(end));
 				}
 				
 				
@@ -78,7 +81,7 @@ public class ValidadorDadosObrigatoriosCliente implements IStrategy{
 				
 				for (Telefone telefone: telefones) {
 					
-					sb.append(validaEndereco.processar(telefone));
+					sb.append(validaTelefone.processar(telefone));
 				}
 				
 			}
