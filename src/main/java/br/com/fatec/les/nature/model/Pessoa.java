@@ -15,7 +15,7 @@ public abstract class Pessoa extends EntidadeDominio {
 	
 	//Getters and Setters
 	public Integer getId() {
-		return id;
+		return this.id;
 	}
 	public void setId(Integer id) {
 		this.id = id;

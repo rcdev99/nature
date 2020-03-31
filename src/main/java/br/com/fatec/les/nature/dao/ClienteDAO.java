@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fatec.les.nature.model.Cliente;
+import br.com.fatec.les.nature.model.Endereco;
 import br.com.fatec.les.nature.model.EntidadeDominio;
+import br.com.fatec.les.nature.model.Telefone;
 import br.com.fatec.les.nature.model.TipoGenero;
 
 public class ClienteDAO extends AbstractJDBCDAO {
@@ -23,6 +25,12 @@ public class ClienteDAO extends AbstractJDBCDAO {
 	private static final String idTable = "pes_in_id";
 	PreparedStatement pst = null;
 	ResultSet rs = null;
+	
+	//DAO´s complementares
+	UsuarioDAO DAOUsuario = new UsuarioDAO();
+	EnderecoDAO DAOEndereco = new EnderecoDAO();
+	TelefoneDAO DAOTelefone = new TelefoneDAO();
+	
 	
 	//Contrutores
 	public ClienteDAO(Connection connection) {
@@ -73,14 +81,39 @@ public class ClienteDAO extends AbstractJDBCDAO {
 				int idPessoa = 0;
 				if(rs.next())
 					idPessoa = rs.getInt(1);
-				cliente.setId(idPessoa);
+				cliente.setId(idPessoa);		
 				
 				connection.commit();
+				
+				//Intancia de lista para enderecoes e telefones
+				List<Endereco> enderecos = new ArrayList<Endereco>();
+				List<Telefone> telefones = new ArrayList<Telefone>();
+				
+				//Obtendo enderecos e telefones do cliente
+				enderecos = cliente.getEnderecos();
+				telefones = cliente.getTelefones();
+				
+				//Persistindo dados complementares
+				DAOUsuario.salvar(cliente);
+				
+				if(enderecos.size() > 0) {
+					for (Endereco endereco: enderecos) {
+						endereco.setIdPessoa(cliente.getId());
+						DAOEndereco.salvar(endereco);
+					}
+				}
+				if(telefones.size() > 0) {
+					for (Telefone telefone: telefones) {
+						telefone.setIdPessoa(cliente.getId());
+						DAOTelefone.salvar(telefone);
+					}
+				}
+				
 			
 		} catch (SQLException e) {
 		//Tratativa de exceção
 			try {
-				System.out.println("Tivemos problemas de persistência");
+				System.out.println("Problemas ao persistir: Cliente");
 				connection.rollback();
 			} catch (Exception e2) {
 				e2.printStackTrace();
@@ -89,7 +122,7 @@ public class ClienteDAO extends AbstractJDBCDAO {
 		} finally {
 			//Finalizando conexão
 			try {
-				System.out.println("Fechando a conexão.");
+				System.out.println("Conexão para 'ClienteDAO' será encerrada.");
 				pst.close();
 				connection.close();
 			} catch (SQLException e2) {

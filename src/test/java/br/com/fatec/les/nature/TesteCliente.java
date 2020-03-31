@@ -1,5 +1,7 @@
 package br.com.fatec.les.nature;
 
+import java.sql.SQLException;
+
 import java.time.LocalDate;
 
 import br.com.fatec.les.nature.model.Cartao;
@@ -21,7 +23,7 @@ import br.com.fatec.les.nature.util.FormataData;
 
 public class TesteCliente {
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws SQLException {
 		
 		Estado estado = new Estado();
 		Cidade cidade = new Cidade();
@@ -54,10 +56,14 @@ public class TesteCliente {
 		cliente.setCpf("439.244.438-04");
 		cliente.setRg("41.934.653-3");
 		cliente.setDtNasc(dt);
-		cliente.setEmail("ric@ricardo");
+		
 		cliente.setGenero(TipoGenero.M);
-		cliente.setTipo(TipoUsuario.DESENVOLVEDOR);
 		cliente.setId(1000);
+		
+		//Usuario
+		cliente.setEmail("ric@ricardo06");
+		cliente.setTipo(TipoUsuario.DESENVOLVEDOR);
+		cliente.setSenha("Ricardo123");
 		
 		//Endereço 1
 		Endereco endereco1 = new Endereco();
@@ -134,7 +140,6 @@ public class TesteCliente {
 		}else {
 			System.out.println(retorno);
 		}
-		
 		
 	}
 }

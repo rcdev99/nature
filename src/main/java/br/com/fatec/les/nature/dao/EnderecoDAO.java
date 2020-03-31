@@ -76,11 +76,12 @@ public class EnderecoDAO extends AbstractJDBCDAO {
 				endereco.setId_endereco(idEndereco);
 				
 				connection.commit();
-			
+				
 		} catch (SQLException e) {
 		//Tratativa de exceção
 			try {
-				System.out.println("Tivemos problemas de persistência");
+				System.out.println("Problemas ao persistir: Endereco");
+				e.printStackTrace();
 				connection.rollback();
 			} catch (Exception e2) {
 				e2.printStackTrace();
@@ -89,9 +90,10 @@ public class EnderecoDAO extends AbstractJDBCDAO {
 		} finally {
 			//Finalizando conexão
 			try {
-				System.out.println("Fechando a conexão.");
+				System.out.println("Conexão para 'EndereçoDAO' será encerrada.");
 				pst.close();
 				connection.close();
+				connection = null;
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}

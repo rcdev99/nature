@@ -30,7 +30,6 @@ public class TelefoneDAO extends AbstractJDBCDAO {
 		
 	}
 	
-
 	@Override
 	public void salvar(EntidadeDominio entidadedominio) throws SQLException {
 		//Abrindo conexãoo com o banco caso esteja nula
@@ -72,7 +71,7 @@ public class TelefoneDAO extends AbstractJDBCDAO {
 				} catch (SQLException e) {
 				//Tratativa de exceção
 					try {
-						System.out.println("Tivemos problemas de persistência");
+						System.out.println("Problemas ao persistir: Telefone");
 						e.printStackTrace();
 						connection.rollback();
 					} catch (Exception e2) {
@@ -82,9 +81,10 @@ public class TelefoneDAO extends AbstractJDBCDAO {
 				} finally {
 					//Finalizando conexão
 					try {
-						System.out.println("Fechando a conexão.");
+						System.out.println("Conexão para 'TelefoneDAO' será encerrada.");
 						pst.close();
 						connection.close();
+						connection = null;
 					} catch (SQLException e2) {
 						e2.printStackTrace();
 					}

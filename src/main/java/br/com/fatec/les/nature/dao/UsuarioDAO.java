@@ -63,14 +63,15 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 						int idUsuario = 0;
 						if(rs.next())
 							idUsuario = rs.getInt(1);
-						cliente.setId(idUsuario);
+						cliente.setUsr_id(idUsuario);
 						
 						connection.commit();
 					
 				} catch (SQLException e) {
 				//Tratativa de exceção
 					try {
-						System.out.println("Tivemos problemas de persistência");
+						System.out.println("Problemas ao persistir: Usuário");
+						e.printStackTrace();
 						connection.rollback();
 					} catch (Exception e2) {
 						e2.printStackTrace();
@@ -79,7 +80,7 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 				} finally {
 					//Finalizando conexão
 					try {
-						System.out.println("Fechando a conexão.");
+						System.out.println("Conexão para 'UsuárioDAO' será encerrada.");
 						pst.close();
 						connection.close();
 					} catch (SQLException e2) {
