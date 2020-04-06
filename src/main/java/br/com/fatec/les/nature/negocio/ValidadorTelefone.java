@@ -47,11 +47,6 @@ public class ValidadorTelefone implements IStrategy {
 				sb.append("\nInforme o tipo de telefone.");
 			}
 			
-			if(telefone.getIdPessoa() == null) {
-				incorreto = true;
-				sb.append("\nÉ necessário ter um id de Pessoa vinculado ao telefone.");
-			}
-			
 			//Retorno caso algum campo tenha sido preenchido incorretamente
 			if(incorreto) {
 				return sb.toString();

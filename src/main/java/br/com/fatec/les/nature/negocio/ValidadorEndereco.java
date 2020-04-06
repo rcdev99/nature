@@ -63,14 +63,6 @@ public class ValidadorEndereco implements IStrategy {
 				sb.append("\nPreencha corretamente o campo 'Descrição'.");				
 			}
 			
-			if(endereco.getIdPessoa() == null) {
-				incorreto = true;
-				sb.append("\nO endereço deve estar vinculado á uma pessoa.");
-			}else if(endereco.getIdPessoa().toString().isBlank() || endereco.getIdPessoa() < 0) {
-				incorreto = true;
-				sb.append("\nId de vínculo com Pessoa inválido.");
-			}
-			
 			//Retorno caso algum campo tenha sido preenchido incorretamente
 			if(incorreto) {
 				return sb.toString();

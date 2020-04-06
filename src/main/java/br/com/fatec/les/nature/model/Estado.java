@@ -30,9 +30,5 @@ public class Estado {
 	public void setRegiao(TipoRegiao regiao) {
 		this.regiao = regiao;
 	}
-	
-	
-	
-	
-	
+
 }

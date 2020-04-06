@@ -3,6 +3,7 @@ package br.com.fatec.les.nature.negocio;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.fatec.les.nature.dao.UsuarioDAO;
 import br.com.fatec.les.nature.model.Cliente;
 import br.com.fatec.les.nature.model.Endereco;
 import br.com.fatec.les.nature.model.EntidadeDominio;
@@ -13,6 +14,8 @@ public class ValidadorDadosObrigatoriosCliente implements IStrategy{
 	//Instanciando variáveis locais
 	boolean incorreto = false;
 	StringBuilder sb = new StringBuilder();
+	UsuarioDAO DAOUsuario = new UsuarioDAO();
+	
 	
 	//Validadores necessários
 	ValidadorNome validaNome = new ValidadorNome();
@@ -47,6 +50,23 @@ public class ValidadorDadosObrigatoriosCliente implements IStrategy{
 				
 				incorreto = true;
 				sb.append("\nÉ necessária a inserção da data de nascimento.");
+			}
+			
+			if(cliente.getEmail() == null) {
+				
+				incorreto = true;
+				sb.append("\nÉ obrigatório o preenchimento do e-mail");
+			}else {
+				
+				Cliente cli = new Cliente();
+				cli = DAOUsuario.consultaByLogin(cliente.getEmail());
+				
+				if(cli != null) {
+					
+					incorreto = true;
+					sb.append("\nJá há um cadastro realizado com o e-mail informado");
+				}
+				
 			}
 			
 			//Validação da lista de endereços

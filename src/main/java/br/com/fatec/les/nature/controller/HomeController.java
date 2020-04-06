@@ -3,6 +3,11 @@ package br.com.fatec.les.nature.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import br.com.fatec.les.nature.model.SiglaEstados;
+import br.com.fatec.les.nature.model.TipoResidencia;
+import br.com.fatec.les.nature.model.TipoTelefone;
 
 @Controller
 public class HomeController {
@@ -103,9 +108,15 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping(value = "/cadastro")
-	public String cadastrarUsuario() {
-		return "cadastro";
+	public ModelAndView cadastrarUsuario() {
+		ModelAndView mView = new ModelAndView("cadastro");
 		
+		mView.addObject("tiposResidencia", TipoResidencia.values());
+		mView.addObject("tiposTelefone", TipoTelefone.values());
+		mView.addObject("siglasEstado", SiglaEstados.values());
+		
+		
+		return mView;
 	}
 	
 	

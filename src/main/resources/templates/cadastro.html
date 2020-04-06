@@ -79,41 +79,44 @@
 	<!--Conteúdo principal da página-->
     <section class="ftco-section">
 		<div class="container">
-			<div class="row justify-content-center">
+			<div align=center>
+				<span th:text="${resultado}"></span>
+			</div>
+			<div class="row justify-content-center">			
 				<div class="col-xl-7 ftco-animate">
-					<form action="#" class="billing-form">
+					<form action="/cliente/cadastrar" method="POST" class="billing-form">
 						<h3 class="mb-4 billing-heading">Cadastro</h3>
 						<div class="row align-items-end">
 							<legend>Informações Pessoais</legend>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="nome">Nome</label>
-								 	<input type="text" id="nome" class="form-control" required>
+								 	<input type="text" name="nome" id="nome" class="form-control" required>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="sobrenome">Sobrenome</label>
-								 	<input type="text" id="sobrenome" class="form-control" required>
+								 	<input type="text" name="sobrenome" id="sobrenome" class="form-control" required>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="dt_nasc">Data de Nascimento</label>
-									<input type="date" id="dt_nasc" class="form-control" maxlength="10" required placeholder="DD/MM/AAAA">
+									<input type="date" name="dtNasc" id="dtNasc" class="form-control" maxlength="10" required placeholder="DD/MM/AAAA">
 								</div>
 							</div>
 							<div class="col-md-6"></div>							
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="cpf">CPF</label>
-									<input type="text" id="cpf" class="form-control" maxlength="11" required placeholder="Apenas números" pattern="[0-9]+$">
+									<input type="text" name="cpf" id="cpf" class="form-control" maxlength="11" required placeholder="Apenas números" pattern="[0-9]+$">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="rg">RG</label>
-									<input type="text" id="rg" class="form-control" maxlength="11" required>
+									<input type="text" name="rg" id="rg" class="form-control" maxlength="11" required>
 								</div>
 							</div>
 							<div class="col-md-6">
@@ -130,102 +133,142 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label for="email">E-mail</label>
-									<input type="email" id="email" class="form-control" placeholder="Exemplo: email@dominio.com.br" required>
+									<input type="email" name="email" id="email" class="form-control" placeholder="Exemplo: email@dominio.com.br" required>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="senha">Senha</label>
-									<input type="password" id="senha" class="form-control" required>
+									<input type="password" name="senha" id="senha" class="form-control" required>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="conf_senha">Confirmar Senha</label>
-									<input type="password" id="conf_senha" class="form-control" required>
+									<input type="password" name="conf_senha" id="conf_senha" class="form-control" required>
 								</div>
 							</div>
 							<legend>Endereço</legend>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="lodradouro">Logradouro</label>
-									<input type="text" id="lodradouro" class="form-control" required>
+									<input type="text" name="logradouro" id="lodradouro" class="form-control" required>
 								</div>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group">
 									<label for="numero">Nº</label>
-									<input type="number" id="numero" class="form-control" required>
+									<input type="number" name="numero" id="numero" class="form-control" required>
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label for="numero">Tipo de Residência</label>
+									<label for="tipoResidencia">Tipo de Residência</label>
 									<div class="select-wrap">
 										<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-										<select name="tipo_residencia" id="tipo_residencia" class="form-control">
-										  <option value="">Apartamento</option>
-										  <option value="">Casa</option>
-										  <option value="">Fazenda</option>
-										  <option value="">Sítio</option>
-										</select>
-									</div>	
+											<select name="tipoResidencia" id="tipoResidencia" class="form-control">
+												<th:block th:each="tipoRes : ${tiposResidencia}">
+													<option th:value="${tipoRes}" th:text="${tipoRes.descricao}"></option>
+											    </th:block>
+											</select>
+									</div>		
 								</div>
 							</div>
 							<div class="col-md-8">
 								<div class="form-group">
 									<label for="bairro">Bairro</label>
-									<input type="text" id="bairro" class="form-control" required>
+									<input type="text" name="bairro" id="bairro" class="form-control" required>
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label for="cep">CEP</label>
-									<input type="search" id="cep" class="form-control" required>
+									<input type="search" name="cep" id="cep" class="form-control" required>
 								</div>
 							</div>
 							<div class="col-md-10">
 								<div class="form-group">
 									<label for="cidade">Cidade</label>
-									<input type="text" id="cidade" class="form-control" required>
+									<input type="text" name="cidade" id="cidade" class="form-control" required>
 								</div>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group">
-									<label for="numero">Estado</label>
+									<label for="estado">Estado</label>
 									<div class="select-wrap">
 										<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-										<select name="estado" id="estado" class="form-control">
-										  <option value="">AM</option>
-										  <option value="">RJ</option>
-										  <option value="">SP</option>
-										</select>
+											<select name="sigla" id="sigla" class="form-control">
+												<th:block th:each="sigla : ${siglasEstado}">
+													<option th:value="${sigla}" th:text="${sigla}"></option>
+											    </th:block>
+											</select>
 									</div>		
 								</div>
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
 									<label for="descricao">Descrição</label>
-									<input type="text" id="descricao" class="form-control" placeholder="Breve identificação do endereço,ex.: (Comercial, Minha Casa, etc)" required>
+									<input type="text" name="descricao" id="descricao" class="form-control" placeholder="Breve identificação do endereço,ex.: (Comercial, Minha Casa, etc)" required>
 								</div>
 							</div>
 							<legend>Contato</legend>
-							<div class="col-md-6">
+							<div class="col-md-2">
 								<div class="form-group">
-									<label for="telefone">Telefone</label>
-									<input type="tel" id="telefone" class="form-control">
+									<label for="telefone">DDD</label>
+									<input type="text" maxlength="2" name="DDDtelefone1" id="DDDtelefone1" placeholder="(XX)" class="form-control">
+								</div>
+							</div>	
+							<div class="col-md-6">	
+								<div class="form-group">
+									<label for="telefone">Número</label>
+									<input type="tel" name="numero1" maxlength="11" id="numero1" placeholder="Apenas números" class="form-control">
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-4">	
 								<div class="form-group">
-									<label for="celular">Celular</label>
-									<input type="tel" id="celular" class="form-control">
+									<label for="telefone">Tipo de telefone</label>
+									<div class="select-wrap">
+										<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+											<select name="tipoTelefone1" id="tipoTelefone1" class="form-control">
+												<th:block th:each="tipoTel : ${tiposTelefone}">
+													<option th:value="${tipoTel}" th:text="${tipoTel.descricao}"></option>
+											    </th:block>
+											</select>
+									</div>
 								</div>
 							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="telefone">DDD</label>
+									<input type="text" name="DDDtelefone2" maxlength="2" id="DDDtelefone2" placeholder="(XX)" class="form-control" pattern="[0-9]+$">
+								</div>
+							</div>	
+							<div class="col-md-6">	
+								<div class="form-group">
+									<label for="telefone">Número</label>
+									<input type="tel" name="numero2" maxlength="11" id="numero2" placeholder="Apenas números" class="form-control" pattern="[0-9]+$">
+								</div>
+							</div>
+							<div class="col-md-4">	
+								<div class="form-group">
+									<label for="telefone">Tipo de telefone</label>
+									<div class="select-wrap">
+										<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+											<select name="tipoTelefone2" id="tipoTelefone2" class="form-control">
+												<th:block th:each="tipoTel : ${tiposTelefone}">
+													<option th:value="${tipoTel}" th:text="${tipoTel.descricao}"></option>
+											    </th:block>
+											</select>
+									</div>
+								</div>
+							</div>
+							
 							<div class="form-group">
 								<label class="checkbox"><input type="checkbox" checked>Gostaria de receber nossas novidades por e-mail?</label>
 							</div>
 							<div class="col-md-12" align=center>
+							<input type="hidden" name="tipo" id="tipo" value="CLIENTE">
+							<input type="hidden" name="operacao" id="operacao" value="SALVAR">
 								<input type="submit" class="btn btn-primary py-3 px-4" value="Cadastrar">					
 							</div>
 						</div>

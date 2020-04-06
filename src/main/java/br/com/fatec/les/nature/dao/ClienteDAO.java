@@ -114,6 +114,7 @@ public class ClienteDAO extends AbstractJDBCDAO {
 		//Tratativa de exceção
 			try {
 				System.out.println("Problemas ao persistir: Cliente");
+				e.printStackTrace();
 				connection.rollback();
 			} catch (Exception e2) {
 				e2.printStackTrace();

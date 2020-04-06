@@ -39,5 +39,14 @@ public class FormataData {
 		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		return formato;
 	}
+	/**
+	 * 
+	 * @return DataTimeFormatter Contendo o formato de data que deverá ser utilizado quando a requisição vier da view
+	 */
+	public DateTimeFormatter getFormatoView() {
+		
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		return formato;
+	}
 	
 }
