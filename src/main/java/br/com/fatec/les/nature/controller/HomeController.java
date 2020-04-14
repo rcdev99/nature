@@ -119,5 +119,14 @@ public class HomeController {
 		return mView;
 	}
 	
+	/**
+	 * Método utilizado para direcionar o usuário administrativo ao painel de controle
+	 * @return
+	 */
+	@RequestMapping(value = "/admin")
+	public String painelDeControleAdmin() {
+		return "dashboard-admin";
+		
+	}
 	
 }
