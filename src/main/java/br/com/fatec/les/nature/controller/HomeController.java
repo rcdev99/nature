@@ -126,7 +126,6 @@ public class HomeController {
 	@RequestMapping(value = "/admin")
 	public String painelDeControleAdmin() {
 		return "dashboard-admin";
-		
 	}
 	
 }

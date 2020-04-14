@@ -60,5 +60,13 @@ public class ClienteController {
 			return new ModelAndView("redirect:/cadastro");
 		}
 	}
+	/**
+	 * Método utilizado para direcionar o usuário administrativo ao painel de controle de clientes
+	 * @return
+	 */
+	@RequestMapping(value = "/visualizar")
+	public String getClientes() {
+		return "dashboard-clientes";
+	}
 	
 }
