@@ -52,8 +52,11 @@ public class ClienteController {
 			
 		}else {
 			
+			
 			String msg = resultado.getMsg();
 			redirectAttributes.addFlashAttribute("resultado", msg);
+			redirectAttributes.addFlashAttribute("cliente", cliente);
+			
 			return new ModelAndView("redirect:/cadastro");
 		}
 	}
