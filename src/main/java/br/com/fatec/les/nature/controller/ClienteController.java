@@ -1,10 +1,13 @@
 package br.com.fatec.les.nature.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,6 +17,7 @@ import br.com.fatec.les.nature.Resultado;
 import br.com.fatec.les.nature.command.ICommand;
 import br.com.fatec.les.nature.command.SalvarCommand;
 import br.com.fatec.les.nature.dao.ClienteDAO;
+import br.com.fatec.les.nature.dao.UsuarioDAO;
 import br.com.fatec.les.nature.model.Cliente;
 import br.com.fatec.les.nature.view.ClienteViewHelper;
 
@@ -22,6 +26,7 @@ public class ClienteController {
 
 	ICommand command;
 	ClienteDAO DAOCliente = new ClienteDAO();
+	UsuarioDAO DAOUsuario = new UsuarioDAO();
 	
 	/**
 	 * Método utilizado para direcionar o cliente à tela de login
@@ -64,9 +69,31 @@ public class ClienteController {
 	 * Método utilizado para direcionar o usuário administrativo ao painel de controle de clientes
 	 * @return
 	 */
-	@RequestMapping(value = "/visualizar")
-	public String getClientes() {
-		return "dashboard-clientes";
+	@RequestMapping(value = "/clientes")
+	public ModelAndView getClientes() {
+		
+		//Variavéis locais
+		ModelAndView mView = new ModelAndView("dashboard-adm-clientes");
+		List<Cliente> clientes = new ArrayList<Cliente>();
+		
+		//Obtendo lista de clientes
+		clientes = DAOCliente.getClientes();
+		
+		//Incluindo objetos na view
+		mView.addObject("clientes", clientes);
+		
+		return mView;
+	}
+	
+	@RequestMapping(value = "/cliente/excluir/{cliente.id}")
+	public ModelAndView desativarCliente(@PathVariable("cliente.id") Integer id) throws SQLException {
+		ModelAndView mView = new ModelAndView("redirect:/visualizar");
+		Cliente cliente = new Cliente();
+		
+		cliente = DAOUsuario.consultaById(id);
+		DAOUsuario.excluir(cliente);
+		
+		return mView;
 	}
 	
 }

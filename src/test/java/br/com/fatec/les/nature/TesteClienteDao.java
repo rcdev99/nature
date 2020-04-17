@@ -2,6 +2,7 @@ package br.com.fatec.les.nature;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fatec.les.nature.dao.ClienteDAO;
@@ -21,7 +22,7 @@ public class TesteClienteDao {
 		FormataData fd = new FormataData();
 //		LocalDate data = LocalDate.parse("08/03/1995", fd.getFormato());
 		
-		cliente.setNome("Ric");
+		//cliente.setNome("Ric");
 //		cliente.setSobrenome("Júnior");
 //		cliente.setRg("41.934.653-3");
 //		cliente.setCpf("439.144.438-04");
@@ -29,9 +30,15 @@ public class TesteClienteDao {
 //		cliente.setDtNasc(data);
 //		cliente.setId(1002);
 		
-		System.out.println("Retorno: \n" + cliDAO.consultaById(1002));
-
+		//System.out.println("Retorno\n" + cliDAO.getClientes().size());
 		
+		List<Cliente> clientes = new ArrayList<Cliente>();
+		clientes = cliDAO.getClientes();
+		
+		for (Cliente cli : clientes) {
+			
+			System.out.println(cli);
+		}
 		
 	}
 	

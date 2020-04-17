@@ -19,9 +19,8 @@ public class TesteUsuarioDAO {
 		usuario.setId(1002);
 		usuario.setUsr_id(1001);
 		
-		System.out.println(DAOUsuario.consultaByLogin(usuario.getEmail()).getSenha());
-		
-		
+		//System.out.println(DAOUsuario.consultaByLogin(usuario.getEmail()).getSenha());
+		System.out.println(DAOUsuario.getQtdUsuarios(TipoUsuario.CLIENTE));
 		
 
 	}

@@ -18,6 +18,8 @@ import br.com.fatec.les.nature.model.Endereco;
 import br.com.fatec.les.nature.model.EntidadeDominio;
 import br.com.fatec.les.nature.model.Telefone;
 import br.com.fatec.les.nature.model.TipoGenero;
+import br.com.fatec.les.nature.model.TipoUsuario;
+import br.com.fatec.les.nature.model.Usuario;
 
 public class ClienteDAO extends AbstractJDBCDAO {
 
@@ -31,6 +33,10 @@ public class ClienteDAO extends AbstractJDBCDAO {
 	EnderecoDAO DAOEndereco = new EnderecoDAO();
 	TelefoneDAO DAOTelefone = new TelefoneDAO();
 	
+	//Listas necessárias
+	List <EntidadeDominio> usuarios = new ArrayList<EntidadeDominio>();
+	List <EntidadeDominio> telefones = new ArrayList<EntidadeDominio>();
+	List <EntidadeDominio> enderecos = new ArrayList<EntidadeDominio>();
 	
 	//Contrutores
 	public ClienteDAO(Connection connection) {
@@ -186,6 +192,7 @@ public class ClienteDAO extends AbstractJDBCDAO {
 			try {
 				pst.close();
 				connection.close();
+				connection = null;
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}
@@ -236,6 +243,7 @@ public class ClienteDAO extends AbstractJDBCDAO {
 			try {
 				pst.close();
 				connection.close();
+				connection = null;
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}
@@ -267,6 +275,7 @@ public class ClienteDAO extends AbstractJDBCDAO {
 			sql.append("%'");
 		}
 		
+		sql.append(" AND pes_bo_status = true");
 		sql.append(" ORDER BY tbl_pessoa.pes_st_nome");
 		
 		try {
@@ -292,6 +301,44 @@ public class ClienteDAO extends AbstractJDBCDAO {
 				cliente.setGenero(TipoGenero.valueOf(rs.getString("pes_ch_genero")));
 				cliente.setDtNasc(localDate);
 				
+				//Consultando dados de usuario do cliente
+				if(cliente.getId() != null) {
+					usuarios = DAOUsuario.consultar(cliente);
+					telefones = DAOTelefone.consultaByPessoa(cliente.getId());
+					enderecos = DAOEndereco.consultaByPessoa(cliente.getId());
+				}
+				
+				//Obtendo dados de usuario do cliente
+				if(usuarios.size() > 0) {
+					Usuario user = new Cliente();
+					user = (Usuario) usuarios.get(0);
+					
+					cliente.setEmail(user.getEmail());
+					cliente.setSenhaBD(user.getSenha());
+					cliente.setTipo(user.getTipo());
+					cliente.setUsr_id(user.getUsr_id());
+				}
+				
+				if(telefones.size() > 0) {
+					//Adicionando telefones ao cliente
+					for (EntidadeDominio telefone : telefones) {
+					
+						Telefone tel = new Telefone();
+						tel = (Telefone) telefone;
+						cliente.addTelefone(tel);						
+					}
+				}
+				
+				if(enderecos.size() > 0) {
+					//Adicionando endereços ao cliente
+					for (EntidadeDominio endereco : enderecos) {
+					
+						Endereco end = new Endereco();
+						end = (Endereco) endereco;
+						cliente.addEndereco(end);						
+					}
+				}
+				
 				clientes.add(cliente);
 			}
 			return clientes;
@@ -302,6 +349,7 @@ public class ClienteDAO extends AbstractJDBCDAO {
 				pst.close();
 				if(ctrlTransaction == true) {
 					connection.close();
+					connection = null;
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -354,6 +402,7 @@ public class ClienteDAO extends AbstractJDBCDAO {
 			try {
 				pst.close();
 				connection.close();
+				connection = null;
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}
@@ -372,7 +421,8 @@ public class ClienteDAO extends AbstractJDBCDAO {
 		
 		sql.append("SELECT * FROM ");
 		sql.append(table);
-		sql.append(" WHERE " + idTable + " = " + id);		//Utilizado para diminuir o n�mero de IF's
+		sql.append(" WHERE " + idTable + " = " + id);
+		sql.append(" AND pes_bo_status = true");
 		
 		try {
 			pst = connection.prepareStatement(sql.toString());
@@ -393,6 +443,44 @@ public class ClienteDAO extends AbstractJDBCDAO {
 				cliente.setGenero(TipoGenero.valueOf(rs.getString("pes_ch_genero")));
 				cliente.setDtNasc(localDate);
 				
+				//Consultando dados de usuario do cliente
+				if(cliente.getId() != null) {
+					usuarios = DAOUsuario.consultar(cliente);
+					telefones = DAOTelefone.consultaByPessoa(cliente.getId());
+					enderecos = DAOEndereco.consultaByPessoa(cliente.getId());
+				}
+				
+				//Obtendo dados de usuario do cliente
+				if(usuarios.size() > 0) {
+					Usuario user = new Cliente();
+					user = (Usuario) usuarios.get(0);
+					
+					cliente.setEmail(user.getEmail());
+					cliente.setSenhaBD(user.getSenha());
+					cliente.setTipo(user.getTipo());
+					cliente.setUsr_id(user.getUsr_id());
+				}
+				//Houve retorno de número(s) de telefone(s) ? 
+				if(telefones.size() > 0) {
+					//Adicionando telefones ao cliente
+					for (EntidadeDominio telefone : telefones) {
+					
+						Telefone tel = new Telefone();
+						tel = (Telefone) telefone;
+						cliente.addTelefone(tel);						
+					}
+				}
+				//Houve retorno de endereço(s) ?
+				if(enderecos.size() > 0) {
+					//Adicionando endereços ao cliente
+					for (EntidadeDominio endereco : enderecos) {
+					
+						Endereco end = new Endereco();
+						end = (Endereco) endereco;
+						cliente.addEndereco(end);						
+					}
+				}
+				
 				return cliente;
 			}
 		} catch (SQLException e) {
@@ -402,6 +490,7 @@ public class ClienteDAO extends AbstractJDBCDAO {
 				pst.close();
 				if(ctrlTransaction == true) {
 					connection.close();
+					connection = null;
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -411,5 +500,77 @@ public class ClienteDAO extends AbstractJDBCDAO {
 		//Caso não encontre o cliente do id informado.
 		return null;
 	}
+	
+	public List<Cliente> getClientes(){
+		
+			//Abrindo conexão caso nula
+			if(connection == null) {
+				openConnection();
+			}		
+			
+			Cliente cliente = new Cliente();
+			
+			StringBuilder sql = new StringBuilder();
+					
+			sql.append("SELECT *");
+			sql.append(" FROM " + table + " pes");
+			sql.append(" INNER JOIN tbl_usuario usr ON usr.usr_pes_in_id = pes.pes_in_id");
+			sql.append(" WHERE usr.usr_bo_status");
+			sql.append(" AND pes.pes_bo_status");
+			sql.append(" AND usr_in_tipo = " + TipoUsuario.CLIENTE.ordinal());
+			sql.append(" ORDER BY pes.pes_st_nome");
+			
+			try {
+				pst = connection.prepareStatement(sql.toString());
+				
+				rs = pst.executeQuery();
+				
+				List<Cliente> AllClientes = new ArrayList<Cliente>();
+				
+				while(rs.next()) {
+					
+					cliente = new Cliente();
+					
+					//Convertendo data recebida do Banco
+					Date date = (rs.getDate("pes_dt_dt_nasc"));
+					Instant instant = Instant.ofEpochMilli(date.getTime());
+					LocalDate localDate = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
+					
+					//Dados de Pessoa
+					cliente.setId(rs.getInt("pes_in_id"));
+					cliente.setNome(rs.getString("pes_st_nome"));
+					cliente.setSobrenome(rs.getString("pes_st_sobrenome"));
+					cliente.setRg(rs.getString("pes_in_rg"));
+					cliente.setCpf(rs.getString("pes_in_CPF"));
+					cliente.setGenero(TipoGenero.valueOf(rs.getString("pes_ch_genero")));
+					cliente.setDtNasc(localDate);
+					//Dados de Usuário
+					cliente.setUsr_id(rs.getInt("usr_in_id"));
+					cliente.setEmail(rs.getString("usr_st_email"));
+					cliente.setSenhaBD(rs.getString("usr_st_senha"));
+					cliente.setTipo(TipoUsuario.CLIENTE);
+					cliente.setUsr_status(rs.getBoolean("usr_bo_status"));
+				
+					AllClientes.add(cliente);
+				}
+				return AllClientes;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					pst.close();
+					if(ctrlTransaction == true) {
+						connection.close();
+						connection = null;
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			//Caso não encontre nenhum resultado
+			return null;
+	}
+	
 	
 }

@@ -83,6 +83,7 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 						System.out.println("Conexão para 'UsuárioDAO' será encerrada.");
 						pst.close();
 						connection.close();
+						connection = null;
 					} catch (SQLException e2) {
 						e2.printStackTrace();
 					}
@@ -138,6 +139,7 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 			try {
 				pst.close();
 				connection.close();
+				connection = null;
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}
@@ -189,6 +191,7 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 			try {
 				pst.close();
 				connection.close();
+				connection = null;
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}
@@ -222,7 +225,7 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 			sql.append("'");
 		}
 		
-		if(Integer.valueOf(cliente.getTipo().ordinal()) != null) {
+		if(cliente.getTipo() != null) {
 			sql.append(" AND usr_in_tipo = ");
 			sql.append(cliente.getTipo().ordinal());
 		}
@@ -232,11 +235,7 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 			sql.append(cliente.getId());
 		}
 		
-		if(cliente.isUsr_status() != null) {
-			sql.append(" AND usr_bo_status = ");
-			sql.append(cliente.isUsr_status());
-		}
-		
+		sql.append(" AND usr_bo_status = true");
 		
 		try {
 			
@@ -254,6 +253,7 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 				cliente.setSenhaBD(rs.getString("usr_st_senha"));
 				cliente.setTipo(tipo);
 				cliente.setId(rs.getInt("usr_pes_in_id"));
+				cliente.setUsr_id(rs.getInt("usr_in_id"));
 				cliente.setUsr_status(rs.getBoolean("usr_bo_status"));
 				
 				usuarios.add(cliente);
@@ -266,6 +266,7 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 				pst.close();
 				if(ctrlTransaction == true) {
 					connection.close();
+					connection = null;
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -318,6 +319,7 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 			try {
 				pst.close();
 				connection.close();
+				connection = null;
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}
@@ -353,6 +355,7 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 				cliente.setSenhaBD(rs.getString("usr_st_senha"));
 				cliente.setTipo(tipo);
 				cliente.setId(rs.getInt("usr_pes_in_id"));
+				cliente.setUsr_id(rs.getInt("usr_in_id"));
 				cliente.setUsr_status(rs.getBoolean("usr_bo_status"));
 				
 				return cliente;
@@ -364,6 +367,7 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 				pst.close();
 				if(ctrlTransaction == true) {
 					connection.close();
+					connection = null;
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -399,7 +403,7 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 				cliente = new Cliente();
 				TipoUsuario tipo = TipoUsuario.valueOf(rs.getString("tusr_st_acesso"));
 				
-				
+				cliente.setUsr_id(rs.getInt("usr_in_id"));
 				cliente.setEmail(rs.getString("usr_st_email"));
 				cliente.setSenhaBD(rs.getString("usr_st_senha"));
 				cliente.setTipo(tipo);
@@ -422,6 +426,51 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 		}
 		
 		//Caso não encontre o cliente do id informado.
+		return null;
+	}
+	
+	public Integer getQtdUsuarios(TipoUsuario tipoUsuario) {
+		//Abrindo conexão caso nula
+		if(connection == null) {
+			openConnection();
+		}		
+		
+		StringBuilder sql = new StringBuilder();
+				
+		sql.append("SELECT COUNT(usr_in_id)");
+		sql.append(" FROM " + table + " usr");
+		sql.append(" INNER JOIN tbl_pessoa pes ON usr.usr_pes_in_id = pes.pes_in_id");
+		sql.append(" WHERE usr.usr_bo_status");
+		sql.append(" AND pes.pes_bo_status");
+		sql.append(" AND usr_in_tipo = " + tipoUsuario.ordinal());
+		
+		try {
+			pst = connection.prepareStatement(sql.toString());
+			
+			rs = pst.executeQuery();
+			
+			if(rs.next()) {
+				
+				Integer qtdUsuario;
+				qtdUsuario = rs.getInt(1);
+
+				return qtdUsuario;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+				if(ctrlTransaction == true) {
+					connection.close();
+					connection = null;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//Caso não encontre nenhum resultado
 		return null;
 	}
 

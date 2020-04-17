@@ -1,17 +1,23 @@
 package br.com.fatec.les.nature.controller;
 
+import java.sql.SQLException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.fatec.les.nature.dao.UsuarioDAO;
 import br.com.fatec.les.nature.model.SiglaEstados;
 import br.com.fatec.les.nature.model.TipoResidencia;
 import br.com.fatec.les.nature.model.TipoTelefone;
+import br.com.fatec.les.nature.model.TipoUsuario;
 
 @Controller
 public class HomeController {
-
+	
+	//DAO´S
+	UsuarioDAO DAOUsuario = new UsuarioDAO();
 	
 	/**
 	 * Método utilizado para direcionar o cliente à tela de login
@@ -122,10 +128,18 @@ public class HomeController {
 	/**
 	 * Método utilizado para direcionar o usuário administrativo ao painel de controle
 	 * @return
+	 * @throws SQLException 
 	 */
 	@RequestMapping(value = "/admin")
-	public String painelDeControleAdmin() {
-		return "dashboard-admin";
+	public ModelAndView painelDeControleAdmin() throws SQLException {
+		ModelAndView mView = new ModelAndView("dashboard-admin");
+	
+		Integer qtdClientes;
+		qtdClientes = DAOUsuario.getQtdUsuarios(TipoUsuario.CLIENTE);
+	
+		mView.addObject("qtdClientes", qtdClientes);
+		
+		return mView;
 	}
 	
 }

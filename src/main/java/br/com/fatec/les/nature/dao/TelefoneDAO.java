@@ -139,6 +139,7 @@ public class TelefoneDAO extends AbstractJDBCDAO {
 			try {
 				pst.close();
 				connection.close();
+				connection = null;
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}
@@ -189,6 +190,7 @@ public class TelefoneDAO extends AbstractJDBCDAO {
 			try {
 				pst.close();
 				connection.close();
+				connection = null;
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}
@@ -267,6 +269,7 @@ public class TelefoneDAO extends AbstractJDBCDAO {
 				pst.close();
 				if(ctrlTransaction == true) {
 					connection.close();
+					connection = null;
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -319,6 +322,7 @@ public class TelefoneDAO extends AbstractJDBCDAO {
 			try {
 				pst.close();
 				connection.close();
+				connection = null;
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}
@@ -369,6 +373,7 @@ public class TelefoneDAO extends AbstractJDBCDAO {
 				pst.close();
 				if(ctrlTransaction == true) {
 					connection.close();
+					connection = null;
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

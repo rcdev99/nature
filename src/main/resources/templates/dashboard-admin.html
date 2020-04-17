@@ -80,7 +80,7 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Dados</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-users"></i><a href="/visualizar">Clientes</a></li>
+                            <li><i class="fa fa-users"></i><a href="/clientes">Clientes</a></li>
                             <li><i class="fa fa-truck"></i><a href="#">Fornecedores</a></li>
                             <li><i class="fa fa-leaf"></i><a href="#">Produtos</a></li>
                         </ul>
@@ -178,7 +178,7 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">30</span></div>
+                                            <div class="stat-text"><span th:text="${qtdClientes}"></span></div>
                                             <div class="stat-heading">Clientes</div>
                                         </div>
                                     </div>
