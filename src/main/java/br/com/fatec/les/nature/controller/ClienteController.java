@@ -19,9 +19,12 @@ import br.com.fatec.les.nature.command.SalvarCommand;
 import br.com.fatec.les.nature.dao.ClienteDAO;
 import br.com.fatec.les.nature.dao.UsuarioDAO;
 import br.com.fatec.les.nature.model.Cliente;
+import br.com.fatec.les.nature.model.Endereco;
+import br.com.fatec.les.nature.model.Telefone;
 import br.com.fatec.les.nature.view.ClienteViewHelper;
 
 @Controller
+@RequestMapping("/cliente")
 public class ClienteController {
 
 	ICommand command;
@@ -32,7 +35,7 @@ public class ClienteController {
 	 * Método utilizado para direcionar o cliente à tela de login
 	 * @return
 	 */
-	@RequestMapping(value = "/cliente/cadastrar", method = RequestMethod.POST)
+	@RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
 	public ModelAndView cadastrar(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		
 		command = new SalvarCommand();
@@ -69,7 +72,7 @@ public class ClienteController {
 	 * Método utilizado para direcionar o usuário administrativo ao painel de controle de clientes
 	 * @return
 	 */
-	@RequestMapping(value = "/clientes")
+	@RequestMapping(value = "/listar")
 	public ModelAndView getClientes() {
 		
 		//Variavéis locais
@@ -85,14 +88,46 @@ public class ClienteController {
 		return mView;
 	}
 	
-	@RequestMapping(value = "/cliente/excluir/{cliente.id}")
+	/**
+	 * Método para realizar a exclusão lógica de um determinado usuário
+	 * @param id - Identificador único para o usuário
+	 * @return
+	 * @throws SQLException
+	 */
+	@RequestMapping(value = "/excluir/{cliente.id}")
 	public ModelAndView desativarCliente(@PathVariable("cliente.id") Integer id) throws SQLException {
-		ModelAndView mView = new ModelAndView("redirect:/visualizar");
+		ModelAndView mView = new ModelAndView("redirect:/cliente/listar");
 		Cliente cliente = new Cliente();
 		
 		cliente = DAOUsuario.consultaById(id);
 		DAOUsuario.excluir(cliente);
 		
+		return mView;
+	}
+	
+	/**
+	 * Método para exibição dos detalhes cadastrais de um determinado Cliente
+	 * @param id Identificar único do Usuário
+	 * @return
+	 * @throws SQLException
+	 */
+	@RequestMapping(value = "/detalhes/{cliente.id}", method=RequestMethod.GET)
+	public ModelAndView exibirCliente(@PathVariable("cliente.id") Integer id, RedirectAttributes redirectAttributes) throws SQLException {
+		
+		Cliente cliente = new Cliente();
+		List<Endereco> enderecos = new ArrayList<Endereco>();
+		List<Telefone> telefones = new ArrayList<Telefone>();
+		
+		ModelAndView mView = new ModelAndView("dashboard-adm-cliente-detalhes"); 
+		cliente = DAOCliente.consultaById(id);
+		
+		enderecos = cliente.getEnderecos();
+		telefones = cliente.getTelefones();
+		
+		mView.addObject("cliente", cliente);
+		mView.addObject("enderecos", enderecos);
+		mView.addObject("telefones", telefones);
+
 		return mView;
 	}
 	
