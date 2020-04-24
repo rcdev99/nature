@@ -28,7 +28,7 @@ public class ValidadorRG implements IStrategy {
 				incorreto = true;
 				sb.append("\nPreencha o Campo 'RG'");
 			}
-			if(cliente.getCpf().length() < 9) {
+			if(cliente.getRg().length() < 9) {
 				incorreto = true;
 				sb.append("\nPreencha corretamento o campo 'RG'");
 			}

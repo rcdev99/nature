@@ -132,6 +132,7 @@ public class ClienteDAO extends AbstractJDBCDAO {
 				System.out.println("Conexão para 'ClienteDAO' será encerrada.");
 				pst.close();
 				connection.close();
+				connection = null;
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}
@@ -160,8 +161,8 @@ public class ClienteDAO extends AbstractJDBCDAO {
 			sql.append("UPDATE ");
 			sql.append(table);
 			sql.append(" SET ");
-			sql.append("(pes_st_nome, pes_st_sobrenome, pes_in_rg, pes_in_cpf, pes_ch_genero, pes_dt_dt_nasc)");
-			sql.append(" = (?,?,?,?,?,?) ");
+			sql.append("(pes_st_nome, pes_st_sobrenome, pes_in_rg, pes_in_cpf, pes_dt_dt_nasc)");
+			sql.append(" = (?,?,?,?,?) ");
 			sql.append("WHERE ");
 			sql.append(idTable);
 			sql.append("=(?)");
@@ -173,9 +174,8 @@ public class ClienteDAO extends AbstractJDBCDAO {
 			pst.setString(2, cliente.getSobrenome());
 			pst.setString(3, cliente.getRg());
 			pst.setString(4, cliente.getCpf());
-			pst.setString(5, cliente.getGenero().getDescricao());
-			pst.setDate(6, date);
-			pst.setInt(7, cliente.getId());
+			pst.setDate(5, date);
+			pst.setInt(6, cliente.getId());
 			
 			pst.executeUpdate();pst.executeUpdate();
 			

@@ -66,10 +66,10 @@
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
-                    <!--
-                    <a class="navbar-brand" href="#"><img src="images\logos\nature\nature_logo1.png" alt="NaturÊ Logo"></a>
-                    <a class="navbar-brand hidden" href="#"><img src="" alt="NaturÊ Logo"></a>
-                    -->
+                    <!-- 
+                    <a class="navbar-brand" href="#"><img src="" alt="NaturÊ Logo"></a>
+                    <a class="navbar-brand hidden" href="#"><img src="/images/logos/nature/nature_logo1.png" alt="NaturÊ Logo"></a>
+                     -->
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
@@ -104,6 +104,7 @@
                     </div>
                 </div>
             </div>
+            
         </header>
         <!-- /#header -->
         
@@ -142,18 +143,17 @@
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">Informações Cadastrais</strong>
-                            </div>
-                        	
-                        	<div class="col-md-12">
+                            </div>	
+                            <form action="#" class="billing-form">
+                            <div class="card-body">
+                               <div class="col-md-12">
                         	   		<div class="col-md-12">
 						              <div class="row align-items-end">              
 						              	<strong class="card-title">Dados Pessoais</strong>
 						              	
 						              </div>              
 				           			</div>
-				            </div>
-                        		
-                            <form action="#" class="billing-form">
+				               </div>
                                <div class="col-md-12">
                                		<div class="row align-items-end">
 	                                    <div class="col-md-6">
@@ -188,7 +188,8 @@
 	                                    </div>
                                     </div>
                                </div>    
-                               
+                            </div>
+                            <div class="card-body">
                                <div class="col-md-12">   
                                		<div class="col-md-12">   		
 						              <div class="row align-items-end">              
@@ -196,101 +197,102 @@
 						              </div>              
 						            </div>     
 				               </div>
-            
-                       <th:block th:each="endereco : ${enderecos}" >
-			
-				               <div class="col-md-12">
-						       		<div class="row align-items-end">
-						       			<div class="col-md-12">
-											<div class="form-group">
-												<label for="descricao">Descrição</label>
-												<input type="text" name="descricao" id="descricao" th:value="${endereco.descricao}" class="form-control" disabled>
-											</div>
-										</div>
-							            <div class="col-md-6">
-											<div class="form-group">
-												<label for="lodradouro">Logradouro</label>
-												<input type="text" name="logradouro" id="lodradouro" th:value="${endereco.logradouro.logradouro}" class="form-control" disabled>
-											</div>
-										</div>
-										<div class="col-md-2">
-											<div class="form-group">
-												<label for="numero">Nº</label>
-												<input type="number" name="numero" id="numero" th:value="${endereco.numero}"  class="form-control" disabled>
-											</div>
-										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<label for="tipoResidencia">Tipo de Residência</label>
-												<input type="text" name="tipoRes" id="tipoRes" th:value="${endereco.tipoResidencia.descricao}"   class="form-control" disabled>		
-											</div>
-										</div>
-										<div class="col-md-8">
-											<div class="form-group">
-												<label for="bairro">Bairro</label>
-												<input type="text" name="bairro" id="bairro" th:value="${endereco.bairro}" class="form-control" disabled>
-											</div>
-										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<label for="cep">CEP</label>
-												<input type="text" name="cep" id="cep" th:value="${endereco.cep}" class="form-control" disabled>
-											</div>
-										</div>
-										<div class="col-md-10">
-											<div class="form-group">
-												<label for="cidade">Cidade</label>
-												<input type="text" name="cidade" id="cidade" th:value="${endereco.cidade.cidade}"  class="form-control" disabled>
-											</div>
-										</div>
-										<div class="col-md-2">
-											<div class="form-group">
-												<label for="estado">Estado</label>
-												<input type="text" name="estado" id="estado" th:value="${endereco.cidade.estado.sigla}" class="form-control" disabled>		
-											</div>
-										</div>		
-                                  	</div>
-                               </div>
-                       	</th:block> 	
+            				</div>   
+		                       <th:block th:each="endereco : ${enderecos}" >
+									<div class="card-body">
+						               <div class="col-md-12">
+								       		<div class="row align-items-end">
+								       			<div class="col-md-12">
+													<div class="form-group">
+														<label for="descricao">Descrição</label>
+														<input type="text" name="descricao" id="descricao" th:value="${endereco.descricao}" class="form-control" disabled>
+													</div>
+												</div>
+									            <div class="col-md-6">
+													<div class="form-group">
+														<label for="lodradouro">Logradouro</label>
+														<input type="text" name="logradouro" id="lodradouro" th:value="${endereco.logradouro.logradouro}" class="form-control" disabled>
+													</div>
+												</div>
+												<div class="col-md-2">
+													<div class="form-group">
+														<label for="numero">Nº</label>
+														<input type="number" name="numero" id="numero" th:value="${endereco.numero}"  class="form-control" disabled>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
+														<label for="tipoResidencia">Tipo de Residência</label>
+														<input type="text" name="tipoRes" id="tipoRes" th:value="${endereco.tipoResidencia.descricao}"   class="form-control" disabled>		
+													</div>
+												</div>
+												<div class="col-md-8">
+													<div class="form-group">
+														<label for="bairro">Bairro</label>
+														<input type="text" name="bairro" id="bairro" th:value="${endereco.bairro}" class="form-control" disabled>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
+														<label for="cep">CEP</label>
+														<input type="text" name="cep" id="cep" th:value="${endereco.cep}" class="form-control" disabled>
+													</div>
+												</div>
+												<div class="col-md-10">
+													<div class="form-group">
+														<label for="cidade">Cidade</label>
+														<input type="text" name="cidade" id="cidade" th:value="${endereco.cidade.cidade}"  class="form-control" disabled>
+													</div>
+												</div>
+												<div class="col-md-2">
+													<div class="form-group">
+														<label for="estado">Estado</label>
+														<input type="text" name="estado" id="estado" th:value="${endereco.cidade.estado.sigla}" class="form-control" disabled>		
+													</div>
+												</div>		
+		                                  	</div>
+		                               </div>
+		                            </div>   
+		                       	</th:block> 	
                                <!-- Telefone(s)-->
-                               <div class="col-md-12">   
-                               		<div class="col-md-12">   		
-						              <div class="row align-items-end">              
-						              	<strong class="card-title">Telefone(s)</strong>
-						              </div>              
-						            </div>     
-				               </div>
-				        <th:block th:each="telefone : ${telefones}" >          
-				               <div class="col-md-12">
-						       		<div class="row align-items-end">             
-							            <div class="col-md-2">
-											<div class="form-group">
-												<label for="telefone">DDD</label>
-												<input type="text" maxlength="2" name="DDDtelefone" id="DDDtelefone" th:value="${telefone.ddd}" class="form-control" disabled>
-											</div>
-										</div>	
-										<div class="col-md-3">	
-											<div class="form-group">
-												<label for="telefone">Número</label>
-												<input type="tel" name="numero" maxlength="11" id="numero" th:value="${telefone.numero}" class="form-control" disabled>
-											</div>
-										</div>
-										<div class="col-md-3">	
-											<div class="form-group">
-												<label for="telefone">Tipo de telefone</label>
-												<input type="tel" name="tipo" id="tipo" th:value="${telefone.tipo.descricao}" class="form-control" disabled>
-											</div>
-										</div>
-						       		</div>               	
+                               <div class="card-body">
+	                               <div class="col-md-12">   
+	                               		<div class="col-md-12">   		
+							              <div class="row align-items-end">              
+							              	<strong class="card-title">Telefone(s)</strong>
+							              </div>              
+							            </div>     
+					               </div>				        
+				        		<th:block th:each="telefone : ${telefones}" >          
+				               		<div class="col-md-12">	
+							       			<div class="row align-items-end">
+										            <div class="col-md-2">
+														<div class="form-group">
+															<label for="telefone">DDD</label>
+															<input type="text" maxlength="2" name="DDDtelefone" id="DDDtelefone" th:value="${telefone.ddd}" class="form-control" disabled>
+														</div>
+													</div>	
+													<div class="col-md-3">	
+														<div class="form-group">
+															<label for="telefone">Número</label>
+															<input type="tel" name="numero" maxlength="11" id="numero" th:value="${telefone.numero}" class="form-control" disabled>						
+														</div>
+													</div>
+													<div class="col-md-3">	
+														<div class="form-group">
+															<label for="telefone">Tipo de telefone</label>
+															<input type="tel" name="tipo" id="tipo" th:value="${telefone.tipo.descricao}" class="form-control" disabled>
+														</div>
+													</div>	        	
+							       			</div>            	
+                              	 		</div>
+                          		</th:block>     
                                </div>
-                          </th:block>     
-                              
                             </form>    
-                              
-                        
-                    </div>
-                </div>
-            </div>        
+	                    </div>
+	                </div>
+	            </div>        
+	        </div>
         </div>
         <!--/.principal-->
 
@@ -317,16 +319,16 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="assets/js/main.js"></script>
     
-    <script src="assets/js/lib/data-table/datatables.min.js"></script>
-    <script src="assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-    <script src="assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-    <script src="assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
-    <script src="assets/js/lib/data-table/jszip.min.js"></script>
-    <script src="assets/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="assets/js/lib/data-table/buttons.html5.min.js"></script>
-    <script src="assets/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="assets/js/lib/data-table/buttons.colVis.min.js"></script>
-    <script src="assets/js/init/datatables-init.js"></script>
+    <script src="/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script src="/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script src="/assets/js/init/datatables-init.js"></script>
 
 
     <script type="text/javascript">

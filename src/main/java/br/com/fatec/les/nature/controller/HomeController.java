@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.fatec.les.nature.dao.UsuarioDAO;
+import br.com.fatec.les.nature.model.Cliente;
 import br.com.fatec.les.nature.model.SiglaEstados;
 import br.com.fatec.les.nature.model.TipoResidencia;
 import br.com.fatec.les.nature.model.TipoTelefone;
@@ -114,13 +115,13 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping(value = "/cadastro")
-	public ModelAndView cadastrarUsuario() {
+	public ModelAndView cadastrarUsuario(Cliente cliente) {
 		ModelAndView mView = new ModelAndView("cadastro");
 		
 		mView.addObject("tiposResidencia", TipoResidencia.values());
 		mView.addObject("tiposTelefone", TipoTelefone.values());
 		mView.addObject("siglasEstado", SiglaEstados.values());
-		
+		mView.addObject("cliente", cliente);
 		
 		return mView;
 	}

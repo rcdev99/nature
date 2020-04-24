@@ -123,6 +123,25 @@ public class ClienteViewHelper implements IViewHelper {
 				cliente.setTelefones(telefones);
 				
 			}
+			if(operacao.contentEquals("ALTERAR")) {
+				
+				//Variáveis auxiliares
+				String dtNasc = request.getParameter("dtNasc");
+				Integer idCli = Integer.valueOf(request.getParameter("id_cliente"));
+				
+				//Instancia de data de nascimento
+				LocalDate data = LocalDate.parse(dtNasc, fd.getFormatoView());
+				
+				/*Obtendo dados da requisição*/
+				//Dados Pessoais
+				cliente.setId(idCli);
+				cliente.setNome(request.getParameter("nome"));
+				cliente.setSobrenome(request.getParameter("sobrenome"));
+				cliente.setCpf(request.getParameter("cpf"));
+				cliente.setRg(request.getParameter("rg")); 
+				cliente.setDtNasc(data);
+				
+			}
 		}
 		
 		return cliente;

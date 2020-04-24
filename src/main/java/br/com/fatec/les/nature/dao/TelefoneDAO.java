@@ -109,8 +109,8 @@ public class TelefoneDAO extends AbstractJDBCDAO {
 			sql.append("UPDATE ");
 			sql.append(table);
 			sql.append(" SET ");
-			sql.append("(tel_st_ddd, tel_in_tipo, tel_st_numero, tel_pes_in_id)");
-			sql.append(" = (?,?,?,?) ");
+			sql.append("(tel_st_ddd, tel_in_tipo, tel_st_numero)");
+			sql.append(" = (?,?,?) ");
 			sql.append("WHERE ");
 			sql.append(idTable);
 			sql.append(" = (?)");
@@ -121,8 +121,7 @@ public class TelefoneDAO extends AbstractJDBCDAO {
 			pst.setString(1, telefone.getDdd());
 			pst.setInt(2, telefone.getTipo().ordinal());
 			pst.setString(3, telefone.getNumero());
-			pst.setInt(4, telefone.getIdPessoa());
-			pst.setInt(5, telefone.getIdTelefone());
+			pst.setInt(4, telefone.getIdTelefone());
 			pst.executeUpdate();
 			
 			connection.commit();
