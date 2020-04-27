@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="https://thymeleaf.org">
+  <head>
+    <title>NaturÊ | Cadastro</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<!-- Importando CSS e estilos diversos -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/ionicons.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+    
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+
+  <body class="goto-here">
+	<!-- Cabeçalho da página-->
+	<header>
+		<div class="py-1 bg-primary">
+		<div class="container">
+			<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
+			<div class="col-lg-12 d-block">
+				<div class="row d-flex">
+				
+				</div>
+			</div>
+			</div>
+		</div>
+		</div>
+		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		<div class="container">
+			<a class="navbar-brand" href="/home">
+				<img src="images\logos\nature\nature_logo3.png" alt="Logo NaturÊ">
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="oi oi-menu"></span> Menu
+			</button>
+
+			<div class="collapse navbar-collapse" id="ftco-nav">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item"><a href="/home" class="nav-link">Início</a></li>
+				<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Produtos</a>
+				<div class="dropdown-menu" aria-labelledby="dropdown04">
+					<a class="dropdown-item" href="/produtos">Produtos</a>
+					<a class="dropdown-item" href="/lista_de_desejos">Lista de Desejos</a>
+					<a class="dropdown-item" href="/produto">Produto</a>
+					<a class="dropdown-item" href="/carrinho">Carrinho</a>
+					<a class="dropdown-item" href="/conclusao">Concluir compra</a>
+				</div>
+				</li>
+				<li class="nav-item active"><a href="/sobre_nos" class="nav-link">Sobre nós</a></li>
+				<li class="nav-item"><a href="/contato" class="nav-link">Contate-nos</a></li>
+				<li class="nav-item cta cta-colored"><a href="/carrinho" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+				<li class="nav-item cta cta-colored"><a href="/login" class="nav-link"><span class="icon-user"></span>Entrar</a></li>
+			</ul>
+			</div>
+		</div>
+		</nav>
+	</header>  
+
+	<!--Conteúdo principal da página-->
+    <section class="ftco-section">
+		<div class="container">
+			<div align=center>
+				<span th:text="${resultado}"></span>
+			</div>
+			<div class="row justify-content-center">			
+				<div class="col-xl-7 ftco-animate">
+					<form action="/cliente/cadastrar" method="POST" class="billing-form">
+						<h3 class="mb-4 billing-heading">Cadastro</h3>
+						<div class="row align-items-end">
+							<legend>Informações Pessoais</legend>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="nome">Nome</label>
+								 	<input type="text" name="nome" id="nome" th:field="*{cliente.nome}" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="sobrenome">Sobrenome</label>
+								 	<input type="text" name="sobrenome" id="sobrenome" th:field="*{cliente.sobrenome}" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="dt_nasc">Data de Nascimento</label>
+									<input type="date" name="dtNasc" id="dtNasc" class="form-control" th:field="*{cliente.dtNasc}" maxlength="10" required placeholder="DD/MM/AAAA">
+								</div>
+							</div>
+							<div class="col-md-6"></div>							
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="cpf">CPF</label>
+									<input type="text" name="cpf" id="cpf" class="form-control" th:field="*{cliente.cpf}" maxlength="11" required placeholder="Apenas números" pattern="[0-9]+$">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="rg">RG</label>
+									<input type="text" name="rg" id="rg" class="form-control" th:field="*{cliente.rg}" maxlength="11" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Gênero</label>
+									<div>
+										<label for="genero-masc" class="radio"><input type="radio" name="genero" value="M" id="genero-masc">Masculino</label>
+										<label for="genero-fem" class="radio"><input type="radio" name="genero" value="F" id="genero-fem">Feminino</label>
+										<label for="genero-others" class="radio"><input type="radio" name="genero" value="O" id="genero-masc" checked>Outros</label>
+									</div>
+								</div>
+							</div>
+							<legend>Credenciais de acesso</legend>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="email">E-mail</label>
+									<input type="email" name="email" id="email" class="form-control" th:field="*{cliente.email}" placeholder="Exemplo: email@dominio.com.br" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="senha">Senha</label>
+									<input type="password" name="senha" id="senha" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="conf_senha">Confirmar Senha</label>
+									<input type="password" name="conf_senha" id="conf_senha" class="form-control" required>
+								</div>
+							</div>
+							<legend>Endereço</legend>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="lodradouro">Logradouro</label>
+									<input type="text" name="logradouro" id="lodradouro" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="numero">Nº</label>
+									<input type="number" name="numero" id="numero" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="tipoResidencia">Tipo de Residência</label>
+									<div class="select-wrap">
+										<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+											<select name="tipoResidencia" id="tipoResidencia" class="form-control">
+												<th:block th:each="tipoRes : ${tiposResidencia}">
+													<option th:value="${tipoRes}" th:text="${tipoRes.descricao}"></option>
+											    </th:block>
+											</select>
+									</div>		
+								</div>
+							</div>
+							<div class="col-md-8">
+								<div class="form-group">
+									<label for="bairro">Bairro</label>
+									<input type="text" name="bairro" id="bairro" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="cep">CEP</label>
+									<input type="search" name="cep" id="cep" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-10">
+								<div class="form-group">
+									<label for="cidade">Cidade</label>
+									<input type="text" name="cidade" id="cidade" class="form-control" required>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="estado">Estado</label>
+									<div class="select-wrap">
+										<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+											<select name="sigla" id="sigla" class="form-control">
+												<th:block th:each="sigla : ${siglasEstado}">
+													<option th:value="${sigla}" th:text="${sigla}"></option>
+											    </th:block>
+											</select>
+									</div>		
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="descricao">Descrição</label>
+									<input type="text" name="descricao" id="descricao" class="form-control" placeholder="Breve identificação do endereço,ex.: (Comercial, Minha Casa, etc)" required>
+								</div>
+							</div>
+							<legend>Contato</legend>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="telefone">DDD</label>
+									<input type="text" maxlength="2" name="DDDtelefone1" id="DDDtelefone1"  placeholder="(XX)" class="form-control">
+								</div>
+							</div>	
+							<div class="col-md-6">	
+								<div class="form-group">
+									<label for="telefone">Número</label>
+									<input type="tel" name="numero1" maxlength="11" id="numero1" placeholder="Apenas números" class="form-control">
+								</div>
+							</div>
+							<div class="col-md-4">	
+								<div class="form-group">
+									<label for="telefone">Tipo de telefone</label>
+									<div class="select-wrap">
+										<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+											<select name="tipoTelefone1" id="tipoTelefone1" class="form-control">
+												<th:block th:each="tipoTel : ${tiposTelefone}">
+													<option th:value="${tipoTel}" th:text="${tipoTel.descricao}"></option>
+											    </th:block>
+											</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="telefone">DDD</label>
+									<input type="text" name="DDDtelefone2" maxlength="2" id="DDDtelefone2" placeholder="(XX)" class="form-control" pattern="[0-9]+$">
+								</div>
+							</div>	
+							<div class="col-md-6">	
+								<div class="form-group">
+									<label for="telefone">Número</label>
+									<input type="tel" name="numero2" maxlength="11" id="numero2" placeholder="Apenas números" class="form-control" pattern="[0-9]+$">
+								</div>
+							</div>
+							<div class="col-md-4">	
+								<div class="form-group">
+									<label for="telefone">Tipo de telefone</label>
+									<div class="select-wrap">
+										<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+											<select name="tipoTelefone2" id="tipoTelefone2" class="form-control">
+												<th:block th:each="tipoTel : ${tiposTelefone}">
+													<option th:value="${tipoTel}" th:text="${tipoTel.descricao}"></option>
+											    </th:block>
+											</select>
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="checkbox"><input type="checkbox" checked>Gostaria de receber nossas novidades por e-mail?</label>
+							</div>
+							<div class="col-md-12" align=center>
+							<input type="hidden" name="tipo" id="tipo" value="CLIENTE">
+							<input type="hidden" name="operacao" id="operacao" value="SALVAR">
+								<input type="submit" class="btn btn-primary py-3 px-4" value="Cadastrar">					
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>	
+
+  <!--Rodapé-->
+  <footer class="ftco-footer ftco-section">
+	<div class="container">
+		<div class="row">
+			<div class="mouse">
+					  <a href="#" class="mouse-icon">
+						  <div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
+					  </a>
+				  </div>
+		</div>
+	  <div class="row mb-5">
+		<div class="col-md">
+		  <div class="ftco-footer-widget mb-4">
+			<h2 class="ftco-heading-2">NaturÊ</h2>
+			<p align="left">
+			  A NaturÊ é uma das lojas virtuais do grupo Natureza em foco LTDA, empresa que tem ganhado espaço
+			  no cenário nacional devido a qualidade de seus produtos e preocupação com o meio ambiente.
+			</p>
+			<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+			  <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+			  <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+			  <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+			</ul>
+		  </div>
+		</div>
+		<div class="col-md">
+		  <div class="ftco-footer-widget mb-4 ml-md-5">
+			<h2 class="ftco-heading-2">Menu</h2>
+			<ul class="list-unstyled">
+			  <li><a href="/produtos" class="py-2 d-block">Produtos</a></li>
+			  <li><a href="/sobre_nos" class="py-2 d-block">Sobre nós</a></li>
+			  <li><a href="/home" class="py-2 d-block">Página inicial</a></li>
+			  <li><a href="/cadastro" class="py-2 d-block">Cadastre-se</a></li>
+			</ul>
+		  </div>
+		</div>
+	
+		<div class="col-md">
+		  <div class="ftco-footer-widget mb-4">
+			  <h2 class="ftco-heading-2">Onde nos encontrar?</h2>
+			  <div class="block-23 mb-3">
+				<ul>
+				  <li><span class="icon icon-map-marker"></span><span class="text">Rua Antônio Bóz Vidas, 94, Jd. Bela Vista</span></li>
+				  <li><a href="#"><span class="icon icon-phone"></span><span class="text">+55 11 4744-4447</span></a></li>
+				  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@nature.com.br</span></a></li>
+				</ul>
+			  </div>
+		  </div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-md-12 text-center">
+		  <a href="/home">
+			<img src="images\logos\nature\nature_logo1.png" alt="Logo da Naturê" href="/home">
+		  </a>
+		  <p class="copyright">&copy; Copyright Naturê - 2020</p>
+		</div>
+	  </div>
+	</div>
+  </footer>
+    
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/jquery.waypoints.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.animateNumber.min.js"></script>
+  <script src="js/bootstrap-datepicker.js"></script>
+  <script src="js/scrollax.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="js/google-map.js"></script>
+  <script src="js/main.js"></script>
+    
+  </body>
+</html>
