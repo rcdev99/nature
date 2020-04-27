@@ -2,9 +2,11 @@ package br.com.fatec.les.nature.model;
 
 public class Telefone extends EntidadeDominio{
 
+	private Integer idTelefone;
 	private String ddd;
 	private String numero;
 	private TipoTelefone tipo;
+	private Integer idPessoa;
 	
 	//Re-escrita de métodos
 	public String toString() {
@@ -14,6 +16,14 @@ public class Telefone extends EntidadeDominio{
 	}
 	
 	//Getters and Setters
+	public Integer getIdTelefone() {
+		return idTelefone;
+	}
+
+	public void setIdTelefone(Integer idTelefone) {
+		this.idTelefone = idTelefone;
+	}
+	
 	public String getDdd() {
 		return ddd;
 	}
@@ -32,5 +42,12 @@ public class Telefone extends EntidadeDominio{
 	public void setTipo(TipoTelefone tipo) {
 		this.tipo = tipo;
 	}
+	public Integer getIdPessoa() {
+		return idPessoa;
+	}
+	public void setIdPessoa(Integer idPessoa) {
+		this.idPessoa = idPessoa;
+	}
+
 	
 }

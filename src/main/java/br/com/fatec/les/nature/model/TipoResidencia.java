@@ -2,9 +2,9 @@ package br.com.fatec.les.nature.model;
 
 public enum TipoResidencia {
 
-	APARTAMENTO("apartamento"),
-	CASA("casa"),
-	SITIO("sitio");
+	APARTAMENTO("Apartamento"),
+	CASA("Casa"),
+	SITIO("Sitio");
 
 	private String descricao;
 	

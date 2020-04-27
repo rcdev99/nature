@@ -2,14 +2,16 @@ package br.com.fatec.les.nature.model;
 
 public class Endereco extends EntidadeDominio{
 
+	private Integer id_endereco;
 	private TipoResidencia tipoResidencia;
 	private Logradouro logradouro;
-	private int numero;
+	private Integer numero;
 	private String bairro;
 	private String cep;
 	private Cidade cidade;
 	private String pais;
 	private String descricao;
+	private Integer idPessoa;
 	
 	public String toString() {
 		
@@ -21,6 +23,14 @@ public class Endereco extends EntidadeDominio{
 		return string;
 	}
 	
+	public Integer getId_endereco() {
+		return id_endereco;
+	}
+
+	public void setId_endereco(Integer id_endereco) {
+		this.id_endereco = id_endereco;
+	}
+
 	//Getters and Setters
 	public TipoResidencia getTipoResidencia() {
 		return tipoResidencia;
@@ -34,10 +44,10 @@ public class Endereco extends EntidadeDominio{
 	public void setLogradouro(Logradouro logradouro) {
 		this.logradouro = logradouro;
 	}
-	public int getNumero() {
+	public Integer getNumero() {
 		return numero;
 	}
-	public void setNumero(int numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 	public String getBairro() {
@@ -73,5 +83,13 @@ public class Endereco extends EntidadeDominio{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	public Integer getIdPessoa() {
+		return idPessoa;
+	}
+
+	public void setIdPessoa(Integer idPessoa) {
+		this.idPessoa = idPessoa;
+	}
+
 	
 }

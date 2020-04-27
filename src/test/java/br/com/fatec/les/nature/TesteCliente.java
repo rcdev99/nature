@@ -1,7 +1,8 @@
 package br.com.fatec.les.nature;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.sql.SQLException;
+
+import java.time.LocalDate;
 
 import br.com.fatec.les.nature.model.Cartao;
 import br.com.fatec.les.nature.model.Cidade;
@@ -17,17 +18,24 @@ import br.com.fatec.les.nature.model.TipoRegiao;
 import br.com.fatec.les.nature.model.TipoResidencia;
 import br.com.fatec.les.nature.model.TipoTelefone;
 import br.com.fatec.les.nature.model.TipoUsuario;
+import br.com.fatec.les.nature.negocio.ValidadorDadosObrigatoriosCliente;
+import br.com.fatec.les.nature.util.FormataData;
 
 public class TesteCliente {
 
-	@SuppressWarnings("deprecation")
-	public static void main(String args[]) {
+	public static void main(String args[]) throws SQLException {
 		
 		Estado estado = new Estado();
 		Cidade cidade = new Cidade();
 		Logradouro logradouro = new Logradouro();
 		Cliente cliente = new Cliente();
-		Calendar dt = Calendar.getInstance();
+		LocalDate dt = LocalDate.now();
+		String retorno = new String();
+		
+		//Validadores
+		ValidadorDadosObrigatoriosCliente validador = new ValidadorDadosObrigatoriosCliente();
+		
+		FormataData fd = new FormataData(); 
 		
 		//Estado
 		estado.setNomeEstado("São Paulo");
@@ -44,13 +52,18 @@ public class TesteCliente {
 		
 		//Cliente
 		cliente.setNome("Ricardo");
-		cliente.setSobrenome("Floriano");
+		cliente.setSobrenome("F. R. Júnior");
 		cliente.setCpf("439.244.438-04");
 		cliente.setRg("41.934.653-3");
 		cliente.setDtNasc(dt);
-		cliente.setEmail("ric@ricardo");
+		
 		cliente.setGenero(TipoGenero.M);
+		cliente.setId(1000);
+		
+		//Usuario
+		cliente.setEmail("ric@ricardo06");
 		cliente.setTipo(TipoUsuario.DESENVOLVEDOR);
+		cliente.setSenha("Ricardo123");
 		
 		//Endereço 1
 		Endereco endereco1 = new Endereco();
@@ -86,9 +99,7 @@ public class TesteCliente {
 		telefone2.setTipo(TipoTelefone.RESIDENCIAL);		
 						
 		//Instancia de data para atribuir ao vencimento do cartão
-		Date d = new Date("03/04/2020");
-		Calendar data = Calendar.getInstance();
-		data.setTime(d);
+		LocalDate data = LocalDate.parse("03/04/2020", fd.getFormato());
 		
 		//Cartao1
 		Cartao cartao1 = new Cartao();
@@ -107,10 +118,14 @@ public class TesteCliente {
 		cartao2.setDtVenc(data);
 		
 		//Atribuindo Endreços ao Cliente
+		endereco1.setIdPessoa(cliente.getId());
+		endereco2.setIdPessoa(cliente.getId());
 		cliente.addEndereco(endereco1);
 		cliente.addEndereco(endereco2);
 		
 		//Adicionando telefones à Listagem
+		telefone1.setIdPessoa(cliente.getId());
+		telefone2.setIdPessoa(cliente.getId());
 		cliente.addTelefone(telefone1);
 		cliente.addTelefone(telefone2);
 		
@@ -118,7 +133,13 @@ public class TesteCliente {
 		cliente.addCartao(cartao1);
 		cliente.addCartao(cartao2);
 		
-		System.out.println(cliente);
+		retorno = validador.processar(cliente);
+		retorno = retorno.replace("null", "");
+		if(retorno.isBlank()) {
+			System.out.println("Cliente: " + cliente.getNome() + " validado com sucesso !");
+		}else {
+			System.out.println(retorno);
+		}
 		
 	}
 }

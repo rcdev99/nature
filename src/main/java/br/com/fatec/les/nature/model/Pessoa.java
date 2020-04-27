@@ -1,18 +1,25 @@
 package br.com.fatec.les.nature.model;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
-public class Pessoa extends EntidadeDominio {
+public abstract class Pessoa extends EntidadeDominio {
 
+	private Integer id;
 	private String nome;
 	private String sobrenome;
 	private String cpf;
 	private String rg;
 	private TipoGenero genero;
 	private boolean status;
-	private Calendar dtNasc;
+	private LocalDate dtNasc;
 	
 	//Getters and Setters
+	public Integer getId() {
+		return this.id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getNome() {
 		return nome;
 	}
@@ -49,10 +56,10 @@ public class Pessoa extends EntidadeDominio {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public Calendar getDtNasc() {
+	public LocalDate getDtNasc() {
 		return dtNasc;
 	}
-	public void setDtNasc(Calendar dtNasc) {
+	public void setDtNasc(LocalDate dtNasc) {
 		this.dtNasc = dtNasc;
 	}
 	

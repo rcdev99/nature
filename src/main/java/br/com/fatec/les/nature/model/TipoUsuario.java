@@ -2,10 +2,10 @@ package br.com.fatec.les.nature.model;
 
 public enum TipoUsuario {
 
+	DESENVOLVEDOR("Desenvolvedor"),
 	ADMINISTRATIVO("Administrativo"),
 	CLIENTE("Cliente"),
-	FORNECEDOR("Forncedor"),
-	DESENVOLVEDOR("Desenvolvedor");
+	FORNECEDOR("Fornecedor");
 
 	private String descricao;
 	

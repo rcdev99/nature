@@ -2,8 +2,9 @@ package br.com.fatec.les.nature.model;
 
 public enum TipoTelefone {
 
-	CELULAR("celular"),
-	RESIDENCIAL("residencial");
+	CELULAR("Celular"),
+	COMERCIAL("Comercial"),
+	RESIDENCIAL("Residencial");
 	
 	private String descricao;
 	

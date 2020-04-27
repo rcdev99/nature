@@ -1,6 +1,6 @@
 package br.com.fatec.les.nature.model;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 import br.com.fatec.les.nature.util.FormataData;
 
@@ -9,7 +9,7 @@ public class Cartao extends EntidadeDominio {
 	private String titular;
 	private String numCartao;
 	private TipoBandeira bandeira;
-	private Calendar dtVenc;
+	private LocalDate dtVenc;
 	private int cvv;
 	
 	//Re-escrita de métodos
@@ -51,10 +51,10 @@ public class Cartao extends EntidadeDominio {
 	public void setBandeira(TipoBandeira bandeira) {
 		this.bandeira = bandeira;
 	}
-	public Calendar getDtVenc() {
+	public LocalDate getDtVenc() {
 		return dtVenc;
 	}
-	public void setDtVenc(Calendar dtVenc) {
+	public void setDtVenc(LocalDate dtVenc) {
 		this.dtVenc = dtVenc;
 	}
 	public int getCvv() {
