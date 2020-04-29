@@ -2,12 +2,16 @@ package br.com.fatec.les.nature.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fatec.les.nature.model.Produto;
 import br.com.fatec.les.nature.model.TipoProduto;
@@ -47,7 +51,7 @@ public class ProdutoController {
 	 * @return mView View para cadastro de produtos.
 	 */
 	@RequestMapping(value = "/cadastro", method=RequestMethod.GET)
-	public ModelAndView cadastrarProduto(Produto produto) {
+	public ModelAndView formProduto(Produto produto) {
 		
 		ModelAndView mView = new ModelAndView("dashboard-adm-produto-novo");
 		
@@ -58,6 +62,31 @@ public class ProdutoController {
 		return mView;
 	}
 	
+	/**
+	 * Método responsável pelo cadastro de novos produtos
+	 * @param produto Produto a ser cadastrado
+	 * @param result Resltado da valição
+	 * @param redirectAttributes Mensagem de sucesso, caso os dados tenham sido inseridos corretamente
+	 * @return mView View para listagem de produtos caso a validação ocorra, ou redicionamento para a mesma página em caso de erro.
+	 */
+	@RequestMapping(value = "/novo", method=RequestMethod.POST)
+	public ModelAndView cadastrarProduto(@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes) {
+		
+		
+		if(result.hasErrors()) {
+			return formProduto(produto);
+		}
+		
+		ModelAndView mView = new ModelAndView("redirect:/produto/listar");
+		
+		pService.salvar(produto);
+				
+		redirectAttributes.addFlashAttribute("mensagem", "Produto cadastrado com sucesso !");
+		mView.addObject("produto", produto);
+		
+		return mView;
+	}
+
 	/**
 	 * Método utilizado para exibição dos detalhes de um determinado produto
 	 * @param id Identificador único do produto a ser exibido
@@ -75,5 +104,23 @@ public class ProdutoController {
 		
 		return mView;
 	}
+	
+	/**
+	 * Método utilizado para excluir um produto do DataBase
+	 * @param id Identificador único do produto a ser excluído
+	 * @param redirectAttributes Mensagem de conclusão da ação
+	 * @return mView Tela de listagem de produtos
+	 */
+	@RequestMapping(value="/excluir/{produto.id}")
+	public ModelAndView excluirProduto(@PathVariable("produto.id") Long id, RedirectAttributes redirectAttributes) {
+		
+		ModelAndView mView = new ModelAndView("redirect:/produto/listar");
+		
+		pService.excluir(id);
+		redirectAttributes.addFlashAttribute("delete", "Item excluido !");
+		
+		return mView;
+	}
+	
 	
 }

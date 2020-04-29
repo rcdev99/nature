@@ -138,6 +138,23 @@
             <div class="animated fadeIn">
                 <div class="row">
                     <div class="col-md-12">
+                    	<!-- Mensagens com escopo de flash -->
+                    	<div class="sufee-alert alert with-close alert-success alert-dismissible fade show" th:if="${not #strings.isEmpty(mensagem)}">
+                             <span class="badge badge-pill badge-success">Pronto</span>
+                             <span th:text="${mensagem}">Mensagem</span>
+                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                             </button>
+                        </div>
+                        
+                        <div class="sufee-alert alert with-close alert-warning alert-dismissible fade show" th:if="${not #strings.isEmpty(delete)}">
+                             <span class="badge badge-pill badge-warning">Feito</span>
+                             <span th:text="${delete}">Mensagem</span>
+                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                             </button>
+                         </div>
+                        <!-- /.mensagensComEscopoDeFlash -->
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">Produtos Cadastrados</strong>

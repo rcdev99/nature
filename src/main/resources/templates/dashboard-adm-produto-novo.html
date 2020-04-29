@@ -140,17 +140,20 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Informações Cadastrais</h4>
-                    </div>
-                    <th:block th:each="msg : ${resultado}" >
-	                    <div th:class="${sucesso} ? 'alert alert-success' : 'alert alert-danger' " role="alert">
-							<span th:text="${msg}"></span>
-						</div>
-					</th:block>	
-					
+                    </div>  	
                     <div class="card-body">
                     <!--Dados Cadastrais #Produto-->
-                        <form action="/produto/novo" method="post" class="billing-form">
+                        <form action="/produto/novo" th:object="${produto}" method="post" class="billing-form">
                             <div class="card-body">
+	                    		<th:block th:each="erro : ${#fields.detailedErrors()}">
+	                    			<div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
+				                        <span class="badge badge-pill badge-danger">Ops !</span>
+				                        <span th:text="${erro.message}"></span>	
+				                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				                            <span aria-hidden="true">&times;</span>
+				                        </button>
+									</div>        
+	                            </th:block> 
                                 <div class="col-md-12">
                                         <div class="col-md-12">
                                             <div class="row align-items-end">              
@@ -161,11 +164,11 @@
                                 <div class="col-md-12">
                                     <div class="row align-items-end">
                                         <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="produto">Produto</label>
+                                            <div class="has-warning form-group">
+                                                <label class="form-control-label" for="produto">Produto</label>
                                                 <div class="input-group">    
                                                     <div class="input-group-addon"><i class="fa fa-leaf"></i></div>
-                                                    <input type="text" name="produto" id="produto" th:field="*{produto.nome}" class="form-control" required>
+                                                    <input type="text" name="produto" id="produto" th:field="*{nome}" class="form-control " th:classappend="${#fields.hasErrors('nome')} ? is-invalid" >
                                                 </div>
                                             </div>
                                         </div>
@@ -174,7 +177,7 @@
                                                 <label for="tipoProduto">Tipo</label>
                                                 <div class="input-group">    
                                                     <div class="input-group-addon"><i class="fa fa-list-ul"></i></div>
-                                                    <select name="tipoProduto" id="tipoProduto" class="form-control" required>
+                                                    <select name="tipoProduto" id="tipoProduto" th:field="*{tipo}" class="form-control" required>
                                                         <th:block th:each="tipo : ${tiposProduto}">
                                                             <option th:value="${tipo}" th:text="${tipo.descricao}"></option>
                                                         </th:block>
@@ -183,19 +186,19 @@
                                             </div>
                                         </div>							
                                         <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="valor">Valor</label>
+                                            <div class="has-warning form-group">
+                                                <label for="valor" class="form-control-label">Valor</label>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"><i class="fa fa-money"></i></div>
-                                                    <input type="number" name="valor" id="valor" th:field="*{produto.valor}" class="form-control" min="0" step="0.01" placeholder="Ex.: 9,99" required>
+                                                    <input type="number" name="valor" id="valor" th:field="*{valor}" class="form-control" min="0" step="0.01" placeholder="Ex.: 9,99" th:classappend="${#fields.hasErrors('valor')} ? is-invalid">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="rg">Descrição</label>
-                                                <textarea type="text" name="descricao" id="descricao" th:field="*{produto.descricao}" rows="9" class="form-control" maxlength="250"></textarea>
-                                            </div>
+                                            <div class="has-warning form-group">
+                                                <label for="rg" class="form-control-label">Descrição</label>
+                                                <textarea type="text" name="descricao" id="descricao" th:field="*{descricao}" rows="9" class="form-control" maxlength="250" th:classappend="${#fields.hasErrors('descricao')} ? is-invalid"></textarea>
+                                            </div> 
                                         </div>
                                     </div>     
                                     <div class="row align-items-end">

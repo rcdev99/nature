@@ -14,6 +14,17 @@ public class ProdutoService {
 	@Autowired 
 	private Produtos produtos;
 	
+	public void salvar(Produto produto) {
+		
+		//Regras de Negócio
+		produtos.save(produto);
+	}
+	
+	public void excluir(Long id) {
+		
+		produtos.deleteById(id);
+	}
+	
 	public Produto findById(long id) {
 		
 		return produtos.findById(id).get();
