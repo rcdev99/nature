@@ -105,6 +105,44 @@ public class ProdutoController {
 		return mView;
 	}
 	
+	@RequestMapping(value = "/editar/{produto.id}")
+	public ModelAndView editarProduto(@PathVariable("produto.id") Long id) {
+		
+		ModelAndView mView = new ModelAndView("dashboard-adm-produto-editar");
+		
+		Produto produto = pService.findById(id);
+		
+		mView.addObject("produto", produto);
+		mView.addObject("tiposProduto", TipoProduto.values());
+		
+		return mView;
+	}
+	
+	/**
+	 * Método responsável pela edição de produtos
+	 * @param produto Produto a ser editado
+	 * @param result Resultado da valição
+	 * @param redirectAttributes Mensagem de sucesso, caso os dados tenham sido alterados corretamente
+	 * @return mView View para listagem de produtos caso a validação ocorra, ou redicionamento para a mesma página em caso de erro.
+	 */
+	@RequestMapping(value = "/editar", method=RequestMethod.POST)
+	public ModelAndView alterarProduto(@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes) {
+		
+		
+		if(result.hasErrors()) {
+			return formProduto(produto);
+		}
+		
+		ModelAndView mView = new ModelAndView("redirect:/produto/listar");
+		
+		pService.salvar(produto);
+				
+		redirectAttributes.addFlashAttribute("mensagem", "Produto alterado com sucesso !");
+		mView.addObject("produto", produto);
+		
+		return mView;
+	}
+	
 	/**
 	 * Método utilizado para excluir um produto do DataBase
 	 * @param id Identificador único do produto a ser excluído
