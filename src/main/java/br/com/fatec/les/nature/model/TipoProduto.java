@@ -3,10 +3,10 @@ package br.com.fatec.les.nature.model;
 public enum TipoProduto {
 
 	FRUTA("Fruta"),
-	GRAO("Grãos"),
+	GRAO("Grão"),
 	LEGUMES("Legumes"),
 	SUCO("Suco"),
-	VEGETAL("Vegetais");
+	VEGETAL("Vegetal");
 
 	//Variáveis
 	private String descricao;
