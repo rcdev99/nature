@@ -17,6 +17,13 @@
         <link rel="stylesheet" href="/assets/css/cs-skin-elastic.css">
         <link rel="stylesheet" href="/assets/css/lib/datatable/dataTables.bootstrap.min.css">
         <link rel="stylesheet" href="/assets/css/style.css">
+        <link rel="stylesheet" href="/vendor/uikit/css/upload.min.css">
+        <link rel="stylesheet" href="/css/produto.css">
+        
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.24.0/css/components/upload.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.24.0/js/uikit.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.24.0/js/components/upload.min.js"></script>
     
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
     
@@ -197,7 +204,7 @@
                                         <div class="col-md-12">
                                             <div class="has-warning form-group">
                                                 <label for="rg" class="form-control-label">Descrição</label>
-                                                <textarea type="text" name="descricao" id="descricao" th:field="*{descricao}" rows="9" class="form-control" maxlength="250" th:classappend="${#fields.hasErrors('descricao')} ? is-invalid"></textarea>
+                                                <textarea type="text" name="descricao" id="descricao" th:field="*{descricao}" rows="5" class="form-control" maxlength="250" th:classappend="${#fields.hasErrors('descricao')} ? is-invalid"></textarea>
                                             </div> 
                                         </div>
                                     </div>     
@@ -250,6 +257,9 @@
     <script src="/assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="/assets/js/init/datatables-init.js"></script>
 
+    <script th:src="@{/vendor/uikit/js/upload.min.js}"></script>
+    <script th:src="@{/vendor/uikit/js/uikit.min.js}"></script>
+    <script th:src="@{/js/produto.upload-foto.js}"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {

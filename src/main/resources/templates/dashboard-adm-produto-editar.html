@@ -18,6 +18,14 @@
         <link rel="stylesheet" href="/assets/css/lib/datatable/dataTables.bootstrap.min.css">
         <link rel="stylesheet" href="/assets/css/style.css">
     
+    	<link rel="stylesheet" href="/vendor/uikit/css/upload.min.css">
+        <link rel="stylesheet" href="/css/produto.css">
+        
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.24.0/css/components/upload.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.24.0/js/uikit.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.24.0/js/components/upload.min.js"></script>
+    
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
     
         <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
@@ -139,7 +147,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Informações Cadastrais</h4>
+                        <h4>Informações do Produto</h4>
                     </div>  	
                     <div class="card-body">
                     <!--Dados Cadastrais #Produto-->
@@ -154,67 +162,75 @@
 				                        </button>
 									</div>        
 	                            </th:block> 
-                                <div class="col-md-12">
-                                        <div class="col-md-12">
-                                            <div class="row align-items-end">              
-                                                <strong class="card-title">Produto</strong>
-                                            </div>              
-                                        </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="row align-items-end">
-                                        <div class="col-md-6">
-                                            <div class="has-warning form-group">
-                                                <label class="form-control-label" for="produto">Produto</label>
-                                                <div class="input-group">    
-                                                    <div class="input-group-addon"><i class="fa fa-leaf"></i></div>
-                                                    <input type="text" name="produto" id="produto" th:field="*{nome}" class="form-control " th:classappend="${#fields.hasErrors('nome')} ? is-invalid" >
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="tipoProduto">Tipo</label>
-                                                <div class="input-group">    
-                                                    <div class="input-group-addon"><i class="fa fa-list-ul"></i></div>
-                                                    <select name="tipoProduto" id="tipoProduto" th:field="*{tipo}" class="form-control" required>
-                                                        <option th:value="${produto.tipo}" th:text="${produto.tipo.descricao}"></option>
-                                                        <th:block th:each="tipo : ${tiposProduto}">
-                                                            <option th:value="${tipo}" th:text="${tipo.descricao}"></option>
-                                                        </th:block>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>							
-                                        <div class="col-md-6">
-                                            <div class="has-warning form-group">
-                                                <label for="valor" class="form-control-label">Valor</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-addon"><i class="fa fa-money"></i></div>
-                                                    <input type="number" name="valor" id="valor" th:field="*{valor}" class="form-control" min="0" step="0.01" placeholder="Ex.: 9,99" th:classappend="${#fields.hasErrors('valor')} ? is-invalid">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="has-warning form-group">
-                                                <label for="rg" class="form-control-label">Descrição</label>
-                                                <textarea type="text" name="descricao" id="descricao" th:field="*{descricao}" rows="9" class="form-control" maxlength="250" th:classappend="${#fields.hasErrors('descricao')} ? is-invalid"></textarea>
-                                            </div> 
-                                        </div>
-                                        <input type="hidden" name="id" id="id" th:field="*{id}">
-                                    </div>     
-                                    <div class="row align-items-end">
-                                        <div class="col-md-6">
-                                            <div class="form-group">		
-                                            	<button type="submit" class="btn btn-outline-warning"><i class="ti-pencil"></i>&nbsp; Editar</button>		
-                                            </div>
-                                        </div>	
-                                    </div>
-                                </div>    
+		                        <div class="row align-items-end">
+		                                <div class="col-md-8">
+		                                    <div class="row align-items-end"> 
+		                                        <div class="col-md-12">
+		                                            <div class="has-warning form-group">
+		                                                <label class="form-control-label" for="produto">Produto</label>
+		                                                <div class="input-group">    
+		                                                    <div class="input-group-addon"><i class="fa fa-leaf"></i></div>
+		                                                    <input type="text" name="produto" id="produto" th:field="*{nome}" class="form-control " th:classappend="${#fields.hasErrors('nome')} ? is-invalid" >
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                        <div class="col-md-12">
+		                                            <div class="form-group">
+		                                                <label for="tipoProduto">Tipo</label>
+		                                                <div class="input-group">    
+		                                                    <div class="input-group-addon"><i class="fa fa-list-ul"></i></div>
+		                                                    <select name="tipoProduto" id="tipoProduto" th:field="*{tipo}" class="form-control" required>
+		                                                        <option th:value="${produto.tipo}" th:text="${produto.tipo.descricao}"></option>
+		                                                        <th:block th:each="tipo : ${tiposProduto}">
+		                                                            <option th:value="${tipo}" th:text="${tipo.descricao}"></option>
+		                                                        </th:block>
+		                                                    </select>
+		                                                </div>
+		                                            </div>
+		                                        </div>							
+		                                        <div class="col-md-12">
+		                                            <div class="has-warning form-group">
+		                                                <label for="valor" class="form-control-label">Valor</label>
+		                                                <div class="input-group">
+		                                                    <div class="input-group-addon"><i class="fa fa-money"></i></div>
+		                                                    <input type="number" name="valor" id="valor" th:field="*{valor}" class="form-control" min="0" step="0.01" placeholder="Ex.: 9,99" th:classappend="${#fields.hasErrors('valor')} ? is-invalid">
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                        
+		                                        <input type="hidden" name="id" id="id" th:field="*{id}">
+		                                    </div>
+		                                  </div>
+		                                  
+		                                  <div class="col-md-4 js-container-foto">
+		                                       
+		                                       <!-- Tem foto -->
+		                                       <img th:src="${produto.url}" th:if="${produto.temFoto()}" class="img-responsive" style="margin: auto"/>
+		                                       <!-- Não tem foto -->
+		                                       <div id="upload-drop" class="pdt-upload" th:attr="data-codigo=${produto.id}" th:if="${not produto.temFoto()}">
+		                                           <img th:src="@{/images/mockup1.jpg}" class="img-responsive" style="margin: auto"/>
+		                                           <div>
+		                                               <span> Arraste a foto ou </span>
+		                                               <a class="pdt-upload-form-file"><strong>selecione</strong><input id="upload-select" type="file" accept=".jpg,.jpeg,.png"/></a>
+		                                           </div>
+		                                       </div>
+		                                  </div>
+		                                  <div class="col-md-12">
+		                                    <div class="has-warning form-group">
+		                                        <label for="rg" class="form-control-label">Descrição</label>
+		                                        <textarea type="text" name="descricao" id="descricao" th:field="*{descricao}" rows="4" class="form-control" maxlength="250" th:classappend="${#fields.hasErrors('descricao')} ? is-invalid"></textarea>
+		                                  	</div> 
+		                                  </div>
+		                                  <div class="col-md-12">
+		                                    <div class="form-group">		
+		                                    	<button type="submit" class="btn btn-outline-warning"><i class="ti-pencil"></i>&nbsp; Editar</button>		
+		                                    </div>
+		                                  </div>	
+		              			</div><!-- /.centralizador_do_form-->
                             </div>    
                         </form>    
                         <!--/.produto-->
-                    </div>
+                    </div><!-- /.card principal -->
                 </div>
             </div>
         </div>
@@ -252,6 +268,9 @@
     <script src="/assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="/assets/js/init/datatables-init.js"></script>
 
+	<script th:src="@{/vendor/uikit/js/upload.min.js}"></script>
+    <script th:src="@{/vendor/uikit/js/uikit.min.js}"></script>
+    <script th:src="@{/js/produto.upload-foto.js}"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {

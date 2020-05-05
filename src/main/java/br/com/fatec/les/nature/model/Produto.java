@@ -11,8 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.util.StringUtils;
 
 @Entity
 @Table(name="tbl_produto")
@@ -21,25 +24,48 @@ public class Produto {
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="produto_sequence")
 	@SequenceGenerator(name = "produto_sequence", sequenceName = "prod_seq", initialValue = 300000, allocationSize = 1)
-	@Column(name="pdt_id")
+	@Column(name="pdt_in_id")
     private Long id;
 
-	@Column(name="pdt_valor")
+	@Column(name="pdt_mo_valor")
 	@NotNull(message="Informe o valor do produto")
     private BigDecimal valor;
     
-	@Column(name="pdt_nome")
+	@Column(name="pdt_st_nome")
 	@NotBlank(message="É obrigatória a inserção de um nome para o produto")
 	private String nome;
 	
-	@Column(name="pdt_descricao")
+	@Column(name="pdt_st_descricao")
 	@NotBlank(message="É obrigatória a inserção de uma descrição para o produto")
 	private String descricao;
     
-	@Column(name="pdt_tipo")
+	@Column(name="pdt_in_tipo")
 	@NotNull
 	@Enumerated(EnumType.ORDINAL)
     private TipoProduto tipo;
+	
+	@Column(name="pdt_st_foto")
+	private String foto;
+	
+	@Transient
+	private String url;
+	
+	//Getters and Setters
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+	
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
 
 	public Long getId() {
 		return id;
@@ -80,5 +106,10 @@ public class Produto {
 	public void setTipo(TipoProduto tipo) {
 		this.tipo = tipo;
 	}
+	
+	//Métodos
+	public Boolean temFoto() {
+		return !StringUtils.isEmpty(this.foto);
+	} 
 	
 }

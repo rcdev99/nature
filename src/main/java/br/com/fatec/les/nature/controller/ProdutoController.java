@@ -50,7 +50,7 @@ public class ProdutoController {
 	 * @param produto Objeto para preenchimento dos campos caso tenha sifo feita tentativa inválida de cadastro
 	 * @return mView View para cadastro de produtos.
 	 */
-	@RequestMapping(value = "/cadastro", method=RequestMethod.GET)
+	@RequestMapping(value = "/cadastro")
 	public ModelAndView formProduto(Produto produto) {
 		
 		ModelAndView mView = new ModelAndView("dashboard-adm-produto-novo");
@@ -112,6 +112,10 @@ public class ProdutoController {
 		
 		Produto produto = pService.findById(id);
 		
+		if(produto.temFoto()) {
+			produto.setUrl("http://localhost:8080/fotos/" + produto.getFoto());
+		}
+		
 		mView.addObject("produto", produto);
 		mView.addObject("tiposProduto", TipoProduto.values());
 		
@@ -159,6 +163,5 @@ public class ProdutoController {
 		
 		return mView;
 	}
-	
-	
+
 }
