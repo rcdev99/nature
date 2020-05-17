@@ -24,7 +24,7 @@ public class HomeController {
 	 * Método utilizado para direcionar o cliente à tela de login
 	 * @return
 	 */
-	@RequestMapping(value = "/logins")
+	@RequestMapping(value = "/login")
 	public String autenticacao() {
 		return "login";
 		
