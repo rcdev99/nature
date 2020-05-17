@@ -1,9 +1,15 @@
 package br.com.fatec.les.nature.model;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import br.com.fatec.les.nature.util.Criptografia;
 
-public abstract class Usuario extends Pessoa{
+public abstract class Usuario extends Pessoa implements UserDetails{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer usr_id;
 	private String email;
 	private String senha;

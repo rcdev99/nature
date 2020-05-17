@@ -5,12 +5,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication()
-@ComponentScan({"br.com.fatec.les.nature.controller","br.com.fatec.les.nature.service","br.com.fatec.les.nature.storage",
-	"br.com.fatec.les.nature.service","br.com.fatec.les.nature.conf"})
+@ComponentScan({"br.com.fatec.les.nature.controller","br.com.fatec.les.nature.service","br.com.fatec.les.nature.storage"
+	,"br.com.fatec.les.nature.conf","br.com.fatec.les.nature.dao"})
 public class NatureApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(NatureApplication.class, args);
+		
 	}
 
 }
