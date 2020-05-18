@@ -1,6 +1,8 @@
 package br.com.fatec.les.nature.conf;
 
-//import org.springframework.beans.factory.annotation.Autowired;
+import javax.transaction.Transactional;
+
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,6 +12,7 @@ import br.com.fatec.les.nature.dao.UsuarioDAO;
 import br.com.fatec.les.nature.model.Cliente;
 
 @Repository
+@Transactional
 public class ImplementsDetailsService implements UserDetailsService{
 
 	UsuarioDAO DAOUsuario = new UsuarioDAO();
@@ -24,7 +27,7 @@ public class ImplementsDetailsService implements UserDetailsService{
 			throw new UsernameNotFoundException("Usuário não encontrado");
 		}
 		
-		return usuario;
+		return new User(usuario.getUsername(), usuario.getPassword(), true, true, true, true, usuario.getAuthorities());
 	}
 
 }

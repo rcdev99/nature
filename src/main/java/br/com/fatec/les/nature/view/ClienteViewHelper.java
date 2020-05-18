@@ -118,7 +118,7 @@ public class ClienteViewHelper implements IViewHelper {
 				cliente.setDtNasc(data);
 				cliente.setEmail(email);
 				cliente.setSenha(senha);
-				cliente.setTipo(TipoUsuario.CLIENTE);
+				cliente.setTipo(TipoUsuario.ROLE_CLIENTE);
 				cliente.addEndereco(endereco);
 				cliente.setTelefones(telefones);
 				

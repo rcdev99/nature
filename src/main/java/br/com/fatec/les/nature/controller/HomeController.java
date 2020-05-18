@@ -136,7 +136,7 @@ public class HomeController {
 		ModelAndView mView = new ModelAndView("dashboard-admin");
 	
 		Integer qtdClientes;
-		qtdClientes = DAOUsuario.getQtdUsuarios(TipoUsuario.CLIENTE);
+		qtdClientes = DAOUsuario.getQtdUsuarios(TipoUsuario.ROLE_CLIENTE);
 	
 		mView.addObject("qtdClientes", qtdClientes);
 		

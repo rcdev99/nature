@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import br.com.fatec.les.nature.util.Role;
+
 public class Cliente extends Usuario{
 
 	/**
@@ -88,7 +90,14 @@ public class Cliente extends Usuario{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		
-		return null;
+		Role acesso = new Role();
+		List<Role> roles = new ArrayList<Role>();
+		
+		acesso.setNomeRole(this.getTipo().name());
+		
+		roles.add(acesso);
+		
+		return (Collection<? extends GrantedAuthority>) roles;
 	}
 
 	@Override
@@ -125,5 +134,11 @@ public class Cliente extends Usuario{
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public String getAuthority() {
+		
+		return this.getTipo().name();
 	}
 }

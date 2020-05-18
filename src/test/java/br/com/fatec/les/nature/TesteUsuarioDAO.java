@@ -15,13 +15,12 @@ public class TesteUsuarioDAO {
 		
 		usuario.setEmail("ricardo06@gmail.com");
 		usuario.setSenha("ricardo");
-		usuario.setTipo(TipoUsuario.FORNECEDOR);
+		usuario.setTipo(TipoUsuario.ROLE_FORNECEDOR);
 		usuario.setId(1002);
 		usuario.setUsr_id(1001);
 		
 		//System.out.println(DAOUsuario.consultaByLogin(usuario.getEmail()).getSenha());
-		System.out.println(DAOUsuario.getQtdUsuarios(TipoUsuario.CLIENTE));
-		
+		System.out.println(DAOUsuario.getQtdUsuarios(TipoUsuario.ROLE_CLIENTE));
 
 	}
 

@@ -1,10 +1,11 @@
 package br.com.fatec.les.nature.model;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.fatec.les.nature.util.Criptografia;
 
-public abstract class Usuario extends Pessoa implements UserDetails{
+public abstract class Usuario extends Pessoa implements UserDetails, GrantedAuthority{
 
 	/**
 	 * 
