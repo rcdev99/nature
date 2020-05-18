@@ -51,16 +51,6 @@ public class HomeController {
 	}
 	
 	/**
-	 * Método responsável por incovar a página de exibição dos detalhes de um produto. 
-	 * @return
-	 */
-	@RequestMapping(value = "/produto")
-	public String detalhesProduto(){
-		
-		return "produto";
-	}
-	
-	/**
 	 * Método utilizado para direcionar o cliente ao carrinho de compras
 	 * @return
 	 */
