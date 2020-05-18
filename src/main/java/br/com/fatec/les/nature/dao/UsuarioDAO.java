@@ -8,9 +8,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.Bean;
+
 import br.com.fatec.les.nature.model.Cliente;
 import br.com.fatec.les.nature.model.EntidadeDominio;
 import br.com.fatec.les.nature.model.TipoUsuario;
+
 
 public class UsuarioDAO extends AbstractJDBCDAO{
 
@@ -378,7 +381,7 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 		return null;
 	}
 
-
+	@Bean
 	public Cliente consultaByLogin(String login) {
 		//Abrindo conexão caso nula
 		if(connection == null) {
@@ -417,9 +420,8 @@ public class UsuarioDAO extends AbstractJDBCDAO{
 		} finally {
 			try {
 				pst.close();
-				if(ctrlTransaction == true) {
-					connection.close();
-				}
+				connection.close();
+				connection = null;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

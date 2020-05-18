@@ -1,10 +1,19 @@
 package br.com.fatec.les.nature.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+
+import br.com.fatec.les.nature.util.Role;
 
 public class Cliente extends Usuario{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Endereco> enderecos = new ArrayList<Endereco>();
 	private List<Cartao> cartoes = new ArrayList<Cartao>();
 	private List<Telefone> telefones = new ArrayList<Telefone>();
@@ -76,5 +85,60 @@ public class Cliente extends Usuario{
 	
 	public void addTelefone(Telefone telefone) {
 		this.telefones.add(telefone);
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		
+		Role acesso = new Role();
+		List<Role> roles = new ArrayList<Role>();
+		
+		acesso.setNomeRole(this.getTipo().name());
+		
+		roles.add(acesso);
+		
+		return (Collection<? extends GrantedAuthority>) roles;
+	}
+
+	@Override
+	public String getPassword() {
+		// Obtém a senha do usuário
+		return this.getSenha();
+	}
+
+	@Override
+	public String getUsername() {
+		// Username será o e-mail do usuário
+		return this.getEmail();
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public String getAuthority() {
+		
+		return this.getTipo().name();
 	}
 }
