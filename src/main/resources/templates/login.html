@@ -72,7 +72,14 @@
 				<li class="nav-item active"><a href="/sobre_nos" class="nav-link">Sobre nós</a></li>
 				<li class="nav-item"><a href="/contato" class="nav-link">Contate-nos</a></li>
 				<li class="nav-item cta cta-colored"><a href="/carrinho" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-				<li class="nav-item cta cta-colored"><a href="/login" class="nav-link"><span class="icon-user"></span>Entrar</a></li>
+				<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="icon-user"></span></a>
+				<div class="dropdown-menu" aria-labelledby="dropdown04">
+					<a class="dropdown-item" href="/login">Entrar</a>
+					<a class="dropdown-item" href="/logout">Sair</a>
+				</div>
+				</li>
+			
 			</ul>
 			</div>
 		</div>
@@ -92,12 +99,12 @@
 					</span>
 
 					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
-						<input class="input100" type="text" name="usuario" placeholder="Nome de usuário">
+						<input class="input100" type="text" name="username" placeholder="Nome de usuário"/>
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Please enter password">
-						<input class="input100" type="password" name="senha" placeholder="Senha">
+						<input class="input100" type="password" name="password" placeholder="Senha"/>
 						<span class="focus-input100"></span>
 					</div>
 

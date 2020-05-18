@@ -517,7 +517,7 @@ public class ClienteDAO extends AbstractJDBCDAO {
 			sql.append(" INNER JOIN tbl_usuario usr ON usr.usr_pes_in_id = pes.pes_in_id");
 			sql.append(" WHERE usr.usr_bo_status");
 			sql.append(" AND pes.pes_bo_status");
-			sql.append(" AND usr_in_tipo = " + TipoUsuario.CLIENTE.ordinal());
+			sql.append(" AND usr_in_tipo = " + TipoUsuario.ROLE_CLIENTE.ordinal());
 			sql.append(" ORDER BY pes.pes_st_nome");
 			
 			try {
@@ -548,7 +548,7 @@ public class ClienteDAO extends AbstractJDBCDAO {
 					cliente.setUsr_id(rs.getInt("usr_in_id"));
 					cliente.setEmail(rs.getString("usr_st_email"));
 					cliente.setSenhaBD(rs.getString("usr_st_senha"));
-					cliente.setTipo(TipoUsuario.CLIENTE);
+					cliente.setTipo(TipoUsuario.ROLE_CLIENTE);
 					cliente.setUsr_status(rs.getBoolean("usr_bo_status"));
 				
 					AllClientes.add(cliente);

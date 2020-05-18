@@ -62,7 +62,7 @@ public class TesteCliente {
 		
 		//Usuario
 		cliente.setEmail("ric@ricardo06");
-		cliente.setTipo(TipoUsuario.DESENVOLVEDOR);
+		cliente.setTipo(TipoUsuario.ROLE_DESENVOLVEDOR);
 		cliente.setSenha("Ricardo123");
 		
 		//Endereço 1
