@@ -47,6 +47,11 @@ public class Produto {
 	@Column(name="pdt_st_foto")
 	private String foto;
 	
+	@Column(name="pdt_in_tipo_preco")
+	@NotNull
+	@Enumerated(EnumType.ORDINAL)
+    private TipoPrecificacao tipoPreco;
+	
 	@Transient
 	private String url;
 	
@@ -105,6 +110,14 @@ public class Produto {
 
 	public void setTipo(TipoProduto tipo) {
 		this.tipo = tipo;
+	}
+	
+	public TipoPrecificacao getTipoPreco() {
+		return tipoPreco;
+	}
+
+	public void setTipoPreco(TipoPrecificacao tipoPreco) {
+		this.tipoPreco = tipoPreco;
 	}
 	
 	//Métodos

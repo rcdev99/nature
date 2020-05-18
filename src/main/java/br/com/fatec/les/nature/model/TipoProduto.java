@@ -19,7 +19,4 @@ public enum TipoProduto {
 		this.descricao = descricao;
 	}
 
-	
-	
-	
 }
