@@ -2,12 +2,12 @@ package br.com.fatec.les.nature.model;
 
 public enum TipoPrecificacao {
 
-	QUILOGRAMA("kg"),
-	MILIGRAMA("mg"),
 	GRAMA("g"),
-	UNIDADE("un"),
 	LITRO("lt"),
-	MILILITRO("ml");
+	MILIGRAMA("mg"),
+	MILILITRO("ml"),
+	QUILOGRAMA("kg"),
+	UNIDADE("un");
 
 	//Variáveis
 	private String descricao;

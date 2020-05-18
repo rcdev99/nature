@@ -132,7 +132,8 @@
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a href="/admin">Painel de Controle</a></li>
-                                    <li class="active">Produtos</li>
+                                    <li><a href="/produto/listar">Produtos</a></li>
+                                    <li class="active">Editar</li>
                                 </ol>
                             </div>
                         </div>
@@ -197,7 +198,20 @@
 		                                                </div>
 		                                            </div>
 		                                        </div>
-		                                        
+		                                         <div class="col-md-12">
+		                                            <div class="form-group">
+		                                                <label for="tipoPreco">Precificação</label>
+		                                                <div class="input-group">    
+		                                                    <div class="input-group-addon"><i class="fa fa-list-ul"></i></div>
+		                                                    <select name="tipoPreco" id="tipoPreco" th:field="*{tipoPreco}" class="form-control" required>
+		                                                        <option th:value="${tipoPreco}" th:text="|${produto.tipoPreco} (${produto.tipoPreco.descricao})|"></option>
+		                                                        <th:block th:each="tipo : ${tiposPrecificacao}">
+		                                                            <option th:value="${tipo}" th:text="|${tipo} (${tipo.descricao})|"></option>
+		                                                        </th:block>
+		                                                    </select>
+		                                                </div>
+		                                            </div>
+		                                        </div>	
 		                                        <input type="hidden" name="id" id="id" th:field="*{id}">
 		                                    </div>
 		                                  </div>

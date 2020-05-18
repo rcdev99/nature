@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fatec.les.nature.model.Produto;
+import br.com.fatec.les.nature.model.TipoPrecificacao;
 import br.com.fatec.les.nature.model.TipoProduto;
 import br.com.fatec.les.nature.repository.Produtos;
 import br.com.fatec.les.nature.service.ProdutoService;
@@ -55,8 +56,8 @@ public class ProdutoController {
 		
 		ModelAndView mView = new ModelAndView("dashboard-adm-produto-novo");
 		
-		
 		mView.addObject("tiposProduto", TipoProduto.values());
+		mView.addObject("tiposPrecificacao", TipoPrecificacao.values());
 		mView.addObject("produto", produto);
 		
 		return mView;
@@ -118,6 +119,7 @@ public class ProdutoController {
 		
 		mView.addObject("produto", produto);
 		mView.addObject("tiposProduto", TipoProduto.values());
+		mView.addObject("tiposPrecificacao", TipoPrecificacao.values());
 		
 		return mView;
 	}
