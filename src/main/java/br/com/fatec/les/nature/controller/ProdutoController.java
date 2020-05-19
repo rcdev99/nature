@@ -18,7 +18,6 @@ import br.com.fatec.les.nature.model.TipoPrecificacao;
 import br.com.fatec.les.nature.model.TipoProduto;
 import br.com.fatec.les.nature.repository.Produtos;
 import br.com.fatec.les.nature.service.ProdutoService;
-import br.com.fatec.les.nature.storage.FotoStorage;
 
 @Controller
 @RequestMapping("/produto")
@@ -30,8 +29,6 @@ public class ProdutoController {
 	@Autowired
 	ProdutoService pService;
 	
-	@Autowired
-	private FotoStorage fotoStorage;
 	
 	/**
 	 * Método utilizado para direcionar o usuário administrativo ao painel de controle de produtos
@@ -183,15 +180,10 @@ public class ProdutoController {
 		Produto produto = new Produto();
 		produto = pService.findById(id);
 		
-		if(produto.temFoto()) {
-			produto.setUrl(fotoStorage.getUrl(produto.getFoto()));
-		}else {
-			produto.setUrl("/images/mockup1.jpg");
-		}
-		
 		mView.addObject("produto", produto);
-		System.out.println(">>>" + produto.getUrl());
+		
 		return mView;
 	}
+
 	
 }

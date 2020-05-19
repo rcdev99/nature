@@ -1,5 +1,8 @@
 package br.com.fatec.les.nature.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,7 +48,13 @@ public class ProdutoService {
 	 */
 	public Produto findById(long id) {
 		
-		return produtos.findById(id).get();
+		Produto prod = new Produto();
+		prod = produtos.findById(id).get();
+		
+		String url = obterUrl(prod);
+		prod.setUrl(url);
+		
+		return prod; 
 	}
 	
 	/**
@@ -61,6 +70,36 @@ public class ProdutoService {
 		produtos.save(produto);
 		
 		return fotoStorage.getUrl(nomeFoto);
+		
+	}
+	
+	/**
+	 * Método utilizado para obter todos os produtos cadastrados e inserir a foto
+	 * @return
+	 */
+	public List<Produto> getAllProducts(){
+		
+		List<Produto> allProducts = new ArrayList<Produto>();
+				
+		for (Produto product : produtos.findAll()) {
+			
+			String url = obterUrl(product);
+			product.setUrl(url);
+			allProducts.add(product);
+			
+		}
+		
+		return allProducts;
+	}
+	
+	
+	protected String obterUrl(Produto prod) {
+		
+		if(prod.temFoto()) {
+			return fotoStorage.getUrl(prod.getFoto());
+		}else {
+			return "/images/mockup1.jpg";
+		}
 		
 	}
 	

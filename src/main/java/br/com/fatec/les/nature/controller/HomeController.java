@@ -1,7 +1,9 @@
 package br.com.fatec.les.nature.controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,16 +11,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.fatec.les.nature.dao.UsuarioDAO;
 import br.com.fatec.les.nature.model.Cliente;
+import br.com.fatec.les.nature.model.Produto;
 import br.com.fatec.les.nature.model.SiglaEstados;
 import br.com.fatec.les.nature.model.TipoResidencia;
 import br.com.fatec.les.nature.model.TipoTelefone;
 import br.com.fatec.les.nature.model.TipoUsuario;
+import br.com.fatec.les.nature.service.ProdutoService;
 
 @Controller
 public class HomeController {
 	
 	//DAO´S
 	UsuarioDAO DAOUsuario = new UsuarioDAO();
+	
+	//Service
+	@Autowired
+	ProdutoService pService;
 	
 	/**
 	 * Método utilizado para direcionar o cliente à tela de login
@@ -45,9 +53,15 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping(value = "/produtos", method = RequestMethod.GET)
-	public String mostrarProdutos(){
+	public ModelAndView mostrarProdutos(){
 		
-		return "produtos";
+		ModelAndView mView = new ModelAndView("produtos");
+		
+		List<Produto> produtos = pService.getAllProducts();
+		
+		mView.addObject("produtos", produtos);
+		
+		return mView;
 	}
 	
 	/**
