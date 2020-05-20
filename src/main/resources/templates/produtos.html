@@ -98,11 +98,14 @@
     		<div class="row justify-content-center">
     			<div class="col-md-10 mb-5 text-center">
     				<ul class="product-category">
-    					<li><a href="#" class="active">Todos</a></li>
-    					<li><a href="#">Vegetais</a></li>
-    					<li><a href="#">Frutas</a></li>
-    					<li><a href="#">Sucos Naturais e Detox</a></li>
-    					<li><a href="#">Grãos</a></li>
+    					<li><a href="/produtos" class="active">Todos</a></li>
+    					<th:block th:each= "tipo : ${tiposProduto}">
+	    					<li>
+	    						<a th:href="@{/produto/categoria/{tipoProduto}(tipoProduto=${tipo})}">
+	    							<span th:text=${tipo.descricao}></span>
+	    						</a>
+	    					</li>
+    					</th:block>
     				</ul>
     			</div>
     		</div>
@@ -221,6 +224,18 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="/js/google-map.js"></script>
   <script src="/js/main.js"></script>
+    
+    <script>
+	    $(function(){
+	        $('ul li a').click(function(i){
+	            $('ul li a').removeClass('active');
+	            $(this).addClass('active');
+	            $('.content').each(function(index) {
+	                $(this).toggleClass('active');
+	            });
+	        });
+	    });
+    </script>
     
   </body>
 </html>

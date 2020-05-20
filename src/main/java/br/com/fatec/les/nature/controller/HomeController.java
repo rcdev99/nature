@@ -13,6 +13,7 @@ import br.com.fatec.les.nature.dao.UsuarioDAO;
 import br.com.fatec.les.nature.model.Cliente;
 import br.com.fatec.les.nature.model.Produto;
 import br.com.fatec.les.nature.model.SiglaEstados;
+import br.com.fatec.les.nature.model.TipoProduto;
 import br.com.fatec.les.nature.model.TipoResidencia;
 import br.com.fatec.les.nature.model.TipoTelefone;
 import br.com.fatec.les.nature.model.TipoUsuario;
@@ -49,7 +50,7 @@ public class HomeController {
 	}
 	
 	/**
-	 * Método responsável por incovar a página de exibição dos produtos do sistema. 
+	 * Método responsável por invocar a página principal de exibição dos produtos do sistema. 
 	 * @return
 	 */
 	@RequestMapping(value = "/produtos", method = RequestMethod.GET)
@@ -60,6 +61,7 @@ public class HomeController {
 		List<Produto> produtos = pService.getAllProducts();
 		
 		mView.addObject("produtos", produtos);
+		mView.addObject("tiposProduto", TipoProduto.values());
 		
 		return mView;
 	}

@@ -184,6 +184,24 @@ public class ProdutoController {
 		
 		return mView;
 	}
+	
+	/**
+	 * Método responsável por invocar a página principal de exibição dos produtos do sistema. 
+	 * @return
+	 */
+	@RequestMapping(value = "/categoria/{tipoProduto}", method = RequestMethod.GET)
+	public ModelAndView produtosPorCategoria(@PathVariable("tipoProduto") String tipoProduto){
+		
+		ModelAndView mView = new ModelAndView("produtos");
+		TipoProduto tipo = TipoProduto.valueOf(tipoProduto);
+		
+		List<Produto> produtos = pService.buscarPorCategoria(tipo);
+		
+		mView.addObject("produtos", produtos);
+		mView.addObject("tiposProduto", TipoProduto.values());
+		
+		return mView;
+	}
 
 	
 }
