@@ -180,7 +180,7 @@
 		                                   <th scope="row"><span th:text="${produto.id}"></span></th>
 		                                   <td th:text="${produto.nome}"></td>
                                            <td th:text="${produto.tipo.descricao}"></td>
-                                           <td th:text="|R$${produto.valor}|"></td>
+                                           <td th:text="|R$ ${produto.valor} (${produto.tipoPreco.descricao})|"></td>
                                            <td align="center">
 			                                   	<a th:href="@{/produto/detalhes/{id}(id=${produto.id})}"> Detalhes <i class="ti-search"> </i></a>
 	                                            <a th:href="@{/produto/editar/{id}(id=${produto.id})}"> | Editar <i class="ti-pencil"> </i></a>

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fatec.les.nature.model.Produto;
+import br.com.fatec.les.nature.model.TipoPrecificacao;
 import br.com.fatec.les.nature.model.TipoProduto;
 import br.com.fatec.les.nature.repository.Produtos;
 import br.com.fatec.les.nature.service.ProdutoService;
@@ -27,6 +28,7 @@ public class ProdutoController {
 	
 	@Autowired
 	ProdutoService pService;
+	
 	
 	/**
 	 * Método utilizado para direcionar o usuário administrativo ao painel de controle de produtos
@@ -55,8 +57,8 @@ public class ProdutoController {
 		
 		ModelAndView mView = new ModelAndView("dashboard-adm-produto-novo");
 		
-		
 		mView.addObject("tiposProduto", TipoProduto.values());
+		mView.addObject("tiposPrecificacao", TipoPrecificacao.values());
 		mView.addObject("produto", produto);
 		
 		return mView;
@@ -118,6 +120,7 @@ public class ProdutoController {
 		
 		mView.addObject("produto", produto);
 		mView.addObject("tiposProduto", TipoProduto.values());
+		mView.addObject("tiposPrecificacao", TipoPrecificacao.values());
 		
 		return mView;
 	}
@@ -164,4 +167,41 @@ public class ProdutoController {
 		return mView;
 	}
 
+	/**
+	 * Método utilizado para exibir um produto do DataBase
+	 * @param id Identificador único do produto a ser exibido
+	 * @return mView Tela de visualização do produto
+	 */
+	@RequestMapping(value="/{produto.id}")
+	public ModelAndView exibirProduto(@PathVariable("produto.id") Long id) {
+		
+		ModelAndView mView = new ModelAndView("produto");
+		
+		Produto produto = new Produto();
+		produto = pService.findById(id);
+		
+		mView.addObject("produto", produto);
+		
+		return mView;
+	}
+	
+	/**
+	 * Método responsável por invocar a página principal de exibição dos produtos do sistema. 
+	 * @return
+	 */
+	@RequestMapping(value = "/categoria/{tipoProduto}", method = RequestMethod.GET)
+	public ModelAndView produtosPorCategoria(@PathVariable("tipoProduto") String tipoProduto){
+		
+		ModelAndView mView = new ModelAndView("produtos");
+		TipoProduto tipo = TipoProduto.valueOf(tipoProduto);
+		
+		List<Produto> produtos = pService.buscarPorCategoria(tipo);
+		
+		mView.addObject("produtos", produtos);
+		mView.addObject("tiposProduto", TipoProduto.values());
+		
+		return mView;
+	}
+
+	
 }
