@@ -1,5 +1,6 @@
 package br.com.fatec.les.nature.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -11,6 +12,12 @@ public class Carrinho {
 
 	private List<ItensCompra> itens;
 
+	//Constructor
+	public Carrinho() {
+		
+		this.itens = new ArrayList<ItensCompra>();
+	}
+	
 	//Getters and Setters
 	public List<ItensCompra> getItens() {
 		return itens;
@@ -29,10 +36,9 @@ public class Carrinho {
 		int index;
 		index = varrerLista(item.getProduto().getId());
 		
-		if(index >= 0) {
+		if(index < 0) {
 			
-			itens.get(index).incrementarQtdProduto();
-		}else {
+			item.incrementarQtdProduto();
 			itens.add(item);
 		}
 		
@@ -58,7 +64,7 @@ public class Carrinho {
 	 */
 	public int varrerLista(long idProduto) {
 		
-		//Items já se encontra no carrinho ?
+		//Item já se encontra no carrinho ?
 		for (int i = 0; i<itens.size(); i++) {
 			
 			if(itens.get(i).getProduto().getId() == idProduto) {

@@ -7,15 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.fatec.les.nature.dao.UsuarioDAO;
-import br.com.fatec.les.nature.model.Carrinho;
 import br.com.fatec.les.nature.model.Cliente;
-import br.com.fatec.les.nature.model.ItensCompra;
 import br.com.fatec.les.nature.model.Produto;
 import br.com.fatec.les.nature.model.SiglaEstados;
 import br.com.fatec.les.nature.model.TipoProduto;
@@ -34,8 +31,6 @@ public class HomeController {
 	@Autowired
 	ProdutoService pService;
 	
-	@Autowired
-	Carrinho carrinho;
 	
 	/**
 	 * Método utilizado para direcionar o cliente à tela de login
@@ -72,45 +67,6 @@ public class HomeController {
 		mView.addObject("tiposProduto", TipoProduto.values());
 		
 		return mView;
-	}
-	
-	/**
-	 * Método utilizado para direcionar o cliente ao carrinho de compras
-	 * @return
-	 */
-	@RequestMapping(value = "/carrinho")
-	public ModelAndView carrinho() {
-		
-		ModelAndView mView = new ModelAndView("carrinho");
-		
-		String nome = obterUsuarioLogado();
-		
-		System.out.println(nome);
-		
-		mView.addObject("carrinho", carrinho);
-		
-		return mView;
-		
-	}
-	
-	/**
-	 * Método utilizado para adicionar itens ao carrinho de compras
-	 * @return
-	 */
-	@RequestMapping(value = "/carrinho/{id}")
-	public ModelAndView carrinho(@PathVariable("id") Long id) {
-		
-		ModelAndView mView = new ModelAndView("carrinho"); 
-		
-		Produto produto = pService.findById(id);
-		ItensCompra item = new ItensCompra(produto);
-		
-		carrinho.adicionarItem(item);
-		
-		mView.addObject("carrinho", carrinho);
-		
-		return mView;
-		
 	}
 	
 	/**
@@ -190,6 +146,7 @@ public class HomeController {
 	 * Método para obtenção do login do usuário
 	 * @return String contendo login do usuário
 	 */
+	@SuppressWarnings("unused")
 	private String obterUsuarioLogado() {
 		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

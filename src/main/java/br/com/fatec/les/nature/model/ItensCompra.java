@@ -39,7 +39,7 @@ public class ItensCompra {
 	//Methods
 	public void incrementarQtdProduto() {
 
-		this.quantidade = quantidade++;
+		this.quantidade = quantidade + 1;
 	}
 	
 }
