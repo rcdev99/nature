@@ -42,14 +42,42 @@ public class CarrinhoController {
 	 * @return
 	 */
 	@RequestMapping(value = "/add/{id}")
-	public ModelAndView carrinho(@PathVariable("id") Long id) {
+	public ModelAndView adicionarItem(@PathVariable("id") Long id) {
 		
 		ModelAndView mView = new ModelAndView("carrinho"); 
 		
 		Produto produto = pService.findById(id);
-		ItensCompra item = new ItensCompra(produto);
 		
-		carrinho.adicionarItem(item);
+		if(produto != null) {
+			
+			ItensCompra item = new ItensCompra(produto);
+			carrinho.adicionarItem(item);
+			mView.addObject("mensagem", "Produto adicionado ao carrinho");
+		}
+		
+		
+		mView.addObject("carrinho", carrinho);
+		
+		return mView;
+		
+	}
+	
+	/**
+	 * Método utilizado para remover itens ao carrinho de compras
+	 * @return
+	 */
+	@RequestMapping(value = "/rmv/{id}")
+	public ModelAndView removerItem(@PathVariable("id") Long id) {
+		
+		ModelAndView mView = new ModelAndView("carrinho"); 
+		
+		Produto produto = pService.findById(id);
+		
+		if(produto != null) {
+			
+			carrinho.removerItem(id);
+			mView.addObject("mensagem", "Produto removido do carrinho");
+		}
 		
 		mView.addObject("carrinho", carrinho);
 		
