@@ -113,7 +113,7 @@
 						    </thead>
 						    <tbody>
 						      <th:block th:each="item : ${carrinho.itens}">
-							      <tr class="text-center">
+							      <tr class="produto">
 							        <td class="product-remove"><a th:href="@{/carrinho/rmv/{id}(id=${item.produto.id})}"><span class="ion-ios-close"></span></a></td>
 							        
 							        <td class="image-prod"><div class="img"><img class="img-fluid" th:src="${item.produto.url}" alt="Colorlib Template"/></div></td>
@@ -123,15 +123,15 @@
 							        	<p><span th:text-align="left" th:text="${item.produto.descricao}"></span></p>
 							        </td>
 							        
-							        <td class="price"><span th:text="|R$ ${item.produto.valor}|"></span></td>
+							        <td class="price"><span class="valorProduto" th:value="${item.produto.valor}"  th:text="|R$ ${item.produto.valor}|"></span></td>
 							        
 							        <td class="quantity">
 							        	<div class="input-group mb-2">
-						             		<input th:type="number" name="quantidade" class="quantity form-control input-number" th:value="${item.quantidade}" min="1" max="100">
+						             		<input th:type="number" name="quantidade" id="quantidade" class="quantity form-control input-number" onChange="calcularTotalProduto()" th:value="${item.quantidade}" min="1" max="100">
 						          		</div>
 						         	</td>
 							        
-							      	<td class="total"><span th:text="|R$ ${item.produto.valor}|"></span></td>
+							      	<td class="total"><span class="totalProduto"></span></td>
 							      </tr><!-- END TR-->
 
 						      <th:block>
@@ -172,7 +172,7 @@
     					<h3>Total da Compra</h3>
     					<p class="d-flex">
     						<span>Produtos</span>
-    						<span>R$20.60</span>
+    						<span class="totalVenda">R$ 0,00</span>
     					</p>
     					<p class="d-flex">
     						<span>Entrega</span>
@@ -275,43 +275,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="/js/google-map.js"></script>
   <script src="/js/main.js"></script>
-
-  <script>
-		$(document).ready(function(){
-
-		var quantitiy=0;
-		   $('.quantity-right-plus').click(function(e){
-		        
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		            
-		            $('#quantity').val(quantity + 1);
-
-		          
-		            // Increment
-		        
-		    });
-
-		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		      
-		            // Increment
-		            if(quantity>0){
-		            $('#quantity').val(quantity - 1);
-		            }
-		    });
-		    
-		});
-	</script>
+  <script src="/js/carrinho_de_compras.js"></script>
     
   </body>
 </html>
