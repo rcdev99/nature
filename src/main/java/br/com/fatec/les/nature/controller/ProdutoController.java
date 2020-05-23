@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.fatec.les.nature.model.Carrinho;
 import br.com.fatec.les.nature.model.Produto;
 import br.com.fatec.les.nature.model.TipoPrecificacao;
 import br.com.fatec.les.nature.model.TipoProduto;
@@ -29,6 +30,8 @@ public class ProdutoController {
 	@Autowired
 	ProdutoService pService;
 	
+	@Autowired
+	Carrinho carrinho;
 	
 	/**
 	 * Método utilizado para direcionar o usuário administrativo ao painel de controle de produtos
@@ -181,6 +184,7 @@ public class ProdutoController {
 		produto = pService.findById(id);
 		
 		mView.addObject("produto", produto);
+		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
 		
 		return mView;
 	}
@@ -199,9 +203,9 @@ public class ProdutoController {
 		
 		mView.addObject("produtos", produtos);
 		mView.addObject("tiposProduto", TipoProduto.values());
+		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
 		
 		return mView;
 	}
-
 	
 }

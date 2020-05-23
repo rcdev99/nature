@@ -4,7 +4,7 @@ public enum TipoProduto {
 
 	ESPECIARIA("Especiaria"),
 	FRUTA("Fruta"),
-	GRAO("Grão"),
+	GRAO("Grãos"),
 	LEGUMES("Legumes"),
 	SUCO("Suco"),
 	VEGETAL("Vegetal");

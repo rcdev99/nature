@@ -26,7 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/produtos",
 			"/sobre_nos",
 			"/contato",
-			"/cadastro"
+			"/cadastro",
+			"/produto/categoria/**",
+			"/cupom/**"
 	};
 	
 	@Override
@@ -66,6 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 									"/js/**", 
 									"/scss/**",
 									"/vendor/**",
+									"/layout/**",
 									"/fotos/**");
 	}
 	

@@ -58,7 +58,7 @@ public class HomeController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public ModelAndView getIndex() {
 		
-		ModelAndView mView = new ModelAndView("index");
+		ModelAndView mView = new ModelAndView("home");
 		
 		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
 		
