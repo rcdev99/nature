@@ -76,5 +76,14 @@ public class Carrinho {
 		return -1;
 	}
 	
+	/**
+	 * Método utilizado para obter a quantidade de produtos no carrinho
+	 * @return
+	 */
+	public int getQtdProdutos() {
+		
+		return itens.size();
+		
+	}
 	
 }

@@ -32,6 +32,7 @@ public class CarrinhoController {
 		ModelAndView mView = new ModelAndView("carrinho");
 		
 		mView.addObject("carrinho", carrinho);
+		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
 		
 		return mView;
 		
@@ -57,6 +58,7 @@ public class CarrinhoController {
 		
 		
 		mView.addObject("carrinho", carrinho);
+		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
 		
 		return mView;
 		
@@ -80,6 +82,7 @@ public class CarrinhoController {
 		}
 		
 		mView.addObject("carrinho", carrinho);
+		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
 		
 		return mView;
 		

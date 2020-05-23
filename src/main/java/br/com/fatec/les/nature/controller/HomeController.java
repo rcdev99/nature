@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.fatec.les.nature.dao.UsuarioDAO;
+import br.com.fatec.les.nature.model.Carrinho;
 import br.com.fatec.les.nature.model.Cliente;
 import br.com.fatec.les.nature.model.Produto;
 import br.com.fatec.les.nature.model.SiglaEstados;
@@ -31,15 +32,23 @@ public class HomeController {
 	@Autowired
 	ProdutoService pService;
 	
+	//Carrinho
+	@Autowired
+	Carrinho carrinho;
+	
 	
 	/**
 	 * Método utilizado para direcionar o cliente à tela de login
 	 * @return
 	 */
 	@RequestMapping(value = "/login")
-	public String autenticacao() {
-		return "login";
+	public ModelAndView autenticacao() {
 		
+		ModelAndView mView = new ModelAndView("login");
+		
+		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
+		
+		return mView;
 	}
 	
 	/**
@@ -47,9 +56,13 @@ public class HomeController {
 	 * @return String contendo o nome do arquivo html a ser invocado
 	 */
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String getIndex() {
-		System.out.println("Entry point NaturÊ");
-		return "index";
+	public ModelAndView getIndex() {
+		
+		ModelAndView mView = new ModelAndView("index");
+		
+		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
+		
+		return mView;
 	}
 	
 	/**
@@ -65,6 +78,7 @@ public class HomeController {
 		
 		mView.addObject("produtos", produtos);
 		mView.addObject("tiposProduto", TipoProduto.values());
+		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
 		
 		return mView;
 	}
@@ -74,9 +88,12 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping(value = "/conclusao")
-	public String conclusao() {
-		return "conclusao";
+	public ModelAndView conclusao() {
 		
+		ModelAndView mView = new ModelAndView("conclusao");
+		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
+		
+		return mView;
 	}
 	
 	/**
@@ -84,9 +101,12 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping(value = "/lista_de_desejos")
-	public String exibirListaDeDesejos() {
-		return "lista_desejos";
+	public ModelAndView exibirListaDeDesejos() {
 		
+		ModelAndView mView = new ModelAndView("lista_desejos");
+		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
+		
+		return mView;
 	}
 	
 	/**
@@ -94,8 +114,11 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping(value = "/sobre_nos")
-	public String sobreNos() {
-		return "sobre_nos";
+	public ModelAndView sobreNos() {
+		
+		ModelAndView mView = new ModelAndView("sobre_nos");
+		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
+		return mView;
 		
 	}
 	
@@ -104,8 +127,12 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping(value = "/contato")
-	public String contato() {
-		return "contato";
+	public ModelAndView contato() {
+		
+		ModelAndView mView = new ModelAndView("contato");
+		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
+		
+		return mView;
 		
 	}
 	
@@ -120,6 +147,7 @@ public class HomeController {
 		mView.addObject("tiposResidencia", TipoResidencia.values());
 		mView.addObject("tiposTelefone", TipoTelefone.values());
 		mView.addObject("siglasEstado", SiglaEstados.values());
+		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
 		mView.addObject("cliente", cliente);
 		
 		return mView;
