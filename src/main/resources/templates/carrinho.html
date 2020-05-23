@@ -152,7 +152,7 @@
 	              </div>
 	            </form>
     				</div>
-    				<p><a href="conclusao.html" class="btn btn-primary py-3 px-4">Utilizar Cupom</a></p>
+    				<p><a href="#" class="btn btn-primary py-3 px-4">Utilizar Cupom</a></p>
     			</div>
     			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
     				<div class="cart-total mb-3">
@@ -165,30 +165,30 @@
 	              </div>
 	            </form>
     				</div>
-    				<p><a href="conclusao.html" class="btn btn-primary py-3 px-4">Consultar</a></p>
+    				<p><a href="#validacao" class="btn btn-primary py-3 px-4" onClick="calcularFrete()">Consultar</a></p>
     			</div>
-    			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+    			<div class="col-lg-4 mt-5 cart-wrap ftco-animate" id="validacao">
     				<div class="cart-total mb-3">
-    					<h3>Total da Compra</h3>
+    					<h3 id="validacao">Total da Compra</h3>
     					<p class="d-flex">
     						<span>Produtos</span>
-    						<span class="totalVenda">R$ 0,00</span>
+    						<span class="totalProdutos">R$ 0,00</span>
     					</p>
     					<p class="d-flex">
     						<span>Entrega</span>
-    						<span>$0.00</span>
+    						<span class="frete">R$ 0.00</span>
     					</p>
     					<p class="d-flex">
     						<span>Desconto</span>
-    						<span>$3.00</span>
+    						<span class="desconto">R$ 0.00</span>
     					</p>
     					<hr>
     					<p class="d-flex total-price">
     						<span>Total</span>
-    						<span>$17.60</span>
+    						<span class="totalVenda">R$ 0.00</span>
     					</p>
     				</div>
-    				<p><a href="conclusao.html" class="btn btn-primary py-3 px-4">Validar Compra</a></p>
+    				<p><a href="#validacao" class="btn btn-primary py-3 px-4">Validar Compra</a></p>
     			</div>
     		</div>
 			</div>
