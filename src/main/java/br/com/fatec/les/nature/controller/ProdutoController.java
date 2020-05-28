@@ -76,11 +76,10 @@ public class ProdutoController {
 	 */
 	@RequestMapping(value = "/novo", method=RequestMethod.POST)
 	public ModelAndView cadastrarProduto(@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes) {
-		
-		
+	
 		if(result.hasErrors()) {
 			return formProduto(produto);
-		}
+		}		
 		
 		ModelAndView mView = new ModelAndView("redirect:/produto/listar");
 		

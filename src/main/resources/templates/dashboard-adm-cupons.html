@@ -41,6 +41,7 @@
                 <div class="row">
                     <div class="col-md-12">
                     	<!-- Mensagens com escopo de flash -->
+                    	<!-- Sucess -->
                     	<div class="sufee-alert alert with-close alert-success alert-dismissible fade show" th:if="${not #strings.isEmpty(mensagem)}">
                              <span class="badge badge-pill badge-success">Pronto</span>
                              <span th:text="${mensagem}">Mensagem</span>
@@ -48,7 +49,7 @@
                                  <span aria-hidden="true">&times;</span>
                              </button>
                         </div>
-                        
+                        <!-- Alert -->
                         <div class="sufee-alert alert with-close alert-warning alert-dismissible fade show" th:if="${not #strings.isEmpty(delete)}">
                              <span class="badge badge-pill badge-warning">Feito</span>
                              <span th:text="${delete}">Mensagem</span>
@@ -56,13 +57,22 @@
                                  <span aria-hidden="true">&times;</span>
                              </button>
                          </div>
+                         <!-- Error -->
+                         <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show" th:if="${not #strings.isEmpty(error)}">
+                             <span class="badge badge-pill badge-dangger">Ops !</span>
+                             <span th:text="${error}">Mensagem</span>
+                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                             </button>
+                         </div>
+                         
                         <!-- /.mensagensComEscopoDeFlash -->
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">Cupons Cadastrados</strong>
                             </div>
                             <div class="col-lg-2">
-                            	<div class="card-body text-secondary"> <a href="#"><button type="button" class="btn btn-primary" ><i class="fa fa-plus"></i>&nbsp; Cupom</button></a></div>
+                            	<div class="card-body text-secondary"> <a href="/cupom/cadastro"><button type="button" class="btn btn-primary" ><i class="fa fa-plus"></i>&nbsp; Cupom</button></a></div>
                     		</div>
                             	
                             <div class="card-body">
@@ -72,6 +82,8 @@
                                             <th scope="col">ID</th>
                                             <th scope="col">Código</th>
                                             <th scope="col">Valor</th>
+                                            <th scope="col">Tipo</th>
+                                            <th scope="col">Status</th>
                                             <th scope="col">Ações</th>
                                         </tr>
                                     </thead>
@@ -81,6 +93,8 @@
 		                                   <th scope="row"><span th:text="${cupom.id}"></span></th>
 		                                   <td th:text="${cupom.codigo}"></td>
                                            <td th:text="|R$ ${cupom.valor}|"></td>
+                                           <td th:text="${cupom.tipoCupom.descricao}"></td>
+                                           <td th:text="${cupom.status}"></td>
                                            <td align="center">
 			                                   	<a th:href="@{/cupom/detalhes/{id}(id=${cupom.id})}"> Detalhes <i class="ti-search"> </i></a>
 	                                            <a th:href="@{/cupom/editar/{id}(id=${cupom.id})}"> | Editar <i class="ti-pencil"> </i></a>
