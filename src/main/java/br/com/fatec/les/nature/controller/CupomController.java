@@ -87,6 +87,54 @@ public class CupomController {
 	}
 	
 	/**
+	 * Método utilizado para direcionar o usuário à view de Edição de cupons
+	 * @param id Identificador único do cupom que sofrerá alterações
+	 * @return
+	 */
+	@RequestMapping(value = "/editar/{cupom.id}")
+	public ModelAndView editarCupom(@PathVariable("cupom.id") Long id) {
+		
+		ModelAndView mView = new ModelAndView("dashboard-adm-cupons-editar");
+		
+		CupomDesconto cupom = cService.findById(id);
+		
+		if(cupom == null) {
+			 mView.setViewName("redirect:/cupom/listar"); 
+			 return mView;
+		}
+		
+		mView.addObject("cupom", cupom);
+		mView.addObject("tiposCupom", TipoCupom.values());
+				
+		return mView;
+	}
+	
+	/**
+	 * Método responsável pela edição de cupons
+	 * @param cupom Cupom a ser editado
+	 * @param result Resultado da valição
+	 * @param redirectAttributes Mensagem de sucesso, caso os dados tenham sido alterados corretamente
+	 * @return mView View para listagem de cupons caso a validação ocorra, ou redicionamento para a mesma página em caso de erro.
+	 */
+	@RequestMapping(value = "/editar", method=RequestMethod.POST)
+	public ModelAndView alterarProduto(@Valid CupomDesconto cupom, BindingResult result, RedirectAttributes redirectAttributes) {
+		
+		
+		if(result.hasErrors()) {
+			return formCupom(cupom);
+		}
+		
+		ModelAndView mView = new ModelAndView("redirect:/cupom/listar");
+		
+		cService.salvar(cupom);
+				
+		redirectAttributes.addFlashAttribute("mensagem", "Cupom alterado com sucesso !");
+		mView.addObject("cupom", cupom);
+		
+		return mView;
+	}
+	
+	/**
 	 * Método utilizado para excluir um cupom do DataBase
 	 * @param id Identificador único do Cupom a ser excluído
 	 * @param redirectAttributes Mensagem de conclusão da ação

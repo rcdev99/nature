@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br" 	xmlns="http://www.w3.org/1999/xhtml"
+					xmlns:th="https://thymeleaf.org"  
+					xmlns:s="http://www.springframework.org/tags"  
+					xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+					layout:decorator="layout/LayoutPadraoDashboard">
+<head>
+	<title>NaturÊ | Editar Cupom</title>
+</head>					
+<body>
+	<section layout:fragment="conteudo">
+	
+		<!-- Navegação -->
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Painel de Controle</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a href="/admin">Painel de Controle</a></li>
+                                    <li><a href="/cupom/listar">Cupons</a></li>
+                                    <li class="active">Editar</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.navegação-->	
+		<!-- Principal-->
+        <div class="content">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Informações Cadastrais</h4>
+                    </div>  	
+                    <div class="card-body">
+                    <!--Dados Cadastrais #Cupom-->
+                        <form action="/cupom/editar" th:object="${cupom}" method="POST" class="billing-form">
+                            <div class="card-body">
+	                    		<th:block th:each="erro : ${#fields.detailedErrors()}">
+	                    			<div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
+				                        <span class="badge badge-pill badge-danger">Ops !</span>
+				                        <span th:text="${erro.message}"></span>	
+				                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				                            <span aria-hidden="true">&times;</span>
+				                        </button>
+									</div>        
+	                            </th:block> 
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="row align-items-end">              
+                                            <strong class="card-title">Cupom de Desconto</strong>
+                                        </div>              
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row align-items-end">
+                                        <div class="col-md-6">
+                                            <div class="has-warning form-group">
+                                                <label class="form-control-label" for="cupom">Código do Cupom</label>
+                                                <div class="input-group">    
+                                                    <div class="input-group-addon"><i class="fa fa-ticket"></i></div>
+                                                    <input type="text" name="cupom" id="cupom" th:field="*{codigo}" class="form-control " th:classappend="${#fields.hasErrors('codigo')} ? is-invalid" >
+                                                </div>
+                                            </div>
+                                        </div>							
+                                        <div class="col-md-6">
+                                            <div class="has-warning form-group">
+                                                <label for="valor" class="form-control-label">Valor de Desconto</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-money"></i></div>
+                                                    <input type="number" name="valor" id="valor" th:field="*{valor}" class="form-control" min="0" step="0.01" placeholder="Ex.: 9,99" th:classappend="${#fields.hasErrors('valor')} ? is-invalid">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="tipoProduto">Tipo de Desconto</label>
+                                                <div class="input-group">    
+                                                    <div class="input-group-addon"><i class="fa fa-list-ul"></i></div>
+                                                    <select name="tipoDesconto" id="tipoDesconto" th:field="*{tipoCupom}" class="form-control" required>
+                                                        <th:block th:each="tipo : ${tiposCupom}">
+                                                            <option th:value="${tipo}" th:text="${tipo.descricao}"></option>
+                                                        </th:block>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="has-warning form-group">
+                                                <label for="rg" class="form-control-label">Descrição</label>
+                                                <textarea name="descricao" id="descricao" th:field="*{descricao}" rows="5" class="form-control" maxlength="249" th:classappend="${#fields.hasErrors('descricao')} ? is-invalid"></textarea>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="id" id="id" th:field="*{id}">     
+                                    <div class="row align-items-end">
+                                        <div class="col-md-6">
+                                            <div  class=form-group>		
+                                                <button type="submit" class="btn btn-outline-warning"><i class="ti-pencil"></i>&nbsp; Editar</button>
+                                            </div>
+                                        </div>	
+                                    </div>
+                                </div>    
+                            </div>    
+                        </form>    
+                        <!--/.cupom-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.principal -->
+	</section>
+</body>
+</html>					
