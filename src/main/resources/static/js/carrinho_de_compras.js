@@ -1,4 +1,5 @@
-//Variáveis locais
+//Variáveis globais
+
 	//Variável para definir o valor mínimo de compras para frete gratuito
 	var margemFrete = textToFloat("R$ 50,00");
 
@@ -89,7 +90,7 @@ function totalCompra(){
 		var residuo = totalCompra * -1;
 		alert("A compra vai gerar um cupom de desconto no valor de: " + residuo);
 		//Inserir valor zerado neste caso
-		totalCompraTxt[0].innerHTML = floatToText(0.0);
+		totalCompraTxt[0].innerHTML = "R$ 0.00";
 		
 	}else{
 		
@@ -138,6 +139,58 @@ function validarCep(){
 	return true;
 }
 
+/**
+ * Funcionalidades ligadas ao cupom de desconto
+ */
+//Função que realiza requisição via REST e retorna um cupom caso ele exista
+function validarCupom(){
+
+	var codigo = document.getElementById("cupom_codigo");
+	console.log(codigo.value);
+	
+	$.ajax({
+	    url: '/rest/validar/cupom/' + codigo.value,
+	    type: 'post',
+	    data: JSON.stringify(codigo),
+	    contentType: 'application/json',
+	    success: function(result) {
+	    	
+	    	var cupom = JSON.parse(result);
+	    	
+	        if(cupom != null){
+	    	  verificarCupom(cupom);
+	        }
+	      
+	    }
+	  });
+	
+}
+//Função para verificar se o cupom é válido
+function verificarCupom(cupom){
+	
+	if(cupom.ativo){
+		inserirCupom(cupom.valor);
+	}else{
+		alert("O cupom " + cupom.codigo + " esta inátivo");
+	}
+	
+}
+
+//Escrever valor do cupom
+function inserirCupom(valor){
+	
+	var desconto = document.getElementsByClassName("desconto");
+	
+	if(valor != null){
+		desconto[0].innerHTML = floatToText(valor);
+	}
+	
+	totalCompra();
+}
+
+/**
+ * Funcionalidades relacionadas com a inicialização da página
+ */
 //Função a ser executada no momento em que a página for carregada
 function onDocumentLoad(){
 	//Função responsável pelo cálculo do valor dos produtos
