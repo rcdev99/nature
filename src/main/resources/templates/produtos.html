@@ -67,7 +67,7 @@
 				</li>
 				<li class="nav-item active"><a href="/sobre_nos" class="nav-link">Sobre nós</a></li>
 				<li class="nav-item"><a href="/contato" class="nav-link">Contate-nos</a></li>
-				<li class="nav-item cta cta-colored"><a href="/carrinho" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+				<li class="nav-item cta cta-colored"><a href="/carrinho" class="nav-link"><span class="icon-shopping_cart" th:text="| [${qtdProduto}]|"></span></a></li>
 				<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="icon-user"></span></a>
 				<div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -125,13 +125,13 @@
 	    					</div>
 	    					<div class="bottom-area d-flex px-3">
 	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+	    							<a th:href="@{/produto/{id}(id=${produto.id})}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 	    								<span><i class="ion-ios-menu"></i></span>
 	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    							<a th:href="@{/carrinho/add/{id}(id=${produto.id})}" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
+	    							<a href="/lista_de_desejos" class="heart d-flex justify-content-center align-items-center ">
 	    								<span><i class="ion-ios-heart"></i></span>
 	    							</a>
     							</div>

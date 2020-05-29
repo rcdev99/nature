@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="https://thymeleaf.org"  
+				   xmlns:s="http://www.springframework.org/tags">
   <head>
     <title>NaturÊ | Carrinho</title>
     <meta charset="utf-8">
@@ -10,24 +11,24 @@
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="/css/animate.css">
     
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/css/magnific-popup.css">
 
-    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="/css/aos.css">
 
-    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/ionicons.min.css">
 
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/css/jquery.timepicker.css">
 
     
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/flaticon.css">
+    <link rel="stylesheet" href="/css/icomoon.css">
+    <link rel="stylesheet" href="/css/style.css">
   </head>
 <body class="goto-here">
 	<!-- Cabeçalho da página-->
@@ -46,7 +47,7 @@
 		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
 			<a class="navbar-brand" href="/home">
-				<img src="images\logos\nature\nature_logo3.png" alt="Logo NaturÊ">
+				<img src="\images\logos\nature\nature_logo3.png" alt="Logo NaturÊ">
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="oi oi-menu"></span> Menu
@@ -66,7 +67,7 @@
 				</li>
 				<li class="nav-item active"><a href="/sobre_nos" class="nav-link">Sobre nós</a></li>
 				<li class="nav-item"><a href="/contato" class="nav-link">Contate-nos</a></li>
-				<li class="nav-item cta cta-colored"><a href="/carrinho" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+				<li class="nav-item cta cta-colored"><a href="/carrinho" class="nav-link"><span class="icon-shopping_cart" th:text="| [${qtdProduto}]|"></span></a></li>
 				<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="icon-user"></span></a>
 				<div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -81,7 +82,7 @@
 		</nav>
 	</header> 
 	<!--Banner--> 
-    <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
+    <div class="hero-wrap hero-bread" style="background-image: url('/images/bg_1.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
@@ -96,6 +97,9 @@
 				<div class="row">
     			<div class="col-md-12 ftco-animate">
     				<div class="cart-list">
+    					<div align=center>
+							<span th:text="${mensagem}">Mensagem</span>
+						</div>
 	    				<table class="table">
 						    <thead class="thead-primary">
 						      <tr class="text-center">
@@ -108,47 +112,28 @@
 						      </tr>
 						    </thead>
 						    <tbody>
-						      <tr class="text-center">
-						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-						        
-						        <td class="image-prod"><div class="img" style="background-image:url(images/product-3.jpg);"></div></td>
-						        
-						        <td class="product-name">
-						        	<h3>Ervilha</h3>
-						        	<p>Ervilha plantada no interior de São Paulo</p>
-						        </td>
-						        
-						        <td class="price">$4.90</td>
-						        
-						        <td class="quantity">
-						        	<div class="input-group mb-3">
-					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-					          	</div>
-					          </td>
-						        
-						      <td class="total">$4.90</td>
-						      </tr><!-- END TR-->
-
-						      <tr class="text-center">
-						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-						        
-						        <td class="image-prod"><div class="img" style="background-image:url(images/product-4.jpg);"></div></td>
-						        
-						        <td class="product-name">
-						        	<h3>Repolho Roxo</h3>
-						        	<p>Repolho roxo da fazenda rosa enchada purpura</p>
-						        </td>
-						        
-						        <td class="price">$15.70</td>
-						        
-						        <td class="quantity">
-						        	<div class="input-group mb-3">
-					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-					          	</div>
-					          </td>
-						        
-						        <td class="total">$15.70</td>
-						      </tr><!-- END TR-->
+						      <th:block th:each="item : ${carrinho.itens}">
+							      <tr class="produto">
+							        <td class="product-remove"><a th:href="@{/carrinho/rmv/{id}(id=${item.produto.id})}"><span class="ion-ios-close"></span></a></td>
+							        
+							        <td class="image-prod"><div class="img"><img class="img-fluid" th:src="${item.produto.url}" alt="Colorlib Template"/></div></td>
+							        
+							        <td class="product-name">
+							        	<h3><span th:text="${item.produto.nome}"></span></h3>
+							        	<p><span th:text-align="left" th:text="${item.produto.descricao}"></span></p>
+							        </td>
+							        
+							        <td class="price"><span class="valorProduto" th:value="${item.produto.valor}"  th:text="|R$ ${item.produto.valor}|"></span></td>
+							        
+							        <td class="quantity">
+							        	<div class="input-group mb-2">
+						             		<input th:type="number" name="quantidade" id="quantidade" class="quantity form-control input-number" onchange="calcularTotalProduto()" th:value="${item.quantidade}" min="1" max="100">
+						          		</div>
+						         	</td>
+							        
+							      	<td class="total"><span class="totalProduto"></span></td>
+							      </tr><!-- END TR-->
+						      <th:block>
 						    </tbody>
 						  </table>
 					  </div>
@@ -160,13 +145,13 @@
     					<h3>Cupom de desconto</h3>
     					<p>Insira seu cupom de desconto</p>
   						<form action="#" class="info">
-	              <div class="form-group">
-	              	<label for="">Código do cupom</label>
-	                <input type="text" class="form-control text-left px-3" placeholder="">
-	              </div>
-	            </form>
+			              <div class="form-group">
+			              	<label for="">Código do cupom</label>
+			                <input id="cupom_codigo" type="text" class="form-control text-left px-3" placeholder="">
+			              </div>
+	            		</form>
     				</div>
-    				<p><a href="conclusao.html" class="btn btn-primary py-3 px-4">Utilizar Cupom</a></p>
+    				<p><a href="#" class="btn btn-primary py-3 px-4" onclick="validarCupom()">Utilizar Cupom</a></p>
     			</div>
     			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
     				<div class="cart-total mb-3">
@@ -179,30 +164,30 @@
 	              </div>
 	            </form>
     				</div>
-    				<p><a href="conclusao.html" class="btn btn-primary py-3 px-4">Consultar</a></p>
+    				<p><a href="#validacao" class="btn btn-primary py-3 px-4" onClick="calcularFrete()">Consultar</a></p>
     			</div>
-    			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+    			<div class="col-lg-4 mt-5 cart-wrap ftco-animate" id="validacao">
     				<div class="cart-total mb-3">
-    					<h3>Total da Compra</h3>
+    					<h3 id="validacao">Total da Compra</h3>
     					<p class="d-flex">
     						<span>Produtos</span>
-    						<span>R$20.60</span>
+    						<span class="totalProdutos">R$ 0,00</span>
     					</p>
     					<p class="d-flex">
     						<span>Entrega</span>
-    						<span>$0.00</span>
+    						<span class="frete">R$ 0.00</span>
     					</p>
     					<p class="d-flex">
     						<span>Desconto</span>
-    						<span>$3.00</span>
+    						<span class="desconto">R$ 0.00</span>
     					</p>
     					<hr>
     					<p class="d-flex total-price">
     						<span>Total</span>
-    						<span>$17.60</span>
+    						<span class="totalVenda">R$ 0.00</span>
     					</p>
     				</div>
-    				<p><a href="conclusao.html" class="btn btn-primary py-3 px-4">Validar Compra</a></p>
+    				<p><a href="#validacao" class="btn btn-primary py-3 px-4">Validar Compra</a></p>
     			</div>
     		</div>
 			</div>
@@ -213,10 +198,10 @@
 	<div class="container">
 		<div class="row">
 			<div class="mouse">
-					  <a href="#" class="mouse-icon">
-						  <div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
-					  </a>
-				  </div>
+				<a href="#" class="mouse-icon">
+					<div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
+				</a>
+			 </div>
 		</div>
 	  <div class="row mb-5">
 		<div class="col-md">
@@ -261,7 +246,7 @@
 	  <div class="row">
 		<div class="col-md-12 text-center">
 		  <a href="/home">
-			<img src="images\logos\nature\nature_logo1.png" alt="Logo da Naturê" href="/home">
+			<img src="\images\logos\nature\nature_logo1.png" alt="Logo da Naturê" href="/home">
 		  </a>
 		  <p class="copyright">&copy; Copyright Naturê - 2020</p>
 		</div>
@@ -273,59 +258,23 @@
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/bootstrap-datepicker.js"></script>
-  <script src="js/scrollax.min.js"></script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/jquery.easing.1.3.js"></script>
+  <script src="/js/jquery.waypoints.min.js"></script>
+  <script src="/js/jquery.stellar.min.js"></script>
+  <script src="/js/owl.carousel.min.js"></script>
+  <script src="/js/jquery.magnific-popup.min.js"></script>
+  <script src="/js/aos.js"></script>
+  <script src="/js/jquery.animateNumber.min.js"></script>
+  <script src="/js/bootstrap-datepicker.js"></script>
+  <script src="/js/scrollax.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="js/google-map.js"></script>
-  <script src="js/main.js"></script>
-
-  <script>
-		$(document).ready(function(){
-
-		var quantitiy=0;
-		   $('.quantity-right-plus').click(function(e){
-		        
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		            
-		            $('#quantity').val(quantity + 1);
-
-		          
-		            // Increment
-		        
-		    });
-
-		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		      
-		            // Increment
-		            if(quantity>0){
-		            $('#quantity').val(quantity - 1);
-		            }
-		    });
-		    
-		});
-	</script>
+  <script src="/js/google-map.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/carrinho_de_compras.js"></script>
     
   </body>
 </html>
