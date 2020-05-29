@@ -150,5 +150,20 @@ public class CupomController {
 		
 		return mView;
 	}
+	@RequestMapping(value="/validar/{codigo}")
+	public ModelAndView validarCupom(@PathVariable("codigo") String codigo) {
+		
+		ModelAndView mView = new ModelAndView("redirect:/cupom/listar");
+		CupomDesconto cDesc = new CupomDesconto();
+		
+		cDesc = cService.findByCode(codigo);
+		
+		if(cDesc != null) {
+			System.out.println("Código:" + cDesc.getCodigo() + " Valor R$ " + cDesc.getValor());
+		}
+		
+		return mView;
+		
+	}
 	
 }

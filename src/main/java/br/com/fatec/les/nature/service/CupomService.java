@@ -50,6 +50,20 @@ public class CupomService {
 	}
 	
 	/**
+	 * Método utilizado para localizar um Cupom de Desconto com base em seu código.
+	 * @param code Código único que identifica o cupom
+	 * @return O Cupom referente ao código informado
+	 */
+	public CupomDesconto findByCode(String code) {
+		
+		CupomDesconto cupom = new CupomDesconto();
+		cupom = cRepository.findByCodigoLike(code);
+		
+		return cupom;
+		
+	}
+	
+	/**
 	 * Método utilizado para obtenção de todos os cupons cadastrados
 	 * @return List<CupomDesconto> Contendo todo os cupons
 	 */
