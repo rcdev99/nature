@@ -96,6 +96,19 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="tipoProduto">Status</label>
+                                                <div class="input-group">    
+                                                    <div class="input-group-addon"><i class="fa fa-list-ul"></i></div>
+                                                    <select name="status" id="status" th:field="*{ativo}" class="form-control" required>
+                                                            <option th:value="${ativo}" th:text="${cupom.status}"></option>
+                                                            <option th:value="true" th:text="Ativo"></option>
+                                                            <option th:value="false" th:text="Inativo"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="col-md-12">
                                             <div class="has-warning form-group">
                                                 <label for="rg" class="form-control-label">Descrição</label>
