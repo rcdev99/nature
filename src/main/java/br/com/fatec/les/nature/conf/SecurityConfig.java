@@ -27,8 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/sobre_nos",
 			"/contato",
 			"/cadastro",
-			"/produto/categoria/**",
-			"/cupom/**"
+			"/produto/categoria/**"
+			
 	};
 	
 	@Override
@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.csrf().disable().authorizeRequests()
 					.antMatchers(AUTH_LIST)
 						.permitAll()
-					.antMatchers("/admin","/produto/**","/cliente/**")
+					.antMatchers("/admin","/cupom/**","/produto/**","/cliente/**")
 						.hasAnyRole("ADMINISTRATIVO","DESENVOLVEDOR")	
 					.anyRequest()
 						.authenticated()

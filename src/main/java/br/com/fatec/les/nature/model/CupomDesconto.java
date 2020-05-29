@@ -4,11 +4,14 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -36,6 +39,19 @@ public class CupomDesconto {
 	
 	@Column(name="cup_bo_ativo",columnDefinition = "boolean default true")
 	private Boolean ativo;
+	
+	@Column(name="cup_in_tipo")
+	@NotNull
+	@Enumerated(EnumType.ORDINAL)
+    private TipoCupom tipoCupom;
+	
+	@Transient
+	private String status;
+	
+	//Builder
+	public CupomDesconto() {
+		this.ativo = true;
+	}
 
 	//Getters and Setters
 	public Long getId() {
@@ -78,4 +94,20 @@ public class CupomDesconto {
 		this.ativo = ativo;
 	}
 	
+	public String getStatus() {
+		if (ativo) {
+			return "Ativo";
+		}else {
+			return "Inativo";
+		}
+	}
+
+	public TipoCupom getTipoCupom() {
+		return tipoCupom;
+	}
+
+	public void setTipoCupom(TipoCupom tipoCupom) {
+		this.tipoCupom = tipoCupom;
+	}
+
 }

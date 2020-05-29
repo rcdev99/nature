@@ -51,6 +51,12 @@ public class HomeController {
 		return mView;
 	}
 	
+	@RequestMapping(value = "")
+	public String redirect() {
+		
+		return "redirect:/home";
+	}
+	
 	/**
 	 * Método reponsável por invocar a home page do sistema.
 	 * @return String contendo o nome do arquivo html a ser invocado

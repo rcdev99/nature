@@ -1,6 +1,9 @@
-//Variáveis locais
+//Variáveis globais
+
 	//Variável para definir o valor mínimo de compras para frete gratuito
 	var margemFrete = textToFloat("R$ 50,00");
+	var cupons = [];
+	
 
 //Função para cálculo do valor total dos produtos no carrinho
 function calcularTotalProduto(){
@@ -87,16 +90,14 @@ function totalCompra(){
 	if(totalCompra < 0){
 		//Converter o resíduo da venda em cupom de desconto
 		var residuo = totalCompra * -1;
-		alert("A compra vai gerar um cupom de desconto no valor de: " + residuo);
+		alert("A compra vai gerar um cupom de desconto no valor de: R$ " + residuo);
 		//Inserir valor zerado neste caso
-		totalCompraTxt[0].innerHTML = floatToText(0.0);
-		
+		totalCompraTxt[0].innerHTML = "R$ 0.00";
 	}else{
-		
 		//Inserir valor total da compra
 		totalCompraTxt[0].innerHTML = floatToText(totalCompra);
 	}
-	
+	//valor ainda está zerado ?
 	if(totalCompra == 0){
 		totalCompraTxt[0].innerHTML = "R$ 0.00";
 	}
@@ -138,6 +139,95 @@ function validarCep(){
 	return true;
 }
 
+/**
+ * Funcionalidades ligadas ao cupom de desconto
+ */
+//Função que realiza requisição via REST e retorna um cupom caso ele exista
+function validarCupom(){
+	//Obtém o código do cupom
+	var codigo = document.getElementById("cupom_codigo");
+	//Requisiçao Ajax para validação do cupom
+	$.ajax({
+	    url: '/rest/validar/cupom/' + codigo.value,
+	    type: 'post',
+	    data: JSON.stringify(codigo),
+	    contentType: 'application/json',
+	    success: function(result) {
+	    	
+	    	var cupom = JSON.parse(result);
+	    	
+	        if(cupom != null){
+	    	  verificarCupom(cupom);
+	        }
+	      
+	    }
+	  });
+	
+}
+
+//Função para verificar se o cupom esta ativo
+function verificarCupom(cupom){
+	//Verifica se o cupom está ativo
+	if(cupom.ativo){
+		//Verifica se o cupom já foi inserido anteriormente
+		if(validaInsercao(cupom)){
+			var valorDesc = calcularDesconto();
+			escreverValorDesconto(valorDesc);
+		}
+	}else{
+		alert("O cupom " + cupom.codigo + " esta inátivo");
+	}
+}
+
+//Escrever valor do cupom na view
+function escreverValorDesconto(valor){
+	//Obtém a referência do local de exibição do valor de desconto
+	var desconto = document.getElementsByClassName("desconto");
+	//Insere o texto correspondente ao valor de desconto
+	if(valor != null){
+		desconto[0].innerHTML = floatToText(valor);
+	}
+	//Invoca método para calcular o total da compra
+	totalCompra();
+}
+
+//valida a inserção do cupom
+function validaInsercao(cupom){
+	
+	var valido = true;
+	//percorre array de cupons
+	for(var i=0; i < cupons.length; i++){
+		
+		if(cupons[i].id == cupom.id){
+			valido = false;
+		}
+	}
+	//Cupom pode ser inserido ?
+	if(valido){
+		cupons.push(cupom);
+	}else{
+		alert("O cupom " + cupom.codigo + " já foi inserido !");
+	}
+	
+	return valido;
+}
+
+//Obtém o valor total dos descontos com base nos cupons inseridos
+function calcularDesconto(){
+	
+	var totalDesc = 0.0;
+	
+	for(var i = 0; i < cupons.length ; i++){
+		
+		totalDesc += cupons[i].valor;
+	}
+	
+	return totalDesc;
+}
+
+/**
+ * Funcionalidades relacionadas com a inicialização da página
+ */
 //Função a ser executada no momento em que a página for carregada
 function onDocumentLoad(){
 	//Função responsável pelo cálculo do valor dos produtos

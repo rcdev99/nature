@@ -127,13 +127,12 @@
 							        
 							        <td class="quantity">
 							        	<div class="input-group mb-2">
-						             		<input th:type="number" name="quantidade" id="quantidade" class="quantity form-control input-number" onChange="calcularTotalProduto()" th:value="${item.quantidade}" min="1" max="100">
+						             		<input th:type="number" name="quantidade" id="quantidade" class="quantity form-control input-number" onchange="calcularTotalProduto()" th:value="${item.quantidade}" min="1" max="100">
 						          		</div>
 						         	</td>
 							        
 							      	<td class="total"><span class="totalProduto"></span></td>
 							      </tr><!-- END TR-->
-
 						      <th:block>
 						    </tbody>
 						  </table>
@@ -146,13 +145,13 @@
     					<h3>Cupom de desconto</h3>
     					<p>Insira seu cupom de desconto</p>
   						<form action="#" class="info">
-	              <div class="form-group">
-	              	<label for="">Código do cupom</label>
-	                <input type="text" class="form-control text-left px-3" placeholder="">
-	              </div>
-	            </form>
+			              <div class="form-group">
+			              	<label for="">Código do cupom</label>
+			                <input id="cupom_codigo" type="text" class="form-control text-left px-3" placeholder="">
+			              </div>
+	            		</form>
     				</div>
-    				<p><a href="#" class="btn btn-primary py-3 px-4">Utilizar Cupom</a></p>
+    				<p><a href="#" class="btn btn-primary py-3 px-4" onclick="validarCupom()">Utilizar Cupom</a></p>
     			</div>
     			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
     				<div class="cart-total mb-3">
