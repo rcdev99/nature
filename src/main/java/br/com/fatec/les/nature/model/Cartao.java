@@ -11,10 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="tbl_cartao")
@@ -33,20 +35,22 @@ public class Cartao {
 	
 	@Column(name="car_st_numero")
 	@NotBlank(message="É obrigatória a inserção do número do cartão")
+	@Size(min = 16, max = 16)
 	private String numCartao;
 	
 	@Column(name="car_in_bandeira")
 	@NotNull
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private TipoBandeira bandeira;
 	
 	@Column(name="car_dt_vencimento")
 	@NotNull
-	@DateTimeFormat
+	@Temporal(TemporalType.DATE)
     private Calendar dataVencimento;
 
 	@Column(name="car_in_cvv")
 	@NotNull
+	@Digits(integer = 3, fraction = 0)
 	private int cvv;
 	
 	@Column(name="car_in_cliente")
@@ -55,6 +59,10 @@ public class Cartao {
 	
 	public Cartao(Long idCliente) {
 		this.idCliente = idCliente;
+	}
+	
+	public Cartao() {
+		
 	}
 	
 	public Long getId() {

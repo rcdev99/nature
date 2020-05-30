@@ -36,7 +36,6 @@ public class HomeController {
 	@Autowired
 	Carrinho carrinho;
 	
-	
 	/**
 	 * Método utilizado para direcionar o cliente à tela de login
 	 * @return
