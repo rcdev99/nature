@@ -86,4 +86,12 @@ public class Carrinho {
 		
 	}
 	
+	/**
+	 * Método utilizado para esvaziar o carrinho
+	 */
+	public void limparCarrinho() {
+		
+		itens.clear();
+	}
+	
 }

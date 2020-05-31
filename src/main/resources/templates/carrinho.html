@@ -130,9 +130,9 @@
 						             		<input th:type="number" name="quantidade" id="quantidade" class="quantity form-control input-number" onchange="calcularTotalProduto()" th:value="${item.quantidade}" min="1" max="100">
 						          		</div>
 						         	</td>
-							        
 							      	<td class="total"><span class="totalProduto"></span></td>
 							      </tr><!-- END TR-->
+							     <input th:type="hidden" name="idProduto" id="idProduto" class="produtoId" th:value="${item.produto.id}"> 	
 						      <th:block>
 						    </tbody>
 						  </table>
@@ -187,7 +187,7 @@
     						<span class="totalVenda">R$ 0.00</span>
     					</p>
     				</div>
-    				<p><a href="#validacao" class="btn btn-primary py-3 px-4">Validar Compra</a></p>
+    				<p><a href="#validacao" class="btn btn-primary py-3 px-4" onclick="validandoCompra()">Validar Compra</a></p>
     			</div>
     		</div>
 			</div>

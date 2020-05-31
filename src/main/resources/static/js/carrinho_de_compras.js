@@ -1,10 +1,15 @@
-//Variáveis globais
+/**
+ * Variáveis globias
+ */
 
 	//Variável para definir o valor mínimo de compras para frete gratuito
-	var margemFrete = textToFloat("R$ 50,00");
-	var cupons = [];
-	
+var margemFrete = textToFloat("R$ 50,00");
+var cupons = [];
+var produtosCarrinho = [];
 
+/**
+ * Funcionalidades para cálculo do total da venda  valores dos produtos
+ */
 //Função para cálculo do valor total dos produtos no carrinho
 function calcularTotalProduto(){
 	
@@ -33,22 +38,6 @@ function calcularTotalProduto(){
 		totalVenda(totalProdutos);
 		return totalProdutos;
 		
-}
-
-//Converter texto para float
-function textToFloat(text){
-	
-	var valor = text.replace("R$ ", "").replace(",",".");
-	return parseFloat(valor);
-}
-
-//Converter float para texto
-function floatToText(valor){
-	
-	var text = (valor < 1 ? "0" : "" ) + Math.floor(valor * 100);
-	text = "R$ " + text;
-	
-	return text.substr(0, text.length - 2) + "," + text.substr(-2);
 }
 
 //Escrever total de um produto
@@ -90,7 +79,8 @@ function totalCompra(){
 	if(totalCompra < 0){
 		//Converter o resíduo da venda em cupom de desconto
 		var residuo = totalCompra * -1;
-		alert("A compra vai gerar um cupom de desconto no valor de: R$ " + residuo);
+		residuo = floatToText(residuo);
+		alert("A compra vai gerar um cupom de desconto no valor de: " + residuo);
 		//Inserir valor zerado neste caso
 		totalCompraTxt[0].innerHTML = "R$ 0.00";
 	}else{
@@ -103,7 +93,9 @@ function totalCompra(){
 	}
 }
 
-
+/**
+ * Funcionalidades ligadas ao frete da venda
+ */
 //Função responsável por realizar o cálculo do Frete
 function calcularFrete(){
 	
@@ -210,6 +202,7 @@ function validaInsercao(cupom){
 	}
 	
 	return valido;
+
 }
 
 //Obtém o valor total dos descontos com base nos cupons inseridos
@@ -226,6 +219,75 @@ function calcularDesconto(){
 }
 
 /**
+ * Funções para validação da compra
+ */
+
+function validandoCompra(){
+	
+	var produtos = document.getElementsByClassName("produto");
+	produtosCarrinho = [];
+	
+	for(pos = 0; pos < produtos.length; pos++){
+		
+		//Obtendo id do produto
+		var idDoProduto = document.getElementById("idProduto")
+		var id = idDoProduto.value;
+		//Obtendo quantidade de produto
+		var quantidadeDeProduto = produtos[pos].getElementsByClassName("quantity form-control input-number");
+		var quantidadeTxt = quantidadeDeProduto[0].value;
+		var quantidade = textToFloat(quantidadeTxt);
+		
+		var itemCompra = new Object();
+		
+		itemCompra.id = id;
+		itemCompra.quantidade = quantidade;
+		
+		produtosCarrinho.push(itemCompra);
+	}
+	
+	prepararCompra();
+}
+
+function prepararCompra(){
+
+	var produtos = JSON.stringify(produtosCarrinho);
+	var cuponsDesc = JSON.stringify(cupons);
+	
+	//Requisiçao Ajax para envio dos dados da compra
+	$.ajax({
+	    url: '/rest/checkout',
+	    type: 'post',
+	    data: {'produtos': produtos,
+	    	   'cupons': cuponsDesc
+	    	},
+	    success: function(result) {
+	    	
+	      console.log(result);
+	      window.location = "/conclusao";
+	    }
+	  });
+}
+
+/**
+ * Funcionalidades de cunho geral
+ */
+//Converter texto para float
+function textToFloat(text){
+	
+	var valor = text.replace("R$ ", "").replace(",",".");
+	return parseFloat(valor);
+}
+
+//Converter float para texto
+function floatToText(valor){
+	
+	var text = (valor < 1 ? "0" : "" ) + Math.floor(valor * 100);
+	text = "R$ " + text;
+	
+	return text.substr(0, text.length - 2) + "," + text.substr(-2);
+}
+
+/**
  * Funcionalidades relacionadas com a inicialização da página
  */
 //Função a ser executada no momento em que a página for carregada
@@ -235,5 +297,12 @@ function onDocumentLoad(){
 	totalCompra();
 }
 
-//Para executar a função assim que a tela for carregada
+/**
+ * Funcionalidades ligadas a execução da página
+ */
+//Executar a função assim que a tela for carregada
 window.onload = onDocumentLoad;
+//Executar a função antes da tela ser fechada ou alterada
+window.addEventListener("beforeunload", function (event) {
+	  event = console.log("eureca!");	
+});
