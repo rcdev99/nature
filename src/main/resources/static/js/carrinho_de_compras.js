@@ -263,7 +263,7 @@ function prepararCompra(){
 	    success: function(result) {
 	    	
 	      console.log(result);
-	      window.location = "/conclusao";
+	      window.location = "/compra/conclusao";
 	    }
 	  });
 }

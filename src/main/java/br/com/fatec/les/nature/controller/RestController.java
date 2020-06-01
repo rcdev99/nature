@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import br.com.fatec.les.nature.dao.EnderecoDAO;
 import br.com.fatec.les.nature.dto.ItemCompraDTO;
 import br.com.fatec.les.nature.model.Carrinho;
 import br.com.fatec.les.nature.model.Carteira;
 import br.com.fatec.les.nature.model.CupomDesconto;
+import br.com.fatec.les.nature.model.Endereco;
 import br.com.fatec.les.nature.model.ItensCompra;
 import br.com.fatec.les.nature.model.Produto;
 import br.com.fatec.les.nature.service.CupomService;
@@ -40,6 +42,8 @@ public class RestController {
 	@Autowired
 	Carteira carteira;
 	
+	EnderecoDAO DAOEndereco = new EnderecoDAO();
+	
 	Gson gson = new Gson();
 	
 	/**
@@ -55,10 +59,26 @@ public class RestController {
 		
 		String json = gson.toJson(cDesc);
 		
-		System.out.println(json);
+		return json;
+	}
+	
+	/**
+	 * Método para obtenção de um endereço com base em seu id
+	 * @param codigo - Identificar único do cupom
+	 * @return Json contendo o cupom encontrado ou null caso o código não exista
+	 */
+	@RequestMapping(value = "/validar/endereco/{idEndereco}", method = RequestMethod.POST)
+	public String validarEndereco(@PathVariable("idEndereco") int idEndereco) {
+		
+		Endereco endereco = new Endereco();
+		
+		endereco = DAOEndereco.consultaById(idEndereco);
+		
+		String json = gson.toJson(endereco);
 		
 		return json;
 	}
+	
 	
 	/**
 	 * Método responsável por preparar os dados iniciais da compra

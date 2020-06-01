@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.Bean;
+
 import br.com.fatec.les.nature.model.Cidade;
 import br.com.fatec.les.nature.model.Endereco;
 import br.com.fatec.les.nature.model.EntidadeDominio;
@@ -442,5 +444,73 @@ public class EnderecoDAO extends AbstractJDBCDAO {
 		return null;
 	}
 	
-
+	@Bean
+	public Endereco consultaById(int id) {
+		
+		//Abrindo conexão caso nula
+		if(connection == null) {
+			openConnection();
+		}
+		//Instanciando cliente
+		Endereco endereco = new Endereco();
+		
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append("SELECT * FROM ");
+		sql.append(table);
+		sql.append(" LEFT JOIN tbl_tipo_endereco ON end_in_tipo_residencia = tend_in_id ");
+		sql.append("WHERE end_in_id" + " = " + id);
+		
+		try {
+					
+				pst = connection.prepareStatement(sql.toString());
+				rs = pst.executeQuery();
+				
+				if(rs.next()) {
+					
+					//Instanciando objetos necessários
+					endereco = new Endereco();
+					Logradouro logradouro = new Logradouro();
+					Cidade cidade = new Cidade();
+					Estado estado = new Estado();
+					
+					cidade.setCidade(rs.getString("end_st_cidade"));
+					estado.setSigla(rs.getString("end_st_estado"));
+					
+					
+					TipoResidencia tipoResidencia = TipoResidencia.valueOf(rs.getString("tend_st_tipo"));
+					logradouro.setLogradouro(rs.getString("end_st_logradouro"));
+					cidade.setEstado(estado);
+					
+					endereco.setLogradouro(logradouro);
+					endereco.setNumero(rs.getInt("end_in_numero"));
+					endereco.setTipoResidencia(tipoResidencia);
+					endereco.setBairro(rs.getString("end_st_bairro"));
+					endereco.setCep(rs.getString("end_st_cep"));
+					endereco.setCidade(cidade);
+					endereco.setPais(rs.getString("end_st_pais"));
+					endereco.setDescricao(rs.getString("end_st_descricao"));
+					endereco.setIdPessoa(rs.getInt("end_pes_in_id"));
+					endereco.setId_endereco(rs.getInt("end_in_id"));
+					
+					return endereco;
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					pst.close();
+					if(ctrlTransaction == true) {
+						connection.close();
+						connection = null;
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}	
+			
+			return null;
+	}
+	
 }

@@ -46,8 +46,8 @@ public class TesteEnderecoDAO {
 		endereco.setIdPessoa(1002);
 		endereco.setId_endereco(2);
 		
-		System.out.println(DAOendereco.consultar(endereco).size());
-		System.out.println(endereco.getId_endereco());
+		endereco = DAOendereco.consultaById(11);
+		System.out.println(endereco.getDescricao());
 	}
 
 }
