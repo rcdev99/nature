@@ -230,8 +230,9 @@ function validandoCompra(){
 	for(pos = 0; pos < produtos.length; pos++){
 		
 		//Obtendo id do produto
-		var idDoProduto = document.getElementById("idProduto")
-		var id = idDoProduto.value;
+		var idDoProduto = produtos[pos].getElementsByClassName("produtoId");
+		console.log(idDoProduto);
+		var id = idDoProduto[0].value;
 		//Obtendo quantidade de produto
 		var quantidadeDeProduto = produtos[pos].getElementsByClassName("quantity form-control input-number");
 		var quantidadeTxt = quantidadeDeProduto[0].value;

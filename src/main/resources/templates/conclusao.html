@@ -20,8 +20,6 @@
     <link rel="stylesheet" href="/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="/css/magnific-popup.css">
 
-    <link rel="stylesheet" href="/css/aos.css">
-
     <link rel="stylesheet" href="/css/ionicons.min.css">
 
     <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
@@ -95,30 +93,32 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-xl-7 ftco-animate">
-					<form action="#" name="form" class="billing-form">
 						<h3 class="mb-4 billing-heading">Detalhes da Venda</h3>
 						<div class="accordion" id="accordionExample">
 							<div class="card">
 								<div class="card-header" id="headingOne">
 									<h5 class="mb-0" >
 										<button class="btn btn-link" style="color: green;" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-											Comprador
+											Cliente
 										</button>
 									</h5>
 								</div>
 								<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-									<div class="form-row" style="padding: 10px;">
-										<div class="form-group col-md-6">
-										  <label for="nome">Nome</label>
-										  <input type="text" class="form-control" th:field="*{cliente.nome}" placeholder="Nome do cliente" disabled>
+									<form action="#" id="form_client" name="form_client" class="billing-form">
+										<div class="form-row" style="padding: 10px;">
+											<div class="form-group col-md-6">
+											  <label for="nome">Nome</label>
+											  <input type="text" class="form-control" th:field="*{cliente.nome}" placeholder="Nome do cliente" disabled>
+											</div>
+											<div class="form-group col-md-6">
+											  <label for="sobrenome">Sobrenome</label>
+											  <input type="text" class="form-control" th:field="*{cliente.sobrenome}"  placeholder="Sobrenome" disabled>
+											</div>
+											  <input type="hidden" id="idCliente" th:value="${cliente.id}">
 										</div>
-										<div class="form-group col-md-6">
-										  <label for="sobrenome">Sobrenome</label>
-										  <input type="text" class="form-control" th:field="*{cliente.sobrenome}"  placeholder="Sobrenome" disabled>
-										</div>
-									</div>
+									</form>			
 								</div>
-							</div>
+							</div>	
 							<div class="card">
 								<div class="card-header" id="headingTwo">
 									<h5 class="mb-0">
@@ -128,48 +128,50 @@
 									</h5>
 								</div>
 								<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-									<div class="form-row" style="padding: 10px;">
-										<div class="form-group col-md-12">
-											<label for="endereco">Endereço</label>
-											<div class="select-wrap">
-												<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-												<select name="pre_cadastrado" id="pre_cadastrado" class="form-control" onchange="obterEndereco()">
-													<th:block th:each="endereco : ${enderecos}">
-														<option th:id="select-endereco" th:value="${endereco.id_endereco}" th:text="${endereco.descricao}"></option>
-												    </th:block>
-												</select>
+									<form action="#" id="form_addres" name="form_addres" class="billing-form">
+										<div class="form-row" style="padding: 10px;">
+											<div class="form-group col-md-12">
+												<label for="endereco">Endereço</label>
+												<div class="select-wrap">
+													<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+													<select name="pre_cadastrado" id="pre_cadastrado" class="form-control" onchange="obterEndereco()">
+														<th:block th:each="endereco : ${enderecos}">
+															<option th:id="select-endereco" th:value="${endereco.id_endereco}" th:text="${endereco.descricao}"></option>
+													    </th:block>
+													</select>
+												</div>
+											</div>
+											<div class="form-group col-md-6">
+												<label for="logradouro">Logradouro</label>
+												<input type="text" name="logradouro" id="logradouro" class="form-control" disabled>
+											</div>
+											<div class="form-group col-md-2">
+												<label for="numero">Nº</label>	
+												<input type="number" id="numero" class="form-control" min="1" disabled>
+											</div>
+											<div class="form-group col-md-4">
+												<label for="streetaddress">Tipo de Residência</label>	
+												<input type="text" id="tipoRes" class="form-control"  disabled>
+											</div>
+											<div class="form-group col-md-5">
+												<label for="cidade">Cidade</label>
+												<input type="text" id="cidade" class="form-control" required disabled>
+											</div>
+											<div class="form-group col-md-2">
+												<label for="estado">Estado</label>
+												<input type="text" id="estado" class="form-control" required>
+											</div>
+											<div class="form-group col-md-5">
+												<label for="bairro">Bairro</label>
+												<input type="text" id="bairro" class="form-control" disabled>
+											</div>
+											<div class="form-group col-md-12">
+												<div class="radio">
+													<label><input type="checkbox" id="check_endereco" onclick="habilitarCampo()"> Entregar em outro endereço</label>
+												</div>
 											</div>
 										</div>
-										<div class="form-group col-md-6">
-											<label for="logradouro">Logradouro</label>
-											<input type="text" name="logradouro" id="logradouro" class="form-control" disabled>
-										</div>
-										<div class="form-group col-md-2">
-											<label for="streetaddress">Nº</label>	
-											<input type="number" id="numero" class="form-control"  disabled>
-										</div>
-										<div class="form-group col-md-4">
-											<label for="streetaddress">Tipo de Residência</label>	
-											<input type="text" id="tipoRes" class="form-control"  disabled>
-										</div>
-										<div class="form-group col-md-5">
-											<label for="cidade">Cidade</label>
-											<input type="text" id="cidade" class="form-control" disabled>
-										</div>
-										<div class="form-group col-md-2">
-											<label for="estado">Estado</label>
-											<input type="text" id="estado" class="form-control" disabled>
-										</div>
-										<div class="form-group col-md-5">
-											<label for="bairro">Bairro</label>
-											<input type="text" id="bairro" class="form-control" disabled>
-										</div>
-										<div class="form-group col-md-12">
-											<div class="radio">
-												<label><input type="checkbox" onclick="habilitarCampo()"> Entregar em outro endereço</label>
-											</div>
-										</div>
-									</div>
+									</form>
 								</div>
 							</div>
 							<div class="card">
@@ -181,60 +183,66 @@
 									</h5>
 								</div>
 								<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-									<div class="form-row" style="padding: 10px;">
-										<div class="form-group col-md-12">
-											<label for="bandeira">Bandeira</label>
-											<div class="select-wrap">
-												<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-												<select name="bandeira" id="bandeira" class="form-control">
-													<option value="">MasterCard</option>
-													<option value="">Visa</option>
-												</select>
-											</div>
-										</div>
-										<div class="form-group col-md-12">
-											<label for="titulat">Titular</label>
-											<input type="text" name="titular" class="form-control" placeholder="Titular do cartão" required>
-										</div>
-										<div class="form-group col-md-12">
-											<label for="numero">Nº do cartão</label>
-											<input type="text" name="numero" class="form-control" placeholder="Número do cartão" required>
-										</div>
-										<div class="form-group col-md-6">
-											<label for="vencimento">Vencimento</label>
-											<input type="text" name="vencimento" class="form-control" placeholder="MM/AA" required>
-										</div>
-										<div class="form-group col-md-6">
-											<label for="cvv">CVV</label>
-											<input type="text" name="cvv" class="form-control" placeholder="Ex.: 534" required>
-										</div>
-										<div class="form-group col-md-8">
-											<label for="valor">Valor</label>
-											<div class="input-group">
-												<div class="input-group-prepend">
-												  <span class="input-group-text" id="inputGroupPrepend3">R$</span>
+									<form name="form_card" id="form_card" class="billing-form">
+										<div class="form-row" style="padding: 10px;">
+											<div class="form-group col-md-12">
+												<label for="bandeira">Bandeira</label>
+												<div class="select-wrap">
+													<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+													<select name="bandeira" id="bandeira" class="form-control">
+														<th:block th:each="bandeira : ${tiposBandeira}">
+															<option th:id="select-bandeira" th:value="${bandeira}" th:text="${bandeira.descricao}"></option>
+													    </th:block>
+													</select>
 												</div>
-												<input type="number" class="form-control is-invalid" id="valor" placeholder="Valor á ser pago com este cartão" aria-describedby="inputGroupPrepend3" step="0.050" required disabled>
+											</div>
+											<div class="form-group col-md-12">
+												<label for="titulat">Titular</label>
+												<input type="text" name="titular" id="titular" class="form-control" minlength="3" placeholder="Titular do cartão" required>
+											</div>
+											<div class="form-group col-md-12">
+												<label for="numeroCartao">Nº do cartão</label>
+												<input type="text" name="numeroCartao" id="numeroCartao" class="form-control" placeholder="Número do cartão" required>
+											</div>
+											<div class="form-group col-md-6">
+												<label for="vencimento">Vencimento</label>
+												<input type="month" name="vencimento" id="vencimento" class="form-control" placeholder="MM/AA" required>
+											</div>
+											<div class="form-group col-md-6">
+												<label for="cvv">CVV</label>
+												<input type="text" name="cvv" id="cvv" class="form-control" placeholder="Ex.: 534" minlength="3" maxlength="3"  required>
+											</div>
+											<div class="form-group col-md-8">
+												<label for="valor">Valor</label>
+												<div class="input-group">
+													<div class="input-group-prepend">
+													  <span class="input-group-text" id="inputGroupPrepend3">R$</span>
+													</div>
+													<input type="number" class="form-control is-invalid" id="valor" th:value="${totalCompra}" min="0" placeholder="Valor á ser pago com este cartão" aria-describedby="inputGroupPrepend3" step="0.050" required disabled>
+												</div>
+											</div>
+											<div class="form-group col-md-12">
+												<div class="radio">
+													<label><input type="checkbox" id="add_card" onclick="habilitarValorCobrado()"> Pagar com mais de um cartão</label>
+												</div>
+												<div class="radio">
+													<label><input type="checkbox" id="save_card"> Salvar cartão para futuras transações</label>
+												</div>
+											</div>
+											<div class="form-group col-md-12" style="text-align: center;">
+												<p>
+													<button type="submit" form="form_card" class="btn btn-primary py-3 px-4" onclick="adicionarCartao()">
+														<span class="icon-add_circle"></span>
+														Adicionar mais um cartão
+													</button>
+												</p>
 											</div>
 										</div>
-										<div class="form-group col-md-12">
-											<div class="radio">
-												<label><input type="checkbox" name="save_card"> Salvar cartão para futuras transações</label>
-											</div>
-										</div>
-										<div class="form-group col-md-12" style="text-align: center;">
-											<p>
-												<a href="#"class="btn btn-primary py-3 px-4">
-													<span class="icon-add_circle"></span>
-													Adicionar mais um cartão
-												</a>
-											</p>
-										</div>
-									</div>	
+									</form>	
 								</div>
 							</div>
 						</div>
-					</form>
+					
 				</div>
 				<div class="col-xl-5">
 					<div class="row mt-5 pt-3">
@@ -243,22 +251,22 @@
 								<h3 class="billing-heading mb-4">Total da Compra</h3>
 								<p class="d-flex">
 									<span>Produtos</span>
-									<span>R$20.60</span>
+									<span th:text="|R$ ${totalProdutos}|">R$00.00</span>
 								</p>
 								<p class="d-flex">
 									<span>Entrega</span>
-									<span>R$0.00</span>
+									<span th:text="|R$ ${frete}|">R$00.00</span>
 								</p>
 								<p class="d-flex">
 									<span>Desconto</span>
-									<span>R$3.00</span>
+									<span th:text="|R$ ${desconto}|">R$0.00</span>
 								</p>	
 								<hr>
 								<p class="d-flex total-price">
 									<span>Total</span>
-									<span>R$17.60</span>
+									<span id="total" th:text="|R$ ${totalCompra}|">R$0.00</span>
 								</p>
-								<p><a href="#"class="btn btn-primary py-3 px-4">Concluir</a></p>
+								<p><button type="submit" class="btn btn-primary py-3 px-4" onclick="enderecoSelecionado()">Concluir</button></p>
 							</div>
 						</div>
 					</div>
@@ -327,8 +335,6 @@
 		</div>
 	</footer>		
   <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
   <script src="/js/jquery.min.js"></script>
   <script src="/js/jquery-migrate-3.0.1.min.js"></script>
   <script src="/js/popper.min.js"></script>
@@ -342,46 +348,8 @@
   <script src="/js/jquery.animateNumber.min.js"></script>
   <script src="/js/bootstrap-datepicker.js"></script>
   <script src="/js/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="/js/google-map.js"></script>
   <script src="/js/main.js"></script>
   <script src="/js/conclusao.compra.js"></script>
 
-  <script>
-		$(document).ready(function(){
-
-		var quantitiy=0;
-		   $('.quantity-right-plus').click(function(e){
-		        
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		            
-		            $('#quantity').val(quantity + 1);
-
-		          
-		            // Increment
-		        
-		    });
-
-		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		      
-		            // Increment
-		            if(quantity>0){
-		            $('#quantity').val(quantity - 1);
-		            }
-		    });
-		    
-		});
-	</script>
 </body>
 </html>

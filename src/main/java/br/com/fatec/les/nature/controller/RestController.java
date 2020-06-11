@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import br.com.fatec.les.nature.dao.EnderecoDAO;
+import br.com.fatec.les.nature.dto.EnderecoDTO;
 import br.com.fatec.les.nature.dto.ItemCompraDTO;
 import br.com.fatec.les.nature.model.Carrinho;
 import br.com.fatec.les.nature.model.Carteira;
@@ -71,10 +72,12 @@ public class RestController {
 	public String validarEndereco(@PathVariable("idEndereco") int idEndereco) {
 		
 		Endereco endereco = new Endereco();
+		EnderecoDTO enderecoDTO = new EnderecoDTO();
 		
 		endereco = DAOEndereco.consultaById(idEndereco);
+		enderecoDTO.construirDTOAtravesDeEndereco(endereco);
 		
-		String json = gson.toJson(endereco);
+		String json = gson.toJson(enderecoDTO);
 		
 		return json;
 	}

@@ -112,7 +112,7 @@
 						      </tr>
 						    </thead>
 						    <tbody>
-						      <th:block th:each="item : ${carrinho.itens}">
+						      <th:block class="bloco_produto" th:each="item : ${carrinho.itens}">
 							      <tr class="produto">
 							        <td class="product-remove"><a th:href="@{/carrinho/rmv/{id}(id=${item.produto.id})}"><span class="ion-ios-close"></span></a></td>
 							        
@@ -123,7 +123,7 @@
 							        	<p><span th:text-align="left" th:text="${item.produto.descricao}"></span></p>
 							        </td>
 							        
-							        <td class="price"><span class="valorProduto" th:value="${item.produto.valor}"  th:text="|R$ ${item.produto.valor}|"></span></td>
+							        <td class="price"><span class="valorProduto" id="valorProduto" th:value="${item.produto.valor}"  th:text="|R$ ${item.produto.valor}|"></span></td>
 							        
 							        <td class="quantity">
 							        	<div class="input-group mb-2">
@@ -131,8 +131,9 @@
 						          		</div>
 						         	</td>
 							      	<td class="total"><span class="totalProduto"></span></td>
+							      	<td><input th:type="hidden" name="produtoId" id="produtoId" class="produtoId" th:value="${item.produto.id}"></td> 
 							      </tr><!-- END TR-->
-							     <input th:type="hidden" name="idProduto" id="idProduto" class="produtoId" th:value="${item.produto.id}"> 	
+							     	
 						      <th:block>
 						    </tbody>
 						  </table>
