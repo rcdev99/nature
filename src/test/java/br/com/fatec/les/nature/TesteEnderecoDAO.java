@@ -35,19 +35,18 @@ public class TesteEnderecoDAO {
 		logradouro.setTipo(TipoLogradouro.AVENIDA);
 		
 		//Endereço
-		endereco.setDescricao("Nossa casa");
-		endereco.setBairro("Jardim Ótima Vista");
-		endereco.setCep("08830-225");
+		endereco.setDescricao("Comercial");
+		endereco.setBairro("Vila Mogilar");
+		endereco.setCep("08870-245");
 		endereco.setCidade(cidade);
 		endereco.setLogradouro(logradouro);
 		endereco.setNumero(94);
-		endereco.setPais("Paris");
+		endereco.setPais("Brasil");
 		endereco.setTipoResidencia(TipoResidencia.SITIO);
 		endereco.setIdPessoa(1002);
-		endereco.setId_endereco(2);
+		//endereco.setId_endereco(2);
 		
-		endereco = DAOendereco.consultaById(11);
-		System.out.println(endereco.getDescricao());
+		System.out.println(DAOendereco.enderecoMaisRecente(1002).getId_endereco());
 	}
 
 }

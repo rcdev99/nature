@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/sobre_nos",
 			"/contato",
 			"/cadastro",
+			"/cliente/cadastrar",
 			"/produto/categoria/**"
 			
 	};

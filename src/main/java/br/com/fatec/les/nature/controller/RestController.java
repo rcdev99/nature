@@ -2,6 +2,7 @@ package br.com.fatec.les.nature.controller;
 
 
 import java.lang.reflect.Type;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,14 +17,18 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import br.com.fatec.les.nature.dao.EnderecoDAO;
+import br.com.fatec.les.nature.dto.CartaoDTO;
 import br.com.fatec.les.nature.dto.EnderecoDTO;
 import br.com.fatec.les.nature.dto.ItemCompraDTO;
 import br.com.fatec.les.nature.model.Carrinho;
 import br.com.fatec.les.nature.model.Carteira;
+import br.com.fatec.les.nature.model.Compra;
 import br.com.fatec.les.nature.model.CupomDesconto;
 import br.com.fatec.les.nature.model.Endereco;
 import br.com.fatec.les.nature.model.ItensCompra;
 import br.com.fatec.les.nature.model.Produto;
+import br.com.fatec.les.nature.model.SituacaoCompra;
+import br.com.fatec.les.nature.service.CompraService;
 import br.com.fatec.les.nature.service.CupomService;
 import br.com.fatec.les.nature.service.ProdutoService;
 
@@ -37,11 +42,16 @@ public class RestController {
 	@Autowired
 	ProdutoService pService;
 	
+
+	@Autowired
+	CompraService compraService;
+	
 	@Autowired
 	Carrinho carrinho;
 	
 	@Autowired
 	Carteira carteira;
+	
 	
 	EnderecoDAO DAOEndereco = new EnderecoDAO();
 	
@@ -110,6 +120,45 @@ public class RestController {
 		carteira.setCupons(cuponsCompra);
 		
 		return "OK!";	
+	}
+	
+	@RequestMapping(value = "/compra/concluir", method = RequestMethod.POST)
+	public @ResponseBody String concluirCompra(@RequestParam String endereco, @RequestParam String cartoes, @RequestParam String idCliente) throws SQLException{
+		
+		Type enderecoType = new TypeToken<EnderecoDTO>() {}.getType();
+		Type idClienteType = new TypeToken<Integer>() {}.getType();
+		Type cartoesType = new TypeToken<List<CartaoDTO>>() {}.getType();
+		
+		EnderecoDTO endDto = gson.fromJson(endereco, enderecoType);
+		Integer clienteId = gson.fromJson(idCliente, idClienteType);
+		List<CartaoDTO> cartoesUtilizados = gson.fromJson(cartoes, cartoesType);
+		
+		System.out.println(cartoesUtilizados.size());
+		
+		Endereco end = new Endereco(endDto);
+		end.setIdPessoa(clienteId);
+		
+		if(end.getId_endereco() == null) {
+			DAOEndereco.salvar(end);
+			end.setId_endereco(DAOEndereco.enderecoMaisRecente(clienteId).getId_endereco());
+		}
+		
+		//Compondo compra
+		Compra compra = new Compra();
+		
+		compra.setCupons(carteira.getCupons());
+		compra.setItens(carrinho.getItens());
+		compra.setTotal(carrinho.totalCompra(carteira.totalDescontos()));
+		compra.setIdCliente(clienteId);
+		compra.setIdEndereco(end.getId_endereco());
+		compra.setSituacao(SituacaoCompra.PAGAMENTO_PENDENTE);
+		
+		compraService.salvar(compra);
+		
+		carrinho.limparCarrinho();
+		carteira.esvaziarCarteira();
+		
+		return "OK !";
 	}
 	
 	/**

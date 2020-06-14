@@ -1,31 +1,37 @@
-var endereco = new Object();
 var cartoes = [];
+var cartaoValido = false;
+var endereco = new Object();
+var enderecoValido = false;
 
-document.getElementById('form_card').onsubmit= function(e){
-    e.preventDefault();
-}
-
-
-function teste(){
-	console.log("Heyé");
-}
-
-function enderecoSelecionado(){
+function concluirCompra(){
 	
-	if($("#check_endereco").is(':checked')){
+	if(validarCartao() && validarEndereco()){
 		
-		endereco.id = undefined;
-		endereco.estado = document.getElementById("estado").value;
-		endereco.cidade = document.getElementById("cidade").value;
-		endereco.bairro = document.getElementById("bairro").value;
-		endereco.logradouro = document.getElementById("logradouro").value;
-		endereco.tipoResidencia = document.getElementById("tipoRes").value;
-		endereco.numero = document.getElementById("numero").value;
-
+		var cartoesUtilizados = JSON.stringify(cartoes);
+		var enderecoUtilizado = JSON.stringify(endereco);
+		var idCliente = JSON.stringify(document.getElementById("idCliente").value);
+		
+		$.ajax({
+		    url: '/rest/compra/concluir',
+		    type: 'post',
+		    data: {'cartoes': cartoesUtilizados,
+		    	   'endereco': enderecoUtilizado,
+		    	   'idCliente': idCliente
+		    	},
+		    success: function(result) {
+		    	
+		      console.log(result);
+		      window.location = "/home";
+		    }
+		});
+		
 	}
-	
-	console.log(endereco);
-	
+}
+
+function maisDeUmCartao(){
+
+	adicionarCartao();
+	maisDeUmCartao = true;
 }
 
 function adicionarCartao(){
@@ -47,15 +53,56 @@ function adicionarCartao(){
 		cartao.persistir = false;
 	}
 	
-	console.log(cartao);
 	cartoes.push(cartao);
+	
+	inserirCartaoListagem(cartao);
+}
+
+function inserirCartaoListagem(cartao){
+	
+	var div = document.getElementById('cartoes_adicionados').innerHTML;	
+	div = div + '<div id="card'+cartao.numero+'"><p class="d-flex" align="center"><span>...'+cartao.numero.substr(-4)+'</span> <span>R$ '+cartao.cobrar+'</span> <span>'+cartao.bandeira+'</span> <span><button type="button" class="btn btn-link" onclick="removeCartaoListagem('+cartao.numero+')" data-toggle="tooltip" data-placement="right" title="Remover cartão"><i class="icon-delete"></i></button></span></p></div>';
+	document.getElementById('cartoes_adicionados').innerHTML = div;
+	
+	var total = document.getElementById("total_card");
+	total.innerHTML = floatToText(obterValorCobrado());
 	
 }
 
-function fracionarValor(){
+function removeCartaoListagem(id){
 	
+	var node = document.getElementById("card"+id);
+	  
+		if (node.parentNode) {
+			node.parentNode.removeChild(node);
+		}
+		
+	retirarCartao(id);	
+}
+
+function retirarCartao(numero){
 	
+	for(var i = 0; i < cartoes.length; i++){
+		if(cartoes[i].numero == numero){
+			cartoes.splice(i,1);
+			var total = document.getElementById("total_card");
+			total.innerHTML = floatToText(obterValorCobrado());
+		}
+	}
 	
+}
+
+function habilitarInserirCartao(){
+	
+	if($("#add_card").is(':checked')){
+		document.getElementById("hidden-button-card").style.display = "block";
+		document.getElementById("button-card").style.display = "none";
+	}else{
+		document.getElementById("hidden-button-card").style.display = "none";
+		document.getElementById("button-card").style.display = "block";
+	}
+	
+	habilitarValorCobrado();
 }
 
 function habilitarValorCobrado(){
@@ -63,35 +110,66 @@ function habilitarValorCobrado(){
 	document.form_card.valor.disabled = (document.form_card.valor.disabled) ? 0 : 1;
 	
 	if(document.form_card.valor.disabled == 0){
-		alert("Insira o valor a ser pago com este cartão");
 		document.getElementById("valor").value = "";
+		document.getElementById("valor").focus();
 	}else{
 		var total = textToFloat(document.getElementById("total").innerHTML);
-		console.log(total);
 		document.getElementById("valor").value = (total - obterValorCobrado());
 	}
 	
 }
 
-function validarValorInserido(valor){
+function validarValorCompra(){
 	
 	var totalCompra = textToFloat(document.getElementById("total").innerHTML);
+	var totalCobrado = obterValorCobrado();
 	
-	if((valor + obterValorCobrado()) > totalCompra){
-		alert("O valor inserido excede o total da compra em: R$ " + ((valor + obterValorCobrado()) - totalCompra).toFixed(2));
+	if(totalCobrado == totalCompra){
+		return true;
+	}else {
+		alert("Valor pendente: R$ " + (totalCompra - totalCobrado).toFixed(2));
+		$("#collapseThree").slideDown();
+		document.getElementById("valor").focus();
 		return false;
 	}
 	
 	
 }
 
+function validarValorInserido(valor){
+	
+	var valorInserido = parseFloat(valor);
+	var totalCompra = textToFloat(document.getElementById("total").innerHTML);
+	var valorCobrado = obterValorCobrado();
+	
+	valorTotal = valorInserido + valorCobrado;
+	valorFaltante = (totalCompra - valorCobrado).toFixed(2);
+	
+	if(valorTotal > totalCompra){
+		
+		if(valorFaltante == 0){
+			alert("O valor total da compra já foi contemplado");
+			$("#collapseThree").slideUp();
+			return false;
+		}
+		
+		alert("O valor inserido excede o total da compra, falta apenas R$ " + valorFaltante);
+		document.getElementById("valor").value = (totalCompra - valorCobrado).toFixed(2);
+		document.getElementById("valor").focus();
+		return false;
+	}
+	
+	return true;
+}
 
 function obterValorCobrado(){
 	
 	var valor = 0.0;
 	
 	for(var i = 0; i < cartoes.length; i++){
-		valor = cartoes[i].cobrar;
+		
+		cobrado = textToFloat(cartoes[i].cobrar); 
+		valor += cobrado;
 	}
 	
 	return valor;
@@ -115,8 +193,38 @@ function obterEndereco(){
 	    	
 	      endereco = JSON.parse(result);
 	      escreverEndereco(endereco)
+	      enderecoValido = true;
 	    }
 	});
+}
+
+function habilitarOutroEndereco(){
+	
+	if($("#check_endereco").is(':checked')){
+		document.getElementById("hidden-button-addres").style.display = "block";
+		enderecoValido = false;
+	}else{
+		document.getElementById("hidden-button-addres").style.display = "none";
+	}
+	
+	habilitarCampo();
+	
+}
+
+function enderecoSelecionado(){
+	
+	if($("#check_endereco").is(':checked')){
+		
+		endereco.id = undefined;
+		endereco.estado = document.getElementById("estado").value;
+		endereco.cidade = document.getElementById("cidade").value;
+		endereco.bairro = document.getElementById("bairro").value;
+		endereco.logradouro = document.getElementById("logradouro").value;
+		endereco.tipoResidencia = document.getElementById("tipoRes").value;
+		endereco.numero = document.getElementById("numero").value;
+
+	}
+	
 }
 
 function escreverEndereco(endereco){
@@ -157,6 +265,38 @@ function habilitarCampo(){
 	}
 }
 
+
+/**
+ * Validações
+ */
+
+function validarCartao(){
+	
+	if(cartoes.length <= 0){
+		alert("Valide os dados do cartão para prosseguir com a compra");
+		$("#collapseThree").slideDown();
+		return false;
+	}else{
+		
+		return validarValorCompra();
+	}
+	
+}
+
+function validarEndereco(){
+	
+	if(!enderecoValido){
+		alert("Insira um endereço válido para a entrega");
+		$("#collapseTwo").slideDown();
+		return false;
+	}
+	
+	return true;
+}
+
+/**
+ * Funções para tratamento de texto
+ */
 function trataString(text) {
     var words = text.toLowerCase().split(" ");
     for (var a = 0; a < words.length; a++) {
@@ -169,7 +309,8 @@ function trataString(text) {
 function textToFloat(text){
 	
 	var valor = text.replace("R$ ", "").replace(",",".");
-	return parseFloat(valor);
+	valor = parseFloat(valor);
+	return valor;
 }
 
 function floatToText(valor){
@@ -180,5 +321,32 @@ function floatToText(valor){
 	return text.substr(0, text.length - 2) + "," + text.substr(-2);
 }
 
-//Executar a função assim que a tela for carregada
+/**
+ * Configurações relacionadas aos formulários
+ */
+
+//Desabilita submit do formulario de cartões
+document.getElementById('form_card').onsubmit= function(e){
+	e.preventDefault();
+	
+	var valor =  textToFloat(document.getElementById("valor").value);
+	if (validarValorInserido(valor)){
+		adicionarCartao();
+		alert("Cartão válido !");
+	}
+	
+}
+//Desabilita submit do formulario de endereço
+document.getElementById('form_addres').onsubmit= function(e){
+	e.preventDefault();
+
+	enderecoSelecionado()
+	enderecoValido = true;
+	alert("Endereço de entrega confirmado !");
+
+}
+
+/**
+ * Executar a função assim que a tela for carregada
+ */
 window.onload = obterEndereco;

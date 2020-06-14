@@ -51,12 +51,24 @@ public class Compra {
 	
 	@Column(name="com_in_cliente")
 	@NotNull(message="A compra deve estar vinculada á um cliente")
-	private Long idCliente;
+	private Integer idCliente;
+	
+	@Column(name="com_in_end_entrega")
+	@NotNull(message="Obrigatória a inserção de um endereço de entrega")
+	private Integer idEndereco;
 	
 	@Column(name="com_mo_total")
 	@NotNull(message="A compra deve ter um valor")
 	@Min(value = 0)
     private BigDecimal total;
+
+	public Integer getIdEndereco() {
+		return idEndereco;
+	}
+
+	public void setIdEndereco(Integer idEndereco) {
+		this.idEndereco = idEndereco;
+	}
 
 	public Long getId() {
 		return id;
@@ -90,11 +102,11 @@ public class Compra {
 		this.situacao = situacao;
 	}
 
-	public Long getIdCliente() {
+	public Integer getIdCliente() {
 		return idCliente;
 	}
 
-	public void setIdCliente(Long idCliente) {
+	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
 	}
 

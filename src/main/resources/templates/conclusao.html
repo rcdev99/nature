@@ -103,7 +103,7 @@
 										</button>
 									</h5>
 								</div>
-								<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+								<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
 									<form action="#" id="form_client" name="form_client" class="billing-form">
 										<div class="form-row" style="padding: 10px;">
 											<div class="form-group col-md-6">
@@ -143,15 +143,15 @@
 											</div>
 											<div class="form-group col-md-6">
 												<label for="logradouro">Logradouro</label>
-												<input type="text" name="logradouro" id="logradouro" class="form-control" disabled>
+												<input type="text" name="logradouro" id="logradouro" class="form-control" minlength="3" disabled required>
 											</div>
 											<div class="form-group col-md-2">
 												<label for="numero">Nº</label>	
-												<input type="number" id="numero" class="form-control" min="1" disabled>
+												<input type="number" id="numero" class="form-control" min="0" step="1" required disabled>
 											</div>
 											<div class="form-group col-md-4">
 												<label for="streetaddress">Tipo de Residência</label>	
-												<input type="text" id="tipoRes" class="form-control"  disabled>
+												<input type="text" id="tipoRes" class="form-control" required disabled>
 											</div>
 											<div class="form-group col-md-5">
 												<label for="cidade">Cidade</label>
@@ -159,16 +159,24 @@
 											</div>
 											<div class="form-group col-md-2">
 												<label for="estado">Estado</label>
-												<input type="text" id="estado" class="form-control" required>
+												<input type="text" id="estado" class="form-control" required disabled>
 											</div>
 											<div class="form-group col-md-5">
 												<label for="bairro">Bairro</label>
-												<input type="text" id="bairro" class="form-control" disabled>
+												<input type="text" id="bairro" class="form-control" required disabled>
 											</div>
 											<div class="form-group col-md-12">
 												<div class="radio">
-													<label><input type="checkbox" id="check_endereco" onclick="habilitarCampo()"> Entregar em outro endereço</label>
+													<label><input type="checkbox" id="check_endereco" onclick="habilitarOutroEndereco()"> Entregar em outro endereço</label>
 												</div>
+											</div>
+											<div class="form-group col-md-12" id="hidden-button-addres" style="display: none">
+												<p>
+													<button type="submit" form="form_addres" class="btn btn-primary py-3 px-4">
+														<span id="icon_button_addres"></span>
+														Confirmar endereço de entrega
+													</button>
+												</p>
 											</div>
 										</div>
 									</form>
@@ -218,20 +226,28 @@
 													<div class="input-group-prepend">
 													  <span class="input-group-text" id="inputGroupPrepend3">R$</span>
 													</div>
-													<input type="number" class="form-control is-invalid" id="valor" th:value="${totalCompra}" min="0" placeholder="Valor á ser pago com este cartão" aria-describedby="inputGroupPrepend3" step="0.050" required disabled>
+													<input type="number" class="form-control is-invalid" id="valor" th:value="${totalCompra}" min="0.01" step="0.01" placeholder="Valor á ser pago com este cartão" aria-describedby="inputGroupPrepend3" required disabled>
 												</div>
 											</div>
 											<div class="form-group col-md-12">
 												<div class="radio">
-													<label><input type="checkbox" id="add_card" onclick="habilitarValorCobrado()"> Pagar com mais de um cartão</label>
+													<label><input type="checkbox" id="add_card" onclick="habilitarInserirCartao()"> Pagar com mais de um cartão</label>
 												</div>
 												<div class="radio">
 													<label><input type="checkbox" id="save_card"> Salvar cartão para futuras transações</label>
 												</div>
 											</div>
-											<div class="form-group col-md-12" style="text-align: center;">
+											<div class="form-group col-md-12" id="button-card" align="center">
 												<p>
-													<button type="submit" form="form_card" class="btn btn-primary py-3 px-4" onclick="adicionarCartao()">
+													<button type="submit" form="form_card" class="btn btn-primary py-3 px-4">
+														<span class="icon-add_circle"></span>
+														Validar cartão
+													</button>
+												</p>
+											</div>
+											<div class="form-group col-md-12" id="hidden-button-card" align="center" style="display: none">
+												<p>
+													<button type="submit" form="form_card" class="btn btn-primary py-3 px-4">
 														<span class="icon-add_circle"></span>
 														Adicionar mais um cartão
 													</button>
@@ -247,7 +263,7 @@
 				<div class="col-xl-5">
 					<div class="row mt-5 pt-3">
 						<div class="col-md-12 d-flex mb-5">
-							<div class="cart-detail cart-total p-3 p-md-4">
+							<div class="cart-detail cart-total p-3 p-md-4" align="center">
 								<h3 class="billing-heading mb-4">Total da Compra</h3>
 								<p class="d-flex">
 									<span>Produtos</span>
@@ -266,10 +282,34 @@
 									<span>Total</span>
 									<span id="total" th:text="|R$ ${totalCompra}|">R$0.00</span>
 								</p>
-								<p><button type="submit" class="btn btn-primary py-3 px-4" onclick="enderecoSelecionado()">Concluir</button></p>
+								<p><button type="submit" class="btn btn-primary py-3 px-4" onclick="concluirCompra()">Concluir</button></p>
 							</div>
 						</div>
 					</div>
+					
+					<div class="row mt-5 pt-3">
+						<div class="col-md-12 d-flex mb-5">
+							<div class="cart-detail cart-total p-3 p-md-4" align="center">
+								<h3 class="billing-heading mb-4">Cartões utilizados</h3>
+								<p class="d-flex">
+									
+									<span>Final</span>
+									<span>Valor</span>
+									<span>Bandeira</span>
+									<span></span>
+								</p>
+								<div id="cartoes_adicionados">	
+									
+								</div>	
+								<hr>
+								<p class="d-flex total-price" align="center">
+									<span>&nbsp Total</span>
+									<span id="total_card">R$0.00</span>
+								</p>
+							</div>
+						</div>
+					</div>
+					
 				</div> <!-- .col-md-8 -->
 			</div>
 		</div>
