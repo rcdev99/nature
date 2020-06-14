@@ -2,6 +2,7 @@ package br.com.fatec.les.nature.model;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -61,6 +62,22 @@ public class Compra {
 	@NotNull(message="A compra deve ter um valor")
 	@Min(value = 0)
     private BigDecimal total;
+	
+	//Methods
+	public void validarPagamento() {
+		
+		Random random = new Random();
+		
+		Integer numeroAleatorio = random.nextInt(100);
+		Integer taxaDeAceitacao = 80;
+		
+		if(numeroAleatorio <= taxaDeAceitacao) {
+			this.situacao = SituacaoCompra.PAGAMENTO_APROVADO;
+		}else {
+			this.situacao = SituacaoCompra.PAGAMENTO_PENDENTE;
+		}
+		
+	}
 
 	public Integer getIdEndereco() {
 		return idEndereco;

@@ -151,7 +151,7 @@ public class RestController {
 		compra.setTotal(carrinho.totalCompra(carteira.totalDescontos()));
 		compra.setIdCliente(clienteId);
 		compra.setIdEndereco(end.getId_endereco());
-		compra.setSituacao(SituacaoCompra.PAGAMENTO_PENDENTE);
+		compra.validarPagamento();
 		
 		compraService.salvar(compra);
 		
