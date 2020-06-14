@@ -27,10 +27,24 @@ public class CompraService {
 	 * Método utilizado para persistir as informaçoes de uma compra
 	 * @param compra Obtejo contendo os dados da compra á ser persistida
 	 */
-	public void salvar(Compra compra) {
+	public String salvar(Compra compra) {
+		
+		if(compra.getItens().size() == 0) {
+			return "Nenhum item foi selecionado para a compra";
+		}
+		
+		if(compra.getIdCliente() == null) {
+			return "Não foi impossível identificar o cliente";
+		}
+		
+		if(compra.getIdEndereco() == null) {
+			return "Endereço de entrega não identificado";
+		}
 		
 		compra.setDataCompra(Calendar.getInstance());
 		cRepository.save(compra);
+		
+		return "Compra realizada !";
 	}
 	
 	/**

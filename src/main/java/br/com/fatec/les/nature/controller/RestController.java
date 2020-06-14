@@ -152,12 +152,12 @@ public class RestController {
 		compra.setIdEndereco(end.getId_endereco());
 		compra.validarPagamento();
 		
-		compraService.salvar(compra);
+		String msg = compraService.salvar(compra);
 		
 		carrinho.limparCarrinho();
 		carteira.esvaziarCarteira();
 		
-		return "OK !";
+		return msg;
 	}
 	
 	/**

@@ -152,7 +152,7 @@ public class Carrinho {
 		this.frete = new BigDecimal(11.87);
 		BigDecimal margemFrete = new BigDecimal(50);
 		
-		if (valorProdutos().compareTo(margemFrete) >= 0) {
+		if (valorProdutos().compareTo(margemFrete) >= 0 || valorProdutos().compareTo(new BigDecimal(0)) <= 0 ) {
 			this.frete = BigDecimal.valueOf(0);
 		}
 		

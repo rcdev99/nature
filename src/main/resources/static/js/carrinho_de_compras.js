@@ -251,22 +251,27 @@ function validandoCompra(){
 
 function prepararCompra(){
 
-	var produtos = JSON.stringify(produtosCarrinho);
-	var cuponsDesc = JSON.stringify(cupons);
-	
-	//Requisiçao Ajax para envio dos dados da compra
-	$.ajax({
-	    url: '/rest/checkout',
-	    type: 'post',
-	    data: {'produtos': produtos,
-	    	   'cupons': cuponsDesc
-	    	},
-	    success: function(result) {
-	    	
-	      console.log(result);
-	      window.location = "/compra/conclusao";
-	    }
-	  });
+	if(produtosCarrinho == 0){
+		alert("O carrinho está vázio, insira ao menos um produto para prosseguir com a compra");
+	}else{
+
+		var produtos = JSON.stringify(produtosCarrinho);
+		var cuponsDesc = JSON.stringify(cupons);
+		
+		//Requisiçao Ajax para envio dos dados da compra
+		$.ajax({
+		    url: '/rest/checkout',
+		    type: 'post',
+		    data: {'produtos': produtos,
+		    	   'cupons': cuponsDesc
+		    	},
+		    success: function(result) {
+		    	
+		      console.log(result);
+		      window.location = "/compra/conclusao";
+		    }
+		  });
+	}
 }
 
 /**

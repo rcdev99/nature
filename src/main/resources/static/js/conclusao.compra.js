@@ -5,7 +5,9 @@ var enderecoValido = false;
 
 function concluirCompra(){
 	
-	if(validarCartao() && validarEndereco()){
+	
+	
+	if(validarCompra()){
 		
 		var cartoesUtilizados = JSON.stringify(cartoes);
 		var enderecoUtilizado = JSON.stringify(endereco);
@@ -20,7 +22,7 @@ function concluirCompra(){
 		    	},
 		    success: function(result) {
 		    	
-		      console.log(result);
+		      alert(result);
 		      window.location = "/home";
 		    }
 		});
@@ -269,6 +271,24 @@ function habilitarCampo(){
 /**
  * Validações
  */
+
+function validarCompra(){
+	
+	var valorProdutos = textToFloat(document.getElementById("valor_produtos").innerHTML);
+	
+	if(valorProdutos <= 0){
+		alert("Seu carrinho está vázio !");
+		return false;
+	}
+	if(!validarCartao()){
+		return false;
+	}
+	if(!validarEndereco()){
+		return false;
+	}
+	
+	return true;
+}
 
 function validarCartao(){
 	
