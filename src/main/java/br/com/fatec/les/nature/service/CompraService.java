@@ -1,5 +1,6 @@
 package br.com.fatec.les.nature.service;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -28,6 +29,7 @@ public class CompraService {
 	 */
 	public void salvar(Compra compra) {
 		
+		compra.setDataCompra(Calendar.getInstance());
 		cRepository.save(compra);
 	}
 	

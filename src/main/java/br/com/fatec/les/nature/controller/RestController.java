@@ -27,7 +27,6 @@ import br.com.fatec.les.nature.model.CupomDesconto;
 import br.com.fatec.les.nature.model.Endereco;
 import br.com.fatec.les.nature.model.ItensCompra;
 import br.com.fatec.les.nature.model.Produto;
-import br.com.fatec.les.nature.model.SituacaoCompra;
 import br.com.fatec.les.nature.service.CompraService;
 import br.com.fatec.les.nature.service.CupomService;
 import br.com.fatec.les.nature.service.ProdutoService;

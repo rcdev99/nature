@@ -1,6 +1,7 @@
 package br.com.fatec.les.nature.model;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -21,6 +22,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="tbl_compra")
@@ -63,6 +66,12 @@ public class Compra {
 	@Min(value = 0)
     private BigDecimal total;
 	
+	
+	@Column(name="com_dt_data_compra")
+	@NotNull(message="A compra deve ter uma data de realização")
+	@DateTimeFormat
+	private Calendar dataCompra;
+	
 	//Methods
 	public void validarPagamento() {
 		
@@ -77,6 +86,14 @@ public class Compra {
 			this.situacao = SituacaoCompra.PAGAMENTO_PENDENTE;
 		}
 		
+	}
+
+	public Calendar getDataCompra() {
+		return dataCompra;
+	}
+
+	public void setDataCompra(Calendar dataCompra) {
+		this.dataCompra = dataCompra;
 	}
 
 	public Integer getIdEndereco() {
