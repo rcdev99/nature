@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.fatec.les.nature.dao.ClienteDAO;
+import br.com.fatec.les.nature.dao.EnderecoDAO;
 import br.com.fatec.les.nature.dao.UsuarioDAO;
 import br.com.fatec.les.nature.model.Carrinho;
 import br.com.fatec.les.nature.model.Cliente;
@@ -31,6 +33,7 @@ public class PedidosController {
 	//DAO´S
 	UsuarioDAO DAOUsuario = new UsuarioDAO();
 	ClienteDAO DAOCliente = new ClienteDAO();
+	EnderecoDAO DAOEndereco = new EnderecoDAO();
 	
 	@RequestMapping(value="/meus")
 	public ModelAndView meusPedidos() {
@@ -56,6 +59,43 @@ public class PedidosController {
 		
 		return mView;
 	}
+	
+	@RequestMapping(value="/detalhes/{id.compra}")
+	public ModelAndView detalhesPedido(@PathVariable("id.compra") Long id) {
+		
+		ModelAndView mView = new ModelAndView("pedidos_detalhes");
+	
+		//Obter cliente logado
+		Cliente cliente = new Cliente();
+		cliente = DAOCliente.consultaById(obterIdCliente());
+		
+		Boolean compraValida;
+		Compra compra = new Compra();
+		
+		compra = compraService.buscarCompraPorId(id);
+		
+		if(compra != null && (compra.getIdCliente().equals(cliente.getId()))) {
+			compraValida = true;
+		}else {
+			compraValida = false;
+		}
+		
+		System.out.println("id na compra: " + compra.getIdCliente());
+		System.out.println("id do cliente: " + cliente.getId());
+		System.out.println();
+		
+		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
+		mView.addObject("compraValida", compraValida);
+		mView.addObject("compra", compra);
+		mView.addObject("endereco", DAOEndereco.consultaById(compra.getIdEndereco()));
+		mView.addObject("itensCompra", compra.getItens());
+	
+		return mView;
+		
+	}
+	
+	
+	
 	
 	/**
 	 * Método para obtenção do login do usuário

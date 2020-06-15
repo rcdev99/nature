@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br" 	
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://thymeleaf.org"  
+	xmlns:s="http://www.springframework.org/tags"  
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadraoNature">
+<head>
+	<title>NaturÊ | Detalhes</title>
+</head>
+<body>
+	<section layout:fragment="conteudo">
+		<!--Banner--> 
+	    <div class="hero-wrap hero-bread" style="background-image: url('/images/bg_1.jpg');">
+	      <div class="container">
+	        <div class="row no-gutters slider-text align-items-center justify-content-center">
+	          <div class="col-md-9 ftco-animate text-center">
+	            <h1 class="mb-0 bread">Detalhes</h1>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+		<!-- .banner -->
+		<!-- Conteúdo -->
+		<section class="ftco-section ftco-cart">
+			<div class="container" >
+				<div class="row justify-content-center" th:if="${not compraValida}">
+					<h1>Acesso negado</h1>
+				</div>
+				<div class="row justify-content-center" th:if="${compraValida}">
+					<!-- Coluna da esquerda -->
+					<div class="col-xl-8"></div>
+					<!-- Coluna da direita -->
+					<div class="col-xl-4">		
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="card">
+									<div class="card-body">
+										<h5 align="center">Endereço de entrega</h5>
+								    	<p class="card-text" th:text="|${endereco.logradouro.logradouro} , ${endereco.numero}|"></p>
+								        <p class="card-text" th:text="|${endereco.bairro}, ${endereco.cidade.cidade} - ${endereco.cidade.estado.sigla}|"></p>
+								     </div>
+							    </div>
+							</div>   
+					    </div>
+					</div>
+					<!-- Coluna da esquerda -->
+					<div class="col-xl-12 ftco-animate">
+						<h3>Produtos</h3>
+						<div class="cart-list">
+		    				<table id="tabela_pedidos" class="table">
+							    <thead class="thead-primary">
+							      <tr class="text-center">
+							      	<th>Código</th>
+							      	<th>Produto</th>
+							      	<th>Quantidade</th>
+							      	<th>Valor unitário</th>
+							      	<th>Subtotal</th>
+							      </tr>
+							    </thead>
+							    <tbody>
+							    	<th:block th:each= "item : ${itensCompra}">
+							    		<tr>
+							    			<td><span th:text="|#${item.produto.id}|"></span></td>
+							    			<td><span th:text="|${item.produto.nome}|"></span></td>
+							    			<td><span th:text="|${item.quantidade}|"></span></td>
+							    			<td><span th:text="|R$ ${item.produto.valor}|"></span></td>
+							    			<td><span th:text="|R$ ${item.total}|"></span></td>
+							    		</tr>
+							    	</th:block>
+							    </tbody>
+							    <tfoot>
+							    	<tr>
+							    		<td colspan="5" align="right" style="padding: 10px 60px">
+							    			<span th:text="Total " style="color: black;"></span>
+							    			<span th:text="|R$ ${compra.total}|"></span>
+							    		</td>
+							    	</tr>
+							    </tfoot> 
+							</table>
+						</div>	     
+					</div>
+				</div>
+			</div>
+		</section>		
+		<!-- .conteudo -->
+	</section>
+	<th:block layout:fragment="javascript-extra"></th:block>
+</body>
+</html>
