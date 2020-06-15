@@ -58,12 +58,12 @@ public class CompraService {
 	
 	/**
 	 * Método utilizado para buscar todas as compras que contenham o id de um determinado cliente 
-	 * @param idCliente Identificador único do cliente á quem as compras se referem
+	 * @param i Identificador único do cliente á quem as compras se referem
 	 * @return Lista contendo as compras encontradas
 	 */
-	public List<Compra> buscarCompraPorCliente(Long idCliente) {
+	public List<Compra> buscarCompraPorCliente(int i) {
 		
-		return cRepository.findByIdClienteLike(idCliente);
+		return cRepository.findByIdCliente(i);
 	}
 	
 	/**

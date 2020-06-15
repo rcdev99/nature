@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import br.com.fatec.les.nature.model.Compra;
 
 public interface CompraRepository extends JpaRepository<Compra, Long>{
-	public List<Compra> findByIdClienteLike(Long idCliente);
+	public List<Compra> findByIdCliente(int i);
 	
 }
