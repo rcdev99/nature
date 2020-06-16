@@ -41,7 +41,10 @@ public class CompraService {
 			return "Endereço de entrega não identificado";
 		}
 		
-		compra.setDataCompra(Calendar.getInstance());
+		if(compra.getDataCompra()== null) {
+			compra.setDataCompra(Calendar.getInstance());
+		}
+		
 		cRepository.save(compra);
 		
 		return "Compra realizada !";

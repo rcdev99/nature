@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fatec.les.nature.dao.ClienteDAO;
 import br.com.fatec.les.nature.dao.EnderecoDAO;
@@ -63,7 +64,7 @@ public class PedidosController {
 	@RequestMapping(value="/detalhes/{id.compra}")
 	public ModelAndView detalhesPedido(@PathVariable("id.compra") Long id) {
 		
-		ModelAndView mView = new ModelAndView("pedidos_detalhes");
+		ModelAndView mView = new ModelAndView("pedido_detalhes");
 	
 		//Obter cliente logado
 		Cliente cliente = new Cliente();
@@ -80,10 +81,6 @@ public class PedidosController {
 			compraValida = false;
 		}
 		
-		System.out.println("id na compra: " + compra.getIdCliente());
-		System.out.println("id do cliente: " + cliente.getId());
-		System.out.println();
-		
 		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
 		mView.addObject("compraValida", compraValida);
 		mView.addObject("compra", compra);
@@ -94,8 +91,37 @@ public class PedidosController {
 		
 	}
 	
+	@RequestMapping(value="/cancelar/{id.compra}")
+	public ModelAndView cancelarPedido(@PathVariable("id.compra") Long id, RedirectAttributes redirectAttributes) {
+		
+		ModelAndView mView = new ModelAndView("redirect:/pedidos/meus");
+		
+		//Obter cliente logado
+		Cliente cliente = new Cliente();
+		cliente = DAOCliente.consultaById(obterIdCliente());
 	
-	
+		Compra compra = new Compra();
+		compra = compraService.buscarCompraPorId(id);
+		
+		String msgCancelamento;
+		
+		if(compra != null && (compra.getIdCliente().equals(cliente.getId()))) {	
+			
+			if(compra.cancelar()) {
+				compraService.salvar(compra);
+				msgCancelamento = "Pedido #" + compra.getId() + " cancelado, o valor será estornado em forma de cupom no valor da compra";
+			}else {
+				msgCancelamento = ("Compras com status: '" + compra.getSituacao().getDescricao() + "' não podem ser canceladas.");
+			}
+			
+		}else {
+			msgCancelamento = "Você não pode cancelar esta compra";
+		}
+		
+		redirectAttributes.addFlashAttribute("msgCancelamento", msgCancelamento);
+		
+		return mView;
+	}
 	
 	/**
 	 * Método para obtenção do login do usuário

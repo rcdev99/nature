@@ -46,7 +46,22 @@
 					</div>
 					<!-- Coluna da esquerda -->
 					<div class="col-xl-12 ftco-animate">
-						<h3>Produtos</h3>
+						<div class="btn-group dropup">
+						<a href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span style="font-size: 20px" th:text="|Pedido #${compra.id}|"></span>
+							<span style="font-size: 20px" class="icon-more_vert"></span>
+						</a>
+						<div class="dropdown-menu" aria-labelledby="dropdown04">
+							<a class="dropdown-item" th:href="@{/pedidos/troca/{id}(id=${compra.id})}" th:classappend="${compra.situacao.descricao == 'Cancelado'} ? disabled">
+								<span class="icon-call_missed"></span>
+								<span>Solicitar troca</span>
+							</a>
+							<a class="dropdown-item " th:href="@{/pedidos/cancelar/{id}(id=${compra.id})}" th:classappend="${compra.situacao.descricao == 'Cancelado'} ? disabled">
+								<span class="icon-close"></span>
+								<span>Solicitar cancelamento</span>
+							</a>
+						</div>
+						</div>
 						<div class="cart-list">
 		    				<table id="tabela_pedidos" class="table">
 							    <thead class="thead-primary">

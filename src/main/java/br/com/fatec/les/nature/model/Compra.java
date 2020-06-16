@@ -87,6 +87,19 @@ public class Compra {
 		}
 		
 	}
+	
+	public boolean cancelar() {
+		
+		if(situacao != null) {
+			if((situacao.equals(SituacaoCompra.CANCELADO)) || (situacao.equals(SituacaoCompra.ENTREGUE)) || (situacao.equals(SituacaoCompra.PAGAMENTO_PENDENTE))){
+				return false;
+			}
+		}
+		
+		situacao = SituacaoCompra.CANCELADO;
+		return true;
+	}
+	
 
 	public Calendar getDataCompra() {
 		return dataCompra;
