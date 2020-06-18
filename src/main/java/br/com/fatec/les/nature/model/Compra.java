@@ -1,6 +1,8 @@
 package br.com.fatec.les.nature.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
@@ -73,6 +75,9 @@ public class Compra {
 	private Calendar dataCompra;
 	
 	//Methods
+	/**
+	 * Método utilizado para validar o pagamento de uma compra com um status de pagamento aleatório
+	 */
 	public void validarPagamento() {
 		
 		Random random = new Random();
@@ -88,6 +93,10 @@ public class Compra {
 		
 	}
 	
+	/**
+	 * Método utilizado para efetuar o cancelamento de uma compra
+	 * @return true caso o status atual da compra seja passível de cancelamento
+	 */
 	public boolean cancelar() {
 		
 		if(situacao != null) {
@@ -100,7 +109,86 @@ public class Compra {
 		return true;
 	}
 	
+	/**
+	 * Função responsável por validar a troca, garantindo que os itens de troca estejam presentes na compra e não sejam maiores do que a quantidade original da compra
+	 * @param itens Lista dos itens selecionados para a troca
+	 * @return true caso o processo ocorra normalmente ou false no caso de um produto não estar presente na compra ou apresentar quantidade maior que a presente na compra
+	 */
+	public boolean validarTroca(List<ItensCompra> itensTroca) {
+		
+		//O pedido já foi entregue ?
+		if(!situacao.equals(SituacaoCompra.ENTREGUE)) {
+			return false;
+		}
+		
+		//Criando vetor para validação da existÊncia dos itens
+		boolean validaItens[]  = new boolean[itensTroca.size()]; 
+		
+		//Inicializando todas as posições com 'false'
+		Arrays.fill(validaItens, false);
+		
+		//Percorrendo lista de itens originais da compra
+		for (int i=0; i < this.itens.size(); i++) {
+			
+			//Percorrendo itens cuja troca foi solicitada
+			for (int j=0; j < itensTroca.size(); j++) {	
+				
+				//Item existe ?
+				if(this.itens.get(i).getProduto().getId().equals(itensTroca.get(j).getProduto().getId())){
+					
+					//Quantidade é válida ?
+					if(this.itens.get(i).getQuantidade() < itensTroca.get(j).getQuantidade()) {
+						return false;
+					}
+					
+					validaItens[j] = true;
+				}
+			}//.for_itensTroca
+		}//.for_itensCompra
+		
+		//Verifica se todos os itens selecionados para a troca estão presentes na compra
+		for(int k=0; k < validaItens.length; k++){
+			
+			if(!validaItens[k]) {
+				return false;
+			}
+		}
+		
+		situacao = SituacaoCompra.TROCA_SOLICITADA;
+		return true;
+	}
 
+	/**
+	 * Método responsável por efetuar a conclusão de uma troca, gerando o cupom de desconto equivalente ao valor dos itens envolvidos na troca
+	 * @param itens Lista de itens a serem trocados
+	 * @return CupomDesconto no valor dos itens selecionados 
+	 */
+	public CupomDesconto concluirTroca(List<ItensCompra> itens) {
+		
+		if(validarTroca(itens)) {
+				
+			BigDecimal valorTroca = new BigDecimal(0);
+			
+			//Somar valor total dos itens selecionados para troca
+			for (ItensCompra itemTroca : itens) {
+				valorTroca = valorTroca.add(itemTroca.getTotal());
+			}
+			
+			//Valor válido ?
+			if((valorTroca.compareTo(new BigDecimal(0)) > 0) && (valorTroca.compareTo(total) <= 0)) {
+				
+				this.situacao = SituacaoCompra.TROCA_APROVADA;
+				valorTroca = valorTroca.setScale(2, RoundingMode.HALF_EVEN);
+				this.total = this.total.subtract(valorTroca);
+				
+				return new CupomDesconto(idCliente, valorTroca);
+			}
+		}
+		
+		this.situacao = SituacaoCompra.TROCA_REJEITADA;
+		return null;
+	}
+	
 	public Calendar getDataCompra() {
 		return dataCompra;
 	}

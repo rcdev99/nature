@@ -18,8 +18,10 @@ import br.com.fatec.les.nature.dao.UsuarioDAO;
 import br.com.fatec.les.nature.model.Carrinho;
 import br.com.fatec.les.nature.model.Cliente;
 import br.com.fatec.les.nature.model.Compra;
+import br.com.fatec.les.nature.model.CupomDesconto;
 import br.com.fatec.les.nature.model.Usuario;
 import br.com.fatec.les.nature.service.CompraService;
+import br.com.fatec.les.nature.service.CupomService;
 
 @Controller
 @RequestMapping("/pedidos")
@@ -30,6 +32,9 @@ public class PedidosController {
 	
 	@Autowired
 	CompraService compraService;
+	
+	@Autowired
+	CupomService cupomService;
 	
 	//DAO´S
 	UsuarioDAO DAOUsuario = new UsuarioDAO();
@@ -108,7 +113,12 @@ public class PedidosController {
 		if(compra != null && (compra.getIdCliente().equals(cliente.getId()))) {	
 			
 			if(compra.cancelar()) {
+				
+				CupomDesconto cupom = new CupomDesconto(compra.getIdCliente(), compra.getTotal(), ("Cupom gerado em decorrência de cancelamento do pedido #" + compra.getId()));
+				
 				compraService.salvar(compra);
+				cupomService.salvar(cupom);
+				
 				msgCancelamento = "Pedido #" + compra.getId() + " cancelado, o valor será estornado em forma de cupom no valor da compra";
 			}else {
 				msgCancelamento = ("Compras com status: '" + compra.getSituacao().getDescricao() + "' não podem ser canceladas.");

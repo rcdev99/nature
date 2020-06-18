@@ -160,6 +160,37 @@ public class RestController {
 		return msg;
 	}
 	
+	@RequestMapping(value = "/solicitar/troca", method = RequestMethod.POST)
+	public @ResponseBody String solicitarTroca(@RequestParam String itens, @RequestParam String id_compra) {
+		
+		//Conversão dos dados recebidos
+		Type itemType = new TypeToken<List<ItemCompraDTO>>() {}.getType();
+		Type longType = new TypeToken<Long>() {}.getType();
+		
+		ArrayList<ItemCompraDTO> itensSelecionados = gson.fromJson(itens, itemType); 
+		Long id = gson.fromJson(id_compra, longType);
+		
+		//Variáveis auxiliares
+		String msg;
+		
+		//Instancia dos objetos necessários ao processo
+		ArrayList<ItensCompra> itensTroca = new ArrayList<ItensCompra>();
+		Compra compra = new Compra();
+		compra = compraService.buscarCompraPorId(id);
+		
+		//Processo de troca
+		itensTroca = (ArrayList<ItensCompra>) obtemItens(itensSelecionados);
+		
+		if(compra.validarTroca(itensTroca)) {
+			compraService.salvar(compra);
+			msg = "Solicitação de Troca efetuada com sucesso !";
+		}else {
+			msg = "Pedido de troca negado, para mais informações entre em contato com o administrador do sistema.";
+		}
+		
+		return msg;
+	}
+	
 	/**
 	 * Método responsável por transformar uma lista de ItemCompraDTO em uma lista de ItensCompra
 	 * @param itens Lista de ItemCompraDTO

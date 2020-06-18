@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fatec.les.nature.model.Compra;
+import br.com.fatec.les.nature.model.SituacaoCompra;
 import br.com.fatec.les.nature.repository.CompraRepository;
 
 @Repository
@@ -29,7 +30,7 @@ public class CompraService {
 	 */
 	public String salvar(Compra compra) {
 		
-		if(compra.getItens().size() == 0) {
+		if(compra.getItens().size() == 0 && (!compra.getSituacao().equals(SituacaoCompra.CANCELADO))) {
 			return "Nenhum item foi selecionado para a compra";
 		}
 		

@@ -15,6 +15,8 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import net.bytebuddy.utility.RandomString;
+
 @Entity
 @Table(name="tbl_cupom_desconto")
 public class CupomDesconto {
@@ -45,12 +47,46 @@ public class CupomDesconto {
 	@Enumerated(EnumType.ORDINAL)
     private TipoCupom tipoCupom;
 	
+	@Column(name="cup_in_id_cliente")
+	private Integer idCliente;
+	
 	@Transient
 	private String status;
 	
 	//Builder
 	public CupomDesconto() {
 		this.ativo = true;
+	}
+	
+	//Construtor padrão para cupons de troca
+	public CupomDesconto(Integer idCliente, BigDecimal valor) {
+			
+			this.ativo = true;
+			this.idCliente = idCliente;
+			this.tipoCupom = TipoCupom.TROCA;
+			this.valor = valor;
+			this.descricao = "Cupom gerado em derecorrência de solicitação de troca";
+			this.codigo = geradorDeCodigoAleatorio();
+			
+	}
+	
+	//Construtor para cupons de troca com mensagens específicas
+	public CupomDesconto(Integer idCliente, BigDecimal valor, String descricao) {
+		
+		this.ativo = true;
+		this.idCliente = idCliente;
+		this.tipoCupom = TipoCupom.TROCA;
+		this.valor = valor;
+		this.descricao = descricao;
+		this.codigo = geradorDeCodigoAleatorio();
+		
+	}
+	
+	//Methods
+	private static String geradorDeCodigoAleatorio() {
+			
+		String trechoAleatorio = RandomString.make(12).toUpperCase();
+		return ("EXCHG" + trechoAleatorio);
 	}
 
 	//Getters and Setters

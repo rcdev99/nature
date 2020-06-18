@@ -23,6 +23,65 @@
 		<!-- .banner -->
 		<!-- Conteúdo -->
 		<section class="ftco-section ftco-cart">
+			<!-- Modal -->
+			<div class="modal fade" id="ModalTroca" tabindex="-1" role="dialog" aria-labelledby="TituloModalTroca" aria-hidden="true">
+			  <div class="modal-dialog modal-xl" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="TituloModalTroca">Solicitar troca</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <p class="modal-title" style="padding: 5px 15px 0px">
+			      	<i>Selecione os itens que deseja trocar</i>
+			      </p>
+			      <div class="modal-body">
+				      	<div class="cart-list">
+					        <table class="table">
+							    <thead class="thead-primary">
+							      <tr class="text-center">
+							      	<th>&nbsp;</th>
+							      	<th>Produto</th>
+							      	<th>Quantidade</th>
+							      	<th>Valor unitário</th>
+							      	<th>Subtotal</th>
+							      </tr>
+							    </thead>
+							    <tbody>
+							    	<th:block th:each= "item : ${itensCompra}">
+							    		<tr th:id="|${item.produto.id}|">
+							    			<td><input type="checkbox" class="check_produts" th:value="|${item.produto.id}|"></td>
+							    			<td><span th:text="|${item.produto.nome}|"></span></td>
+							    			<td id="produto_quantidade">
+								    			<input type="button" th:id="${item.produto.id}" value='-' onclick="process(-1,this.id)" />
+												<input th:id="|${item.produto.id}quant|" th:name="|${item.produto.id}quant|" th:class="|${item.produto.id}quant|" size="1" type="text" th:value="${item.quantidade}" th:max="${item.quantidade}" disabled/>
+												<input type="button" th:id="${item.produto.id}" value='+' onclick="process(1,this.id)">
+							    			</td>
+							    			<td><span th:text="|R$ ${item.produto.valor}|"></span></td>
+							    			<td><span th:text="|R$ ${item.total}|"></span></td>
+							    		</tr>
+							    	</th:block>
+							    </tbody>
+							    <tfoot>
+							    	<tr>
+							    		<td colspan="5" align="right" style="padding: 10px 60px">
+							    			<span th:text="Total " style="color: black;"></span>
+							    			<span th:text="|R$ ${compra.total}|"></span>
+							    		</td>
+							    	</tr>
+							    </tfoot> 
+							</table>
+						</div>	
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+			        <button type="button" class="btn btn-primary" onclick="concluir()">Trocar</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<!-- ./modal -->
 			<div class="container" >
 				<div class="row justify-content-center" th:if="${not compraValida}">
 					<h1>Acesso negado</h1>
@@ -47,20 +106,21 @@
 					<!-- Coluna da esquerda -->
 					<div class="col-xl-12 ftco-animate">
 						<div class="btn-group dropup">
-						<a href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<span style="font-size: 20px" th:text="|Pedido #${compra.id}|"></span>
-							<span style="font-size: 20px" class="icon-more_vert"></span>
-						</a>
-						<div class="dropdown-menu" aria-labelledby="dropdown04">
-							<a class="dropdown-item" th:href="@{/pedidos/troca/{id}(id=${compra.id})}" th:classappend="${compra.situacao.descricao == 'Cancelado'} ? disabled">
-								<span class="icon-call_missed"></span>
-								<span>Solicitar troca</span>
+							<a href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<span style="font-size: 20px" th:text="|Pedido #${compra.id}|"></span>
+								<span style="font-size: 20px" class="icon-more_vert"></span>
+								<input type="hidden" id="id_compra" th:value="${compra.id}">
 							</a>
-							<a class="dropdown-item " th:href="@{/pedidos/cancelar/{id}(id=${compra.id})}" th:classappend="${compra.situacao.descricao == 'Cancelado'} ? disabled">
-								<span class="icon-close"></span>
-								<span>Solicitar cancelamento</span>
-							</a>
-						</div>
+							<div class="dropdown-menu" aria-labelledby="dropdown04">
+								<a class="dropdown-item" data-toggle="modal" data-target="#ModalTroca" href="#" th:if="${compra.situacao.descricao == 'Entregue'}">
+									<span class="icon-call_missed"></span>
+									<span>Solicitar troca</span>
+								</a>
+								<a class="dropdown-item " th:href="@{/pedidos/cancelar/{id}(id=${compra.id})}" th:classappend="${compra.situacao.descricao == 'Cancelado'} ? disabled" th:if="not ${compra.situacao.descricao == 'Entregue'}">
+									<span class="icon-close"></span>
+									<span>Solicitar cancelamento</span>
+								</a>
+							</div>
 						</div>
 						<div class="cart-list">
 		    				<table id="tabela_pedidos" class="table">
@@ -75,10 +135,10 @@
 							    </thead>
 							    <tbody>
 							    	<th:block th:each= "item : ${itensCompra}">
-							    		<tr>
+							    		<tr th:id="|produto${item.produto.id}compara|">
 							    			<td><span th:text="|#${item.produto.id}|"></span></td>
 							    			<td><span th:text="|${item.produto.nome}|"></span></td>
-							    			<td><span th:text="|${item.quantidade}|"></span></td>
+							    			<td><span id="produto_quantidade" th:text="|${item.quantidade}|"></span></td>
 							    			<td><span th:text="|R$ ${item.produto.valor}|"></span></td>
 							    			<td><span th:text="|R$ ${item.total}|"></span></td>
 							    		</tr>
@@ -100,6 +160,8 @@
 		</section>		
 		<!-- .conteudo -->
 	</section>
-	<th:block layout:fragment="javascript-extra"></th:block>
+	<th:block layout:fragment="javascript-extra">
+	<script src="/js/pedido.detalhes.js"></script>
+	</th:block>
 </body>
 </html>
