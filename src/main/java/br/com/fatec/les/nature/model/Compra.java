@@ -22,6 +22,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -68,12 +69,23 @@ public class Compra {
 	@Min(value = 0)
     private BigDecimal total;
 	
+	@Column(name="com_mo_frete")
+    private BigDecimal frete;
+	
+	@Column(name="com_bo_ativa", columnDefinition = "boolean default 'true'")
+    private Boolean ativo = true;
 	
 	@Column(name="com_dt_data_compra")
 	@NotNull(message="A compra deve ter uma data de realização")
 	@DateTimeFormat
 	private Calendar dataCompra;
 	
+	@Transient
+	private BigDecimal valorDescontos;
+	
+	@Transient
+	private BigDecimal valorItens;
+
 	//Methods
 	/**
 	 * Método utilizado para validar o pagamento de uma compra com um status de pagamento aleatório
@@ -251,6 +263,59 @@ public class Compra {
 
 	public void setTotal(BigDecimal total) {
 		this.total = total;
+	}
+	
+	public BigDecimal getFrete() {
+		
+		if(frete == null) {
+			frete = new BigDecimal(0);
+		}
+		
+		frete = frete.setScale(2, RoundingMode.HALF_EVEN);
+		return frete;
+	}
+
+	public void setFrete(BigDecimal frete) {
+		this.frete = frete;
+	}
+
+	public BigDecimal getValorDescontos() {
+		
+		if(valorDescontos == null) {
+			
+			BigDecimal desconto = new BigDecimal(0);
+			
+			for (CupomDesconto cupomDesconto : cupons) {
+				desconto = desconto.add(cupomDesconto.getValor());
+			}
+			
+			valorDescontos = desconto.setScale(2, RoundingMode.HALF_EVEN);
+		}
+		
+		return valorDescontos;
+	}
+
+	public void setValorDescontos(BigDecimal valorDescontos) {
+		this.valorDescontos = valorDescontos;
+	}
+
+	public BigDecimal getValorItens() {
+		
+		if(valorItens == null) {
+			
+			BigDecimal valor = new BigDecimal(0);
+			
+			for (ItensCompra item : itens) {
+				
+				valor = valor.add(item.getTotal());
+			}
+		}
+		
+		return valorItens;
+	}
+
+	public void setValorItens(BigDecimal valorItens) {
+		this.valorItens = valorItens;
 	}
 	
 }

@@ -41,7 +41,6 @@ public class RestController {
 	@Autowired
 	ProdutoService pService;
 	
-
 	@Autowired
 	CompraService compraService;
 	
@@ -50,7 +49,6 @@ public class RestController {
 	
 	@Autowired
 	Carteira carteira;
-	
 	
 	EnderecoDAO DAOEndereco = new EnderecoDAO();
 	
@@ -150,7 +148,6 @@ public class RestController {
 		compra.setTotal(carrinho.totalCompra(carteira.totalDescontos()));
 		compra.setIdCliente(clienteId);
 		compra.setIdEndereco(end.getId_endereco());
-		compra.validarPagamento();
 		
 		String msg = compraService.salvar(compra);
 		

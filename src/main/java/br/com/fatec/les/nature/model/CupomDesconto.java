@@ -39,7 +39,7 @@ public class CupomDesconto {
 	@NotBlank(message="É obrigatória a inserção de uma descrição para o cupom")
 	private String descricao;
 	
-	@Column(name="cup_bo_ativo",columnDefinition = "boolean default true")
+	@Column(name="cup_bo_ativo",columnDefinition = "boolean default 'true'")
 	private Boolean ativo;
 	
 	@Column(name="cup_in_tipo")
@@ -55,7 +55,7 @@ public class CupomDesconto {
 	
 	//Builder
 	public CupomDesconto() {
-		this.ativo = true;
+		
 	}
 	
 	//Construtor padrão para cupons de troca

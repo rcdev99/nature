@@ -46,6 +46,13 @@ public class CompraService {
 			compra.setDataCompra(Calendar.getInstance());
 		}
 		
+		if(compra.getSituacao() == null) {
+			compra.setSituacao(SituacaoCompra.COMPRA_REALIZADA);
+			cRepository.save(compra);
+			
+			compra.validarPagamento();
+		}
+		
 		cRepository.save(compra);
 		
 		return "Compra realizada !";

@@ -2,6 +2,7 @@ package br.com.fatec.les.nature.model;
 
 public enum SituacaoCompra {
 
+	COMPRA_REALIZADA("Compra realizada"),
 	PAGAMENTO_PENDENTE("Pagamento pendente"),
 	PAGAMENTO_APROVADO("Pagamento aprovado"),
 	ENVIADO_A_TRANSPORTADORA("Enviado à transportadora"),
