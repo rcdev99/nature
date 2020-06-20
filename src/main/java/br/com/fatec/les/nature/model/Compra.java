@@ -309,6 +309,8 @@ public class Compra {
 				
 				valor = valor.add(item.getTotal());
 			}
+			
+			valorItens = valor.setScale(2, RoundingMode.HALF_EVEN);
 		}
 		
 		return valorItens;

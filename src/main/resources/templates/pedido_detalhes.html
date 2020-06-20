@@ -144,31 +144,26 @@
 							    		</tr>
 							    	</th:block>
 							    </tbody>
-							    <tfoot>
+							    <tfoot class="thead-primary">
 							    	<tr class="text-center">
-							    		<td align="left" style="padding: 10px 30px">
-							    			<span style="color: black;"><b>Valor da compra: </b></span>
-							    			
+							    		<td align="center" style="padding: 10px 20px">
+							    			<span style="color: white;"><b>Valor da compra: </b></span>
 							    		</td>
-							    		
-							    		<td align="right" style="padding: 10px 60px">
-							    			<span th:text="Produtos " style="color: black;"></span>
-							    			<span th:text="|R$ ${compra.valorItens}|"></span>
+							    		<td align="center" style="padding: 10px 20px">
+							    			<span th:text="Produtos" style="color: black;"></span>
+							    			<span th:text="|R$ ${compra.valorItens}|" style="color: white;"></span>
 							    		</td>
-							    		
-							    		<td align="right" style="padding: 10px 60px">
+							    		<td align="center" style="padding: 10px 20px">
 							    			<span th:text="Frete" style="color: black;"></span>
-							    			<span th:text="|R$ ${compra.frete}|"></span>
+							    			<span th:text="|R$ ${compra.frete}|" style="color: white;"></span>
 							    		</td>
-							    	
-							    		<td align="right" style="padding: 10px 60px">
-							    			<span th:text="Produtos " style="color: black;"></span>
-							    			<span th:text="|R$ ${compra.valorDescontos}|"></span>
+							    		<td align="center" style="padding: 10px 20px">
+							    			<span th:text="Desconto" style="color: black;"></span>
+							    			<span th:text="|R$ ${compra.valorDescontos}|" style="color: white;"></span>
 							    		</td>
-							    	
-							    		<td align="right" style="padding: 10px 60px">
-							    			<span th:text="Total " style="color: black;"></span>
-							    			<span th:text="|R$ ${compra.total}|"></span>
+							    		<td align="center" style="padding: 10px 20px">
+							    			<span th:text="Total " style="color: black; font-weight: bold"></span>
+							    			<span th:text="|R$ ${compra.total}|" style="color: white;"></span>
 							    		</td>
 							    	</tr>
 							    </tfoot> 
