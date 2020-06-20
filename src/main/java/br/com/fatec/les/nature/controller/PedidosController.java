@@ -19,6 +19,7 @@ import br.com.fatec.les.nature.model.Carrinho;
 import br.com.fatec.les.nature.model.Cliente;
 import br.com.fatec.les.nature.model.Compra;
 import br.com.fatec.les.nature.model.CupomDesconto;
+import br.com.fatec.les.nature.model.Endereco;
 import br.com.fatec.les.nature.model.Usuario;
 import br.com.fatec.les.nature.service.CompraService;
 import br.com.fatec.les.nature.service.CupomService;
@@ -142,6 +143,25 @@ public class PedidosController {
 		
 		
 		return mView;
+	}
+	
+	@RequestMapping(value="/adm/detalhes/{id.pedido}")
+	public ModelAndView pedidoDetalhesAdmin(@PathVariable("id.pedido") Long id) {
+	
+		ModelAndView mView = new ModelAndView("dashboard-adm-pedidos-detalhes");
+		
+		Compra compra = new Compra();
+		compra = compraService.buscarCompraPorId(id);
+		
+		Cliente cliente = DAOCliente.consultaById(compra.getIdCliente());
+		Endereco endereco = DAOEndereco.consultaById(compra.getIdEndereco());
+		
+		mView.addObject("pedido", compra);
+		mView.addObject("cliente", cliente);
+		mView.addObject("endereco", endereco);
+		
+		return mView;
+		
 	}
 	
 	/**

@@ -57,7 +57,7 @@
                         	<tbody>
                         	  <th:block th:each= "pedido : ${pedidos}">
                         		<tr>	
-                        			<td th:text="|#${pedido.id}|"></td>
+                        			<td><a th:href="@{/pedidos/adm/detalhes/{id}(id=${pedido.id})}"><span th:text="|#${pedido.id}|"></span></a></td>
                         			<td th:text="${#dates.format(pedido.dataCompra, 'dd/MM/yyyy')}"></td>
                         			<td th:text="|R$ ${pedido.frete}|"></td>
                         			<td th:text="|R$ ${pedido.valorItens}|"></td>
