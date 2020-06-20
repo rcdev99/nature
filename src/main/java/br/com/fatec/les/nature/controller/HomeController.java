@@ -50,6 +50,22 @@ public class HomeController {
 		return mView;
 	}
 	
+	@RequestMapping(value = "/layout/nature")
+	public ModelAndView layoutNature() {
+		
+		ModelAndView mView = new ModelAndView("layout/LayoutPadraoNature");
+		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
+		return mView;
+	}
+	
+	@RequestMapping(value = "/layout/dashboard")
+	public ModelAndView layoutNatureDashboard() {
+		
+		ModelAndView mView = new ModelAndView("layout/LayoutPadraoDashboard");
+		return mView;
+	}
+	
+	
 	@RequestMapping(value = "")
 	public String redirect() {
 		
