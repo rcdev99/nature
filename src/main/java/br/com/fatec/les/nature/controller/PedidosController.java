@@ -133,6 +133,17 @@ public class PedidosController {
 		return mView;
 	}
 	
+	@RequestMapping(value="/adm/acompanhar" )
+	public ModelAndView acompranharPedidos() {
+		
+		ModelAndView mView = new ModelAndView("dashboard-adm-pedidos");
+		
+		mView.addObject("pedidos", compraService.buscarTodasAsCompras());
+		
+		
+		return mView;
+	}
+	
 	/**
 	 * Método para obtenção do login do usuário
 	 * @return String contendo login do usuário
