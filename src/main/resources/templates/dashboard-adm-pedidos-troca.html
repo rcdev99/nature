@@ -43,6 +43,20 @@
                         <h4 style="font-weight: bold">Solicitações de Troca</h4>
                     </div>
                     <div class="card-body">
+                    	<!-- Mensagem de erro -->
+                    	<div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="not ${#strings.isEmpty(error)}">
+						  <span th:text="${error}"></span>
+						  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						    <span aria-hidden="true">&times;</span>
+						  </button>
+						</div>
+						<!-- Mensagem de execução bem-sucedida-->
+						<div class="alert alert-success alert-dismissible fade show" role="alert" th:if="not ${#strings.isEmpty(sucess)}">
+						  <span th:text="${sucess}"></span>
+						  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						    <span aria-hidden="true">&times;</span>
+						  </button>
+						</div>
                     	<div class="card">
 	                    	<div class="card-body">
 		                    	<table id="bootstrap-data-table" class="table table-striped table-bordered" style="padding: 10px">
@@ -59,12 +73,12 @@
 		                        	<tbody>
 		                        	  <th:block th:each= "troca : ${solicitacoes}">
 		                        		<tr>	
-		                        			<td th:text="|#${troca.id}|" style=" text-align: center"></td>
+		                        			<td style=" text-align: center"><a th:href="@{/pedidos/adm/troca/{id}(id=${troca.id})}"><span th:text="|#${troca.id}|"></span></a></td>
 		                        			<td th:text="${#dates.format(troca.dataTroca, 'dd/MM/yyyy')}" style=" text-align: center"></td>
 		                        			<td th:text="${#arrays.length(troca.itens)}" style=" text-align: center"></td>
 		                        			<td th:text="|R$ ${troca.valorTroca}|" style=" text-align: center"></td>
 		                        			<td th:text="${troca.situacao.descricao}|" style=" text-align: center"></td>
-		                        			<td><a href="#">Visualizar <i class="ti-search"></i></a></td>
+		                        			<td><a th:href="@{/pedidos/adm/troca/{id}(id=${troca.id})}">Visualizar <i class="ti-search"></i></a></td>
 		                        		</tr>
 		                        	  </th:block>
 		                        	</tbody>

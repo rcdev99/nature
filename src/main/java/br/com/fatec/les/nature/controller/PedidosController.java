@@ -20,6 +20,7 @@ import br.com.fatec.les.nature.model.Cliente;
 import br.com.fatec.les.nature.model.Compra;
 import br.com.fatec.les.nature.model.CupomDesconto;
 import br.com.fatec.les.nature.model.Endereco;
+import br.com.fatec.les.nature.model.Troca;
 import br.com.fatec.les.nature.model.Usuario;
 import br.com.fatec.les.nature.service.CompraService;
 import br.com.fatec.les.nature.service.CupomService;
@@ -175,8 +176,72 @@ public class PedidosController {
 		
 		mView.addObject("solicitacoes", trocaService.buscarTodas());
 		
+		
 		return mView;
 		
+	}
+	
+	@RequestMapping(value="adm/troca/{id.troca}")
+	public ModelAndView detalhesTroca(@PathVariable("id.troca") Long id) {
+		
+		ModelAndView mView = new ModelAndView("dashboard-adm-pedidos-troca-detalhes");
+		
+		Troca solicitacao = new Troca();
+		solicitacao = trocaService.buscarPorId(id);
+		
+		mView.addObject("solicitacao", solicitacao);
+		mView.addObject("cliente", DAOCliente.consultaById(solicitacao.getCompra().getIdCliente()));
+		
+		return mView;
+	}
+	
+	@RequestMapping(value="adm/troca/concluir/{aceito}/{id.troca}")
+	public ModelAndView concluirTroca(@PathVariable("aceito") boolean aceito, @PathVariable("id.troca") Long id, RedirectAttributes redirectAttributes) {
+		
+		ModelAndView mView = new ModelAndView("redirect:/pedidos/adm/troca");
+		
+		//Instanciando a troca aceita
+		Troca solicitacao = new Troca();
+		solicitacao = trocaService.buscarPorId(id);
+		
+		if(aceito) {
+			//Instancia para conter o cupom de troca gerado
+			CupomDesconto cupom = new CupomDesconto();
+			
+			cupom = solicitacao.gerarCupomDeTroca();
+			
+			if(cupom != null) {
+				try {
+					cupomService.salvar(cupom);
+					solicitacao.aprovarTroca();
+					trocaService.salvar(solicitacao);
+				} catch (Exception e) {
+					e.printStackTrace();
+					String error = "Cupom gerado já existe, tente novamente";
+					solicitacao.negarSolicitacaoDeTroca();
+					trocaService.salvar(solicitacao);
+					redirectAttributes.addFlashAttribute("error", error);
+					return mView;
+				}
+				
+				String sucess = "Solicitação de troca #" + solicitacao.getId() + " foi aceita !";
+				redirectAttributes.addFlashAttribute("sucess", sucess);
+				return mView;
+			}
+		}else {
+		
+			//Caso não aceite
+			solicitacao.negarSolicitacaoDeTroca();
+			trocaService.salvar(solicitacao);
+			String sucess = "Solicitação de troca #" + solicitacao.getId() + " recusada !";
+			
+			redirectAttributes.addFlashAttribute("sucess", sucess);
+			
+			return mView;
+		}		
+		
+		redirectAttributes.addFlashAttribute("error", "Tivemos problemas durante o processo de persistência do cupom");
+		return mView;
 	}
 	
 	/**

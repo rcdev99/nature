@@ -81,7 +81,7 @@ public class Troca {
 	}
 	
 	//Methods
-	private void aprovarTroca() {
+	public void aprovarTroca() {
 		
 		this.situacao = SituacaoTroca.APROVADA;
 		this.aprovada = true;
@@ -100,9 +100,8 @@ public class Troca {
 	public CupomDesconto gerarCupomDeTroca() {
 		
 		if(!aprovada) {
-			aprovarTroca();
 			String msg = "Cupom gerado em decorrência de solicitação de troca do pedido #" + compra.getId();
-			CupomDesconto cupom = new CupomDesconto(compra.getIdCliente(), this.valorTroca, msg);
+			CupomDesconto cupom = new CupomDesconto(compra.getIdCliente(), getValorTroca(), msg);
 			
 			return cupom;
 		}else {

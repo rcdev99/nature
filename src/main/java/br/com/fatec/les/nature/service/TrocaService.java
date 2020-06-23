@@ -31,6 +31,10 @@ public class TrocaService {
 		trocaRepository.delete(troca);
 	}
 	
+	public Troca buscarPorId(Long id) {
+		return trocaRepository.findById(id).get();
+	}
+	
 	public List<Troca> buscarTodas() {
 		return trocaRepository.findAll();
 	}

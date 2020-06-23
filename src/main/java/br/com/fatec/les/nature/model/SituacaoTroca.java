@@ -4,7 +4,6 @@ public enum SituacaoTroca {
 
 	
 	AGUARDANDO_ANALISE("Aguardando análise"),
-	EM_ANALISE("Em análise"),
 	NEGADA("Solicitação negada"),
 	APROVADA("Solicitação aprovada");
 	
