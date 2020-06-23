@@ -94,8 +94,8 @@ public class Compra {
 		
 		Random random = new Random();
 		
-		Integer numeroAleatorio = random.nextInt(100);
-		Integer taxaDeAceitacao = 80;
+		Integer numeroAleatorio = random.nextInt(10);
+		Integer taxaDeAceitacao = 8;
 		
 		if(numeroAleatorio <= taxaDeAceitacao) {
 			this.situacao = SituacaoCompra.PAGAMENTO_APROVADO;

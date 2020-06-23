@@ -23,6 +23,7 @@ import br.com.fatec.les.nature.model.Endereco;
 import br.com.fatec.les.nature.model.Usuario;
 import br.com.fatec.les.nature.service.CompraService;
 import br.com.fatec.les.nature.service.CupomService;
+import br.com.fatec.les.nature.service.TrocaService;
 
 @Controller
 @RequestMapping("/pedidos")
@@ -36,6 +37,9 @@ public class PedidosController {
 	
 	@Autowired
 	CupomService cupomService;
+	
+	@Autowired
+	TrocaService trocaService;
 	
 	//DAO´S
 	UsuarioDAO DAOUsuario = new UsuarioDAO();
@@ -159,6 +163,17 @@ public class PedidosController {
 		mView.addObject("pedido", compra);
 		mView.addObject("cliente", cliente);
 		mView.addObject("endereco", endereco);
+		
+		return mView;
+		
+	}
+	
+	@RequestMapping(value="/adm/troca")
+	public ModelAndView solicitacoesDeTroca() {
+		
+		ModelAndView mView = new ModelAndView("dashboard-adm-pedidos-troca");
+		
+		mView.addObject("solicitacoes", trocaService.buscarTodas());
 		
 		return mView;
 		

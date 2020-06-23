@@ -27,9 +27,11 @@ import br.com.fatec.les.nature.model.CupomDesconto;
 import br.com.fatec.les.nature.model.Endereco;
 import br.com.fatec.les.nature.model.ItensCompra;
 import br.com.fatec.les.nature.model.Produto;
+import br.com.fatec.les.nature.model.Troca;
 import br.com.fatec.les.nature.service.CompraService;
 import br.com.fatec.les.nature.service.CupomService;
 import br.com.fatec.les.nature.service.ProdutoService;
+import br.com.fatec.les.nature.service.TrocaService;
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/rest")
@@ -46,6 +48,9 @@ public class RestController {
 	
 	@Autowired
 	Carrinho carrinho;
+	
+	@Autowired
+	TrocaService trocaService;
 	
 	@Autowired
 	Carteira carteira;
@@ -158,7 +163,7 @@ public class RestController {
 	}
 	
 	@RequestMapping(value = "/solicitar/troca", method = RequestMethod.POST)
-	public @ResponseBody String solicitarTroca(@RequestParam String itens, @RequestParam String id_compra) {
+	public @ResponseBody String solicitarTroca(@RequestParam String itens, @RequestParam String id_compra, @RequestParam String motivo) {
 		
 		//Conversão dos dados recebidos
 		Type itemType = new TypeToken<List<ItemCompraDTO>>() {}.getType();
@@ -179,7 +184,14 @@ public class RestController {
 		itensTroca = (ArrayList<ItensCompra>) obtemItens(itensSelecionados);
 		
 		if(compra.validarTroca(itensTroca)) {
+			
+			Troca troca = new Troca(itensTroca, compra, motivo);
+			
+			trocaService.salvar(troca);
 			compraService.salvar(compra);
+			
+			System.out.println(motivo);
+			
 			msg = "Solicitação de Troca efetuada com sucesso !";
 		}else {
 			msg = "Pedido de troca negado, para mais informações entre em contato com o administrador do sistema.";
