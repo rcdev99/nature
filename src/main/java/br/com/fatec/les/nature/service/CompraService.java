@@ -96,4 +96,18 @@ public class CompraService {
 		return cRepository.findAll();
 	}
 	
+	/**
+	 * Método utilizado para forçar a atualizar da situação de uma compra
+	 */
+	public void atualizarSituacaoCompras() {
+		
+		List<Compra> compras = cRepository.findAll();
+		
+		for (Compra compra : compras) {			
+			if(compra.AtualizarSituaçãoCompra()) {
+					cRepository.save(compra);
+			}
+		}
+	}
+	
 }

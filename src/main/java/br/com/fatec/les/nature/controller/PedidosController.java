@@ -246,6 +246,16 @@ public class PedidosController {
 		return mView;
 	}
 	
+	@RequestMapping(value="/atualizar")
+	public ModelAndView atualizarSituacaoPedidos() {
+		
+		ModelAndView mView = new ModelAndView("redirect:/pedidos/adm/acompanhar");
+		
+		compraService.atualizarSituacaoCompras();
+		
+		return mView;
+	}
+	
 	/**
 	 * Método para obtenção do login do usuário
 	 * @return String contendo login do usuário

@@ -201,6 +201,72 @@ public class Compra {
 		return null;
 	}
 	
+	/**
+	 * Método que realiza alterações na Situação da Compra de acordo com a Situação atual.
+	 * @return true Quandou houver uma modificação no status ou false caso o item não sofra nenhuma modificação.
+	 */
+	public boolean AtualizarSituaçãoCompra() {
+		
+		Random random = new Random();
+		int valorAleatorio = random.nextInt(99);
+		
+		switch (this.situacao) {
+		case COMPRA_REALIZADA :	
+			if((valorAleatorio%2) > 0) {
+				this.situacao = SituacaoCompra.PAGAMENTO_APROVADO;
+			}else {
+				this.situacao = SituacaoCompra.PAGAMENTO_PENDENTE;
+			}
+			return true;
+		
+		case PAGAMENTO_PENDENTE:	
+			if((valorAleatorio%2) > 0) {
+				this.situacao = SituacaoCompra.PAGAMENTO_APROVADO;
+			}else {
+				this.situacao = SituacaoCompra.PAGAMENTO_PENDENTE;
+			}
+			return true;
+		
+		case PAGAMENTO_APROVADO:
+			this.situacao = SituacaoCompra.ENVIADO_A_TRANSPORTADORA;
+			return true;
+		
+		case ENVIADO_A_TRANSPORTADORA:
+			if((valorAleatorio%2) > 0) {
+				this.situacao = SituacaoCompra.DEVOLVIDO;
+			}else {
+				this.situacao = SituacaoCompra.EM_TRANSPORTE;
+			}
+			return true;
+		
+		case EM_TRANSPORTE:
+			int aleatorio = random.nextInt(3);
+				if(aleatorio == 0) {
+					this.situacao = SituacaoCompra.ENTREGUE;
+				}else if(aleatorio == 1) {
+					this.situacao = SituacaoCompra.CLIENTE_NAO_ENCONTRADO;
+				}else {
+					this.situacao = SituacaoCompra.DEVOLVIDO;
+				}
+			return true;
+			
+		case CLIENTE_NAO_ENCONTRADO:
+			this.situacao = SituacaoCompra.DEVOLVIDO;
+			return true;
+			
+		case DEVOLVIDO:
+			this.situacao = SituacaoCompra.EM_TRANSPORTE;
+			return true;
+			
+		case REJEITADO_PELO_CLIENTE:
+			this.situacao = SituacaoCompra.DEVOLVIDO;
+			return true;
+			
+		default:
+			return false;
+		}
+	}
+	
 	public Calendar getDataCompra() {
 		return dataCompra;
 	}
