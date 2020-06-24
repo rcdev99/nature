@@ -5,8 +5,6 @@ var enderecoValido = false;
 
 function concluirCompra(){
 	
-	
-	
 	if(validarCompra()){
 		
 		var cartoesUtilizados = JSON.stringify(cartoes);

@@ -34,13 +34,50 @@
                 </div>
             </div>
         </div>
-        <!-- /.navegação-->	
+        <!-- /.navegação-->
+        <!-- Modal -->
+       	<div class="modal fade" id="modal_gerenciar_status" tabindex="-1" role="dialog" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">Gerenciar status do pedido</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		      	<form class="billing-form">
+		      		<div class="col-md-12">
+						<div class="row align-items-end">
+		      				<label class="form-control-label" for="situacao">Situação atual</label>
+		      				<select class="form-control" name="situacao" id="situacao">
+			      				<option th:value="${pedido.situacao}" th:text="${pedido.situacao.descricao}" class="selected"></option>
+			      				<th:block th:each="situacao : ${pedidoSituacao}">
+			      					<option th:value="${situacao}" th:text="${situacao.descricao}" th:if="not (${situacao.descricao} == ${pedido.situacao.descricao})"></option>	
+			      				</th:block>
+			      			</select>	
+			      			<input type="hidden" id="id_compra" th:value="${pedido.id}"></input>
+		      			</div>
+		      		</div>	
+		      	</form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+		        <button type="button" class="btn btn-primary" onclick="teste()">Salvar mudanças</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+        <!-- ./modal -->	
 		<!-- Principal-->
         <div class="content">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 th:text="|#Pedido ${pedido.id}|" style="font-weight: bold"></h4>
+                        <h4 style="font-weight: bold">
+ 							<span th:text="|#Pedido ${pedido.id}|"></span> 
+ 							<span><a href="#" data-toggle="modal" data-target="#modal_gerenciar_status"><i class="ti-settings"></i></a></span>                     
+                        </h4>
                     </div>
                     <div class="row" style="padding : 20px 20px 0px">	
 	                    <!-- Card cliente -->
@@ -129,5 +166,8 @@
         </div>
         <!-- /.principal --> 
     </section>
+<th:block layout:fragment="javascript-extra">
+ <script src="/js/gerenciar.status.pedido.js"></script>
+</th:block>
 </body>
 </html>             

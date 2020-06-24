@@ -20,6 +20,7 @@ import br.com.fatec.les.nature.model.Cliente;
 import br.com.fatec.les.nature.model.Compra;
 import br.com.fatec.les.nature.model.CupomDesconto;
 import br.com.fatec.les.nature.model.Endereco;
+import br.com.fatec.les.nature.model.SituacaoCompra;
 import br.com.fatec.les.nature.model.Troca;
 import br.com.fatec.les.nature.model.Usuario;
 import br.com.fatec.les.nature.service.CompraService;
@@ -164,6 +165,7 @@ public class PedidosController {
 		mView.addObject("pedido", compra);
 		mView.addObject("cliente", cliente);
 		mView.addObject("endereco", endereco);
+		mView.addObject("pedidoSituacao", SituacaoCompra.values());
 		
 		return mView;
 		

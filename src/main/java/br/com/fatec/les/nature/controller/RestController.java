@@ -27,6 +27,7 @@ import br.com.fatec.les.nature.model.CupomDesconto;
 import br.com.fatec.les.nature.model.Endereco;
 import br.com.fatec.les.nature.model.ItensCompra;
 import br.com.fatec.les.nature.model.Produto;
+import br.com.fatec.les.nature.model.SituacaoCompra;
 import br.com.fatec.les.nature.model.Troca;
 import br.com.fatec.les.nature.service.CompraService;
 import br.com.fatec.les.nature.service.CupomService;
@@ -198,6 +199,22 @@ public class RestController {
 		}
 		
 		return msg;
+	}
+	
+	@RequestMapping(value = "/alterar/situacao/compra/{situacao}/{id}", method = RequestMethod.POST)
+	public @ResponseBody String atualizarStatusPedido(@PathVariable SituacaoCompra situacao, @PathVariable Long id) {
+		
+		Compra compra = new Compra();
+		compra = compraService.buscarCompraPorId(id);
+		
+		if(compra != null && situacao != null) {
+			compra.setSituacao(situacao);
+			compraService.salvar(compra);
+			return "Status alterado com sucesso !";
+		}else {
+			return "Desculpe, houve um erro inesperado durante a operação";
+		}
+		
 	}
 	
 	/**
