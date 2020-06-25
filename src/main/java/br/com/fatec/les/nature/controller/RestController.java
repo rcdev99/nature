@@ -31,6 +31,7 @@ import br.com.fatec.les.nature.model.SituacaoCompra;
 import br.com.fatec.les.nature.model.Troca;
 import br.com.fatec.les.nature.service.CompraService;
 import br.com.fatec.les.nature.service.CupomService;
+import br.com.fatec.les.nature.service.EstoqueService;
 import br.com.fatec.les.nature.service.ProdutoService;
 import br.com.fatec.les.nature.service.TrocaService;
 
@@ -48,10 +49,13 @@ public class RestController {
 	CompraService compraService;
 	
 	@Autowired
-	Carrinho carrinho;
+	TrocaService trocaService;
 	
 	@Autowired
-	TrocaService trocaService;
+	EstoqueService estoqueService;
+	
+	@Autowired
+	Carrinho carrinho;
 	
 	@Autowired
 	Carteira carteira;
@@ -138,6 +142,8 @@ public class RestController {
 		
 		System.out.println(cartoesUtilizados.size());
 		
+		String msgRetorno;
+		
 		Endereco end = new Endereco(endDto);
 		end.setIdPessoa(clienteId);
 		
@@ -155,12 +161,17 @@ public class RestController {
 		compra.setIdCliente(clienteId);
 		compra.setIdEndereco(end.getId_endereco());
 		
-		String msg = compraService.salvar(compra);
-		
-		carrinho.limparCarrinho();
-		carteira.esvaziarCarteira();
-		
-		return msg;
+		if(estoqueService.validarDisponibilidadeItens(compra.getItens())){
+			
+			estoqueService.baixarItens(compra.getItens());
+			msgRetorno = compraService.salvar(compra);
+			carrinho.limparCarrinho();
+			carteira.esvaziarCarteira();
+			
+			return msgRetorno;
+		}else {
+			return estoqueService.msgItensIndisponiveis(estoqueService.informarItensIndisponiveis(compra.getItens())); 
+		}
 	}
 	
 	@RequestMapping(value = "/solicitar/troca", method = RequestMethod.POST)
