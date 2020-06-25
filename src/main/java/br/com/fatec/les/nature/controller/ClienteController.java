@@ -109,7 +109,6 @@ public class ClienteController {
 		
 		return mView;
 	}
-	
 	/**
 	 * Método para exibição dos detalhes cadastrais de um determinado Cliente
 	 * @param id Identificar único do Usuário

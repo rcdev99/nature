@@ -1,5 +1,7 @@
 package br.com.fatec.les.nature.model;
 
+import br.com.fatec.les.nature.dto.EnderecoDTO;
+
 public class Endereco extends EntidadeDominio{
 
 	private Integer id_endereco;
@@ -31,6 +33,34 @@ public class Endereco extends EntidadeDominio{
 		this.id_endereco = id_endereco;
 	}
 
+	//Constructor
+	public Endereco() {
+		
+	}
+	
+	public Endereco(EnderecoDTO endDto) {
+		
+		Logradouro logradouro = new Logradouro();
+		Cidade cidade = new Cidade();
+		
+		logradouro.setTipo(TipoLogradouro.RUA);
+		logradouro.setLogradouro(endDto.getLogradouro());
+		
+		Estado estado = new Estado();
+		estado.setSigla(endDto.getEstado());
+		
+		cidade.setCidade(endDto.getCidade());
+		cidade.setEstado(estado);
+		
+		this.id_endereco = endDto.getId();
+		this.tipoResidencia =  TipoResidencia.CASA;
+		this.logradouro = logradouro;
+		this.numero = Integer.valueOf(endDto.getNumero());
+		this.bairro = endDto.getBairro();
+		this.cidade = cidade;
+		
+	}
+	
 	//Getters and Setters
 	public TipoResidencia getTipoResidencia() {
 		return tipoResidencia;

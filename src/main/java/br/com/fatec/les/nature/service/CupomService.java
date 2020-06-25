@@ -23,7 +23,6 @@ public class CupomService {
 	 */
 	public void salvar(CupomDesconto cupom) {
 		
-		//Regras de Negócio
 		cRepository.save(cupom);
 	}
 	

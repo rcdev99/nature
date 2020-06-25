@@ -9,12 +9,12 @@
 
 
     $('#bootstrap-data-table').DataTable({
-        lengthMenu: [[10, 20, 50, -1], [10, 20, 50, "Todos"]],
+        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
 			
 			"language": {
 	            "lengthMenu": "Mostrando _MENU_ registros por página",
 	            "zeroRecords": "Nenhum registro encontrado",
-	            "info": "Mostrando página _PAGE_ de _PAGES_",
+	            "info": "Página _PAGE_ de _PAGES_ de um total de _TOTAL_ registros",
 	            "infoEmpty": "Nenhum registro disponível",
 	            "infoFiltered": "(filtrado a partir de _MAX_ registros)",
 	            "search": "Pesquisar",

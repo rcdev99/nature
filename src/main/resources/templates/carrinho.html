@@ -112,7 +112,7 @@
 						      </tr>
 						    </thead>
 						    <tbody>
-						      <th:block th:each="item : ${carrinho.itens}">
+						      <th:block class="bloco_produto" th:each="item : ${carrinho.itens}">
 							      <tr class="produto">
 							        <td class="product-remove"><a th:href="@{/carrinho/rmv/{id}(id=${item.produto.id})}"><span class="ion-ios-close"></span></a></td>
 							        
@@ -123,16 +123,17 @@
 							        	<p><span th:text-align="left" th:text="${item.produto.descricao}"></span></p>
 							        </td>
 							        
-							        <td class="price"><span class="valorProduto" th:value="${item.produto.valor}"  th:text="|R$ ${item.produto.valor}|"></span></td>
+							        <td class="price"><span class="valorProduto" id="valorProduto" th:value="${item.produto.valor}"  th:text="|R$ ${item.produto.valor}|"></span></td>
 							        
 							        <td class="quantity">
 							        	<div class="input-group mb-2">
 						             		<input th:type="number" name="quantidade" id="quantidade" class="quantity form-control input-number" onchange="calcularTotalProduto()" th:value="${item.quantidade}" min="1" max="100">
 						          		</div>
 						         	</td>
-							        
 							      	<td class="total"><span class="totalProduto"></span></td>
+							      	<td><input th:type="hidden" name="produtoId" id="produtoId" class="produtoId" th:value="${item.produto.id}"></td> 
 							      </tr><!-- END TR-->
+							     	
 						      <th:block>
 						    </tbody>
 						  </table>
@@ -151,7 +152,7 @@
 			              </div>
 	            		</form>
     				</div>
-    				<p><a href="#" class="btn btn-primary py-3 px-4" onclick="validarCupom()">Utilizar Cupom</a></p>
+    				<p><a href="#validacao" class="btn btn-primary py-3 px-4" onclick="validarCupom()">Utilizar Cupom</a></p>
     			</div>
     			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
     				<div class="cart-total mb-3">
@@ -187,7 +188,7 @@
     						<span class="totalVenda">R$ 0.00</span>
     					</p>
     				</div>
-    				<p><a href="#validacao" class="btn btn-primary py-3 px-4">Validar Compra</a></p>
+    				<p><a href="#validacao" class="btn btn-primary py-3 px-4" onclick="validandoCompra()">Validar Compra</a></p>
     			</div>
     		</div>
 			</div>
