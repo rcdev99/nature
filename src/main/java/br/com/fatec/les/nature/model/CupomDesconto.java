@@ -55,7 +55,7 @@ public class CupomDesconto {
 	
 	//Builder
 	public CupomDesconto() {
-		
+		this.ativo = true;
 	}
 	
 	//Construtor padrão para cupons de troca
