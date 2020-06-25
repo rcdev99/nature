@@ -131,7 +131,7 @@ public class EstoqueService {
 	/**
 	 * Método utilizado para percorrer um lista de ItensCompra e identificar se algum deles não está disponível em estoque
 	 * @param itens
-	 * @return boolean - true caso todos os itens estejam disponíveis ou false no caso de um dele não contar com a quantidade solicitada disponível
+	 * @return boolean - true caso todos os itens estejam disponíveis ou false no caso de um deles não constar com a quantidade solicitada disponível
 	 */
 	public boolean validarDisponibilidadeItens(List<ItensCompra> itens) {
 		
@@ -161,6 +161,11 @@ public class EstoqueService {
 		return itensIndisponiveis;
 	}
 	
+	/**
+	 * Concatena mensagem de retorno baseada na lista de itens indisponíveis
+	 * @param itensIndisponiveis
+	 * @return String Mensagem informando os itens inseridos em quantidade superior que a disponível em estoque
+	 */
 	public String msgItensIndisponiveis(List<ItensCompra> itensIndisponiveis) {
 		
 		String inicio;

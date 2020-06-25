@@ -231,7 +231,6 @@ function validandoCompra(){
 		
 		//Obtendo id do produto
 		var idDoProduto = produtos[pos].getElementsByClassName("produtoId");
-		console.log(idDoProduto);
 		var id = idDoProduto[0].value;
 		//Obtendo quantidade de produto
 		var quantidadeDeProduto = produtos[pos].getElementsByClassName("quantity form-control input-number");
@@ -266,9 +265,12 @@ function prepararCompra(){
 		    	   'cupons': cuponsDesc
 		    	},
 		    success: function(result) {
-		    	
-		      console.log(result);
-		      window.location = "/compra/conclusao";
+		    	var retorno = JSON.parse(result);
+		    	if(retorno.situacao){
+		    		window.location = "/compra/conclusao";
+		    	}else{
+		    		alert(retorno.mensagem);
+		    	}
 		    }
 		  });
 	}

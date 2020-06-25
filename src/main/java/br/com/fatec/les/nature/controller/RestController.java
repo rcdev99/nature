@@ -18,6 +18,7 @@ import com.google.gson.reflect.TypeToken;
 
 import br.com.fatec.les.nature.dao.EnderecoDAO;
 import br.com.fatec.les.nature.dto.CartaoDTO;
+import br.com.fatec.les.nature.dto.DuploRetornoDTO;
 import br.com.fatec.les.nature.dto.EnderecoDTO;
 import br.com.fatec.les.nature.dto.ItemCompraDTO;
 import br.com.fatec.les.nature.model.Carrinho;
@@ -82,8 +83,8 @@ public class RestController {
 	
 	/**
 	 * Método para obtenção de um endereço com base em seu id
-	 * @param codigo - Identificar único do cupom
-	 * @return Json contendo o cupom encontrado ou null caso o código não exista
+	 * @param idEndereco - Identificar único do endereço
+	 * @return Json contendo o endereco encontrado ou null caso o código não exista
 	 */
 	@RequestMapping(value = "/validar/endereco/{idEndereco}", method = RequestMethod.POST)
 	public String validarEndereco(@PathVariable("idEndereco") int idEndereco) {
@@ -120,13 +121,19 @@ public class RestController {
 		//Populando o array de itensCompra com os itens recebidos
 		itensCompra = (ArrayList<ItensCompra>) obtemItens(itens);
 		
-		//Adiciona os produtos e suas respectivas quantidades no carrinho
-		carrinho.limparCarrinho();
-		carrinho.setItens(itensCompra);
-		//Adiciona os cupons do cliente à carteira
-		carteira.setCupons(cuponsCompra);
-		
-		return "OK!";	
+		if(estoqueService.validarDisponibilidadeItens(itensCompra)) {
+			
+			//Adiciona os produtos e suas respectivas quantidades no carrinho
+			carrinho.limparCarrinho();
+			carrinho.setItens(itensCompra);
+			//Adiciona os cupons do cliente à carteira
+			carteira.esvaziarCarteira();
+			carteira.setCupons(cuponsCompra);
+			
+			return gson.toJson(new DuploRetornoDTO(true, "OK"));
+		}else {
+			return gson.toJson(new DuploRetornoDTO(false, estoqueService.msgItensIndisponiveis(itensCompra)));
+		}
 	}
 	
 	@RequestMapping(value = "/compra/concluir", method = RequestMethod.POST)
