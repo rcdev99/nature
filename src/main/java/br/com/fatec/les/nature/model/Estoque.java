@@ -29,7 +29,7 @@ public class Estoque {
     private Long id;
 	
 	@OneToOne(cascade=CascadeType.ALL , fetch = FetchType.LAZY)
-	@JoinColumn(name="est_in_id_produto", referencedColumnName = "pdt_in_id")
+	@JoinColumn(name="est_in_id_produto", referencedColumnName = "pdt_in_id", unique=true)
 	private Produto produto;
 	
 	@NotNull
@@ -41,6 +41,9 @@ public class Estoque {
 	
 	@Transient
 	private BigDecimal valorEmEstoque;
+	
+	@Transient
+	private String disponibilidade;
 
 	public Long getId() {
 		return id;
@@ -88,7 +91,20 @@ public class Estoque {
 	public void setValorEmEstoque(BigDecimal valorEmEstoque) {
 		this.valorEmEstoque = valorEmEstoque;
 	}
-	
-	
+
+	public String getDisponibilidade() {
+		
+		if(disponivel) {
+			this.disponibilidade = "Disponível";
+		}else {
+			 this.disponibilidade = "Indisponível";
+		}
+		
+		return disponibilidade;
+	}
+
+	public void setDisponibilidade(String disponibilidade) {
+		this.disponibilidade = disponibilidade;
+	}
 	
 }
