@@ -18,6 +18,7 @@ import br.com.fatec.les.nature.model.Produto;
 import br.com.fatec.les.nature.model.TipoPrecificacao;
 import br.com.fatec.les.nature.model.TipoProduto;
 import br.com.fatec.les.nature.repository.Produtos;
+import br.com.fatec.les.nature.service.EstoqueService;
 import br.com.fatec.les.nature.service.ProdutoService;
 
 @Controller
@@ -32,6 +33,9 @@ public class ProdutoController {
 	
 	@Autowired
 	Carrinho carrinho;
+	
+	@Autowired 
+	EstoqueService estoqueService;
 	
 	/**
 	 * Método utilizado para direcionar o usuário administrativo ao painel de controle de produtos

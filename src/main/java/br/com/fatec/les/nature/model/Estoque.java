@@ -28,6 +28,7 @@ public class Estoque {
 	@Column(name="est_in_id")
     private Long id;
 	
+	@NotNull
 	@OneToOne(cascade=CascadeType.ALL , fetch = FetchType.LAZY)
 	@JoinColumn(name="est_in_id_produto", referencedColumnName = "pdt_in_id", unique=true)
 	private Produto produto;
@@ -45,6 +46,18 @@ public class Estoque {
 	@Transient
 	private String disponibilidade;
 
+	//Constructors 
+	public Estoque() {
+		disponivel = true;
+	}
+	
+	public Estoque(Produto produto, BigDecimal qtd) {
+		this.produto = produto;
+		this.quantidade = qtd;
+		this.disponivel = true;
+	}
+	
+	//Getters and Setters
 	public Long getId() {
 		return id;
 	}
