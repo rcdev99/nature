@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <!-- /.navegação-->	
+        <!-- /.navegação-->
 		<!-- Principal-->
         <div class="content">
             <div class="col-lg-12">
@@ -51,23 +51,25 @@
                                 	<th scope="col">Valor unitário</th>
                                 	<th scope="col">Valor em Estoque</th>
                                 	<th scope="col">Situação</th>
+                                	<th scope="col">Ações</th>
                                 </tr>	
                         	</thead>
                         	<tbody>
                         	  <th:block th:each= "item : ${estoque}">
                         		<tr>	
-                        			<td><a href="#"><span th:text="|#${item.id}|"></span></a></td>
+                        			<td><a th:href="@{/estoque/gerenciar/{id} (id = ${item.id})}"><span th:text="|#${item.id}|"></span></a></td>
                         			<td th:text="${item.produto.nome}"></td>
                         			<td th:text="${item.quantidade}"></td>
                         			<td th:text="|R$ ${item.produto.valor}|"></td>
                         			<td th:text="|R$ ${item.valorEmEstoque}|"></td>
                         			<td th:text="|${item.disponibilidade}|"></td>
+                        			<td><a th:href="@{/estoque/gerenciar/{id} (id = ${item.id})}"><span>Gerenciar <i class="ti-settings"></i></span></a></td>
                         		</tr>
                         	  </th:block>
                         	</tbody>
                         	<tfoot>
                         		<tr>
-                        			<td colspan="5" style="font-weight: bold; text-align: right">Valor total em estoque:</td>
+                        			<td colspan="6" style="font-weight: bold; text-align: right">Valor total em estoque:</td>
                         			<td th:text="|R$ ${valorTotal}|" style="font-weight: bold"></td>
                         		</tr>
                         	</tfoot>

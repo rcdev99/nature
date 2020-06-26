@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br" 	xmlns="http://www.w3.org/1999/xhtml"
+					xmlns:th="https://thymeleaf.org"  
+					xmlns:s="http://www.springframework.org/tags"  
+					xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+					layout:decorator="layout/LayoutPadraoDashboard">
+<head>
+	<title>NaturÊ | Detalhes</title>
+</head>					
+<body>
+	<section layout:fragment="conteudo">
+		<!-- Navegação -->
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Painel de Controle</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a href="/admin">Painel de Controle</a></li>
+                                    <li><a href="/estoque/listar">Estoque</a></li>
+                                    <li class="active">Detalhes</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.navegação-->
+		<!-- Principal-->
+        <div class="content">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Estoque</h4>
+                    </div>  	
+                    <div class="card-body">
+                    	<form action="/estoque/editar" th:object="${estoque}" method="post" class="billing-form">
+                    	
+                    	</form>
+                    </div>
+               </div>
+            </div> 
+        </div>
+        <!-- /.principal --> 
+    </section>
+</body>
+</html>             
