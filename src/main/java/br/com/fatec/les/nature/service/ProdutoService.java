@@ -34,10 +34,10 @@ public class ProdutoService {
 	 * Método responsável por persistir um produto no Data Base
 	 * @param produto Objeto contendo as informações do produto a ser persistido
 	 */
-	public void salvar(Produto produto) {
+	public Produto salvar(Produto produto) {
 		
 		//Regras de Negócio
-		produtos.save(produto);
+		return produtos.save(produto);
 	}
 	
 	/**

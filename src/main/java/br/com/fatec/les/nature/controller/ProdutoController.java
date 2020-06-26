@@ -1,5 +1,6 @@
 package br.com.fatec.les.nature.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -14,10 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fatec.les.nature.model.Carrinho;
+import br.com.fatec.les.nature.model.Estoque;
 import br.com.fatec.les.nature.model.Produto;
 import br.com.fatec.les.nature.model.TipoPrecificacao;
 import br.com.fatec.les.nature.model.TipoProduto;
 import br.com.fatec.les.nature.repository.Produtos;
+import br.com.fatec.les.nature.service.EstoqueService;
 import br.com.fatec.les.nature.service.ProdutoService;
 
 @Controller
@@ -32,6 +35,9 @@ public class ProdutoController {
 	
 	@Autowired
 	Carrinho carrinho;
+	
+	@Autowired 
+	EstoqueService estoqueService;
 	
 	/**
 	 * Método utilizado para direcionar o usuário administrativo ao painel de controle de produtos
@@ -75,7 +81,7 @@ public class ProdutoController {
 	 * @return mView View para listagem de produtos caso a validação ocorra, ou redicionamento para a mesma página em caso de erro.
 	 */
 	@RequestMapping(value = "/novo", method=RequestMethod.POST)
-	public ModelAndView cadastrarProduto(@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes) {
+	public ModelAndView cadastrarProduto(@Valid Produto produto, Double quantidade ,BindingResult result, RedirectAttributes redirectAttributes) {
 	
 		if(result.hasErrors()) {
 			return formProduto(produto);
@@ -83,8 +89,11 @@ public class ProdutoController {
 		
 		ModelAndView mView = new ModelAndView("redirect:/produto/listar");
 		
-		pService.salvar(produto);
-				
+		produto = pService.salvar(produto);
+		
+		Estoque estoque = new Estoque(produto, new BigDecimal(quantidade));
+		estoqueService.salvar(estoque);
+		
 		redirectAttributes.addFlashAttribute("mensagem", "Produto cadastrado com sucesso !");
 		mView.addObject("produto", produto);
 		
