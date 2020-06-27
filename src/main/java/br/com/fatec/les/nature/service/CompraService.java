@@ -1,15 +1,20 @@
 package br.com.fatec.les.nature.service;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.fatec.les.nature.dto.ComprasMensalDTO;
 import br.com.fatec.les.nature.model.Compra;
 import br.com.fatec.les.nature.model.SituacaoCompra;
 import br.com.fatec.les.nature.repository.CompraRepository;
@@ -109,5 +114,48 @@ public class CompraService {
 			}
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	/**
+	 * Método utilizado para obter a Quantidade de Compras mensais dos últimos 6 meses
+	 * @return List<ComprasMensalDTO> contendo o resultado da busca ao Banco de Dados
+	 */
+	public List<ComprasMensalDTO> obterQuantidadeComprasMensal(){
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("SELECT * ");
+		sb.append("FROM vw_montante_compras_mensal ");
+		sb.append("LIMIT 6");
+		
+		Query query = em.createNativeQuery(sb.toString());
+		return builderComprasMensal(query.getResultList().iterator());
+	}
+	
+	/**
+	 * Método para construir uma lista de ComprasMensalDto com base no resultado de uma consulta ao Banco de Dados
+	 * @param queryResult
+	 * @return List<ComprasMensalDTO> Contendo os DTO´s instanciados com base na consulta realizada
+	 */
+	private List<ComprasMensalDTO> builderComprasMensal(Iterator<Object> queryResult){
+		
+		List<ComprasMensalDTO> comprasMensal = new ArrayList<ComprasMensalDTO>();
+		
+		while (queryResult.hasNext()) {	
+			
+			Object[] obj = (Object[]) queryResult.next();
+			
+			//Construindo obeto de retorno
+			ComprasMensalDTO qtdMensal = new ComprasMensalDTO(Integer.valueOf(obj[0].toString()), //qtd de vendas
+															 (Double.valueOf(obj[1].toString())).intValue(), //Mes das vendas 
+															 (Double.valueOf(obj[2].toString())).intValue(), //Ano das vendas
+															 BigDecimal.valueOf(Double.valueOf(obj[3].toString()))); //Valor das vendas
+			
+			comprasMensal.add(qtdMensal);
+		}
+		
+		return comprasMensal;
+	}
+	
 	
 }

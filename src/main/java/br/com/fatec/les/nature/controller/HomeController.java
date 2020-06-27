@@ -20,6 +20,7 @@ import br.com.fatec.les.nature.model.TipoProduto;
 import br.com.fatec.les.nature.model.TipoResidencia;
 import br.com.fatec.les.nature.model.TipoTelefone;
 import br.com.fatec.les.nature.model.TipoUsuario;
+import br.com.fatec.les.nature.service.CompraService;
 import br.com.fatec.les.nature.service.ProdutoService;
 
 @Controller
@@ -31,6 +32,9 @@ public class HomeController {
 	//Service
 	@Autowired
 	ProdutoService pService;
+	
+	@Autowired
+	CompraService compraService;
 	
 	//Carrinho
 	@Autowired
@@ -186,6 +190,8 @@ public class HomeController {
 		Integer qtdClientes;
 		qtdClientes = DAOUsuario.getQtdUsuarios(TipoUsuario.ROLE_CLIENTE);
 	
+		compraService.obterQuantidadeComprasMensal();
+		
 		mView.addObject("qtdClientes", qtdClientes);
 		
 		return mView;
