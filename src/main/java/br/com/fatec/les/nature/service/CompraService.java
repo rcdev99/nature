@@ -100,6 +100,10 @@ public class CompraService {
 		return cRepository.findAll();
 	}
 	
+	public Long quantidadeCompras() {
+		return cRepository.count();
+	}
+	
 	/**
 	 * Método utilizado para forçar a atualizar da situação de uma compra
 	 */

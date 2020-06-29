@@ -190,8 +190,6 @@ public class HomeController {
 	public ModelAndView painelDeControleAdmin(Integer periodo) throws SQLException {
 		ModelAndView mView = new ModelAndView("dashboard-admin");
 	
-		Integer qtdClientes;
-		qtdClientes = DAOUsuario.getQtdUsuarios(TipoUsuario.ROLE_CLIENTE);
 		
 		//Valor default para geração do gráfico
 		if(periodo == null) {
@@ -214,7 +212,9 @@ public class HomeController {
 			qtdCanceladasMensal.put(canceladasMensal.getMesTxt(), canceladasMensal.getQtdCompras());
 		}
 		
-		mView.addObject("qtdClientes", qtdClientes);
+		mView.addObject("qtdClientes", DAOUsuario.getQtdUsuarios(TipoUsuario.ROLE_CLIENTE));
+		mView.addObject("qtdCompras", compraService.quantidadeCompras());
+		mView.addObject("qtdProdutos", pService.quantidadeProdutosCadastrados());
 		mView.addObject("comprasMensal", qtdComprasMensal);
 		mView.addObject("entreguesMensal", qtdEntreguesMensal);
 		mView.addObject("canceladasMensal", qtdCanceladasMensal);
