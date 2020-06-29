@@ -131,7 +131,7 @@ public class HomeController {
 	@RequestMapping(value = "/lista_de_desejos")
 	public ModelAndView exibirListaDeDesejos() {
 		
-		ModelAndView mView = new ModelAndView("lista_desejos");
+		ModelAndView mView = new ModelAndView("carrinho");
 		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
 		
 		return mView;
