@@ -1,23 +1,21 @@
 package br.com.fatec.les.nature.dto;
 
-import java.math.BigDecimal;
 import java.util.GregorianCalendar;
 
 public class ComprasMensalDTO {
 
 	private Integer qtdCompras;
 	private GregorianCalendar mes;
-	private BigDecimal valor;
+	private String mesTxt;
 	
 	public ComprasMensalDTO() {
 		
 	}
 	
-	public ComprasMensalDTO(Integer qtd, Integer mes, Integer ano, BigDecimal valor) {
+	public ComprasMensalDTO(Integer qtd, Integer mes, Integer ano) {
 		
 		this.qtdCompras = qtd;
-		this.valor = valor;
-		this.mes = new GregorianCalendar(mes, ano, 1);
+		this.mes = new GregorianCalendar(ano, mes, 1);
 		
 	}
 
@@ -36,13 +34,67 @@ public class ComprasMensalDTO {
 	public void setMes(GregorianCalendar mes) {
 		this.mes = mes;
 	}
-
-	public BigDecimal getValor() {
-		return valor;
+	
+	public String getMesTxt() {
+		
+		switch (this.mes.get(GregorianCalendar.MONTH)) {
+		case 1: {
+			mesTxt = "Jan";
+			break;
+		}
+		case 2: {
+			mesTxt = "Fev";
+			break;
+		}
+		case 3: {
+			mesTxt = "Mar";
+			break;
+		}
+		case 4: {
+			mesTxt = "Abr";
+			break;
+		}
+		case 5: {
+			mesTxt = "Mai";
+			break;
+		}
+		case 6: {
+			mesTxt = "Jun";
+			break;
+		}
+		case 7: {
+			mesTxt = "Jul";
+			break;
+		}
+		case 8: {
+			mesTxt = "Ago";
+			break;
+		}
+		case 9: {
+			mesTxt = "Set";
+			break;
+		}
+		case 10: {
+			mesTxt = "Out";
+			break;
+		}
+		case 11: {
+			mesTxt = "Nov";
+			break;
+		}
+		case 12: {
+			mesTxt = "Dez";
+			break;
+		}
+		default:
+			throw new IllegalArgumentException("Valor inesperado: " + mes + " insira valores entre 1 e 12");
+		}
+		
+		return mesTxt +"/"+ this.mes.get(GregorianCalendar.YEAR);
 	}
 
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
+	public void setMesTxt(String mesTxt) {
+		this.mesTxt = mesTxt;
 	}
 	
 }

@@ -1,6 +1,5 @@
 package br.com.fatec.les.nature.service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -117,19 +116,76 @@ public class CompraService {
 	
 	@SuppressWarnings("unchecked")
 	/**
-	 * Método utilizado para obter a Quantidade de Compras mensais dos últimos 6 meses
-	 * @return List<ComprasMensalDTO> contendo o resultado da busca ao Banco de Dados
+	 * Método utilizado para obter a quantidade de compras realizadas por mês durante um período
+	 * @param qtdMeses Quantidade de meses do período solicitado
+	 * @return List<ComprasMensalDTO> Contendo lista com a quantidade de compras realizadas
 	 */
-	public List<ComprasMensalDTO> obterQuantidadeComprasMensal(){
+	public List<ComprasMensalDTO> obterQuantidadeComprasUltimosMeses(int qtdMeses){
 		
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("SELECT * ");
-		sb.append("FROM vw_montante_compras_mensal ");
+		sb.append("FROM vendasultimosmeses(");
+		sb.append(qtdMeses);
+		sb.append(") AS ");
+		sb.append("(quantidade bigint, mes double precision, ano double precision);");
+		
+		Query query = em.createNativeQuery(sb.toString());
+		return builderComprasMensal(query.getResultList().iterator());
+	}
+	
+	@SuppressWarnings("unchecked")
+	/**
+	 * Método utilizado para obter a quantidade de compras entregues por mês durante um período
+	 * @param qtdMeses Quantidade de meses do periodo solicitado
+	 * @return List<ComprasMensalDTO> Contendo lista com a quantidade de compras entregues
+	 */
+	public List<ComprasMensalDTO> obterQuantidadeEntreguesUltimosMeses(int qtdMeses){
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("SELECT * ");
+		sb.append("FROM vendasentreguesultimosmeses(");
+		sb.append(qtdMeses);
+		sb.append(") AS ");
+		sb.append("(quantidade bigint, mes double precision, ano double precision);");
+		
+		Query query = em.createNativeQuery(sb.toString());
+		return builderComprasMensal(query.getResultList().iterator());
+	}
+	
+	@SuppressWarnings("unchecked")
+	/**
+	 * Método utilizado para obter a quantidade de compras canceladas por mês durante um período
+	 * @param qtdMeses Quantidade de meses do periodo solicitado
+	 * @return List<ComprasMensalDTO> Contendo lista com a quantidade de compras canceladas
+	 */
+	public List<ComprasMensalDTO> obterQuantidadeCanceladasUltimosMeses(int qtdMeses){
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("SELECT * ");
+		sb.append("FROM vendascanceladasultimosmeses(");
+		sb.append(qtdMeses);
+		sb.append(") AS ");
+		sb.append("(quantidade bigint, mes double precision, ano double precision);");
+		
+		Query query = em.createNativeQuery(sb.toString());
+		return builderComprasMensal(query.getResultList().iterator());
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ComprasMensalDTO> obterQuantidadeComprasMensalEntregues(){
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("SELECT * ");
+		sb.append("FROM vw_compras_mensal_entregues ");
 		sb.append("LIMIT 6");
 		
 		Query query = em.createNativeQuery(sb.toString());
 		return builderComprasMensal(query.getResultList().iterator());
+		
 	}
 	
 	/**
@@ -145,17 +201,35 @@ public class CompraService {
 			
 			Object[] obj = (Object[]) queryResult.next();
 			
-			//Construindo obeto de retorno
-			ComprasMensalDTO qtdMensal = new ComprasMensalDTO(Integer.valueOf(obj[0].toString()), //qtd de vendas
-															 (Double.valueOf(obj[1].toString())).intValue(), //Mes das vendas 
-															 (Double.valueOf(obj[2].toString())).intValue(), //Ano das vendas
-															 BigDecimal.valueOf(Double.valueOf(obj[3].toString()))); //Valor das vendas
+			int qtd = Integer.valueOf(obj[0].toString());
+			int mes = Double.valueOf(obj[1].toString()).intValue();
+			int ano = Double.valueOf(obj[2].toString()).intValue();
 			
+			//Construindo obeto de retorno
+			ComprasMensalDTO qtdMensal = new ComprasMensalDTO(qtd, mes, ano);			
 			comprasMensal.add(qtdMensal);
 		}
 		
 		return comprasMensal;
 	}
 	
+	/**
+	 * Método utilizado para inverter o retorno concedido do banco de forma que a semântica de apresentação dos dados fique mais legível
+	 * @param lista List<ComprasMensalDto> que terá a sequência de valor invertida
+	 * @return
+	 */
+	@SuppressWarnings("unused")
+	private List<ComprasMensalDTO> inverterRetorno(List<ComprasMensalDTO> lista) {
+		
+		List<ComprasMensalDTO> inverso = new ArrayList<ComprasMensalDTO>();
+				
+		for(int i = (lista.size() -1); i>=0; i--) {
+			ComprasMensalDTO valor = new ComprasMensalDTO();
+			valor = lista.get(i);
+			inverso.add(valor);
+		}
+		
+		return inverso;
+	}
 	
 }
