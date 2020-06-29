@@ -1,7 +1,9 @@
 package br.com.fatec.les.nature.controller;
 
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.fatec.les.nature.dao.UsuarioDAO;
+import br.com.fatec.les.nature.dto.ComprasMensalDTO;
 import br.com.fatec.les.nature.model.Carrinho;
 import br.com.fatec.les.nature.model.Cliente;
 import br.com.fatec.les.nature.model.Produto;
@@ -20,6 +23,7 @@ import br.com.fatec.les.nature.model.TipoProduto;
 import br.com.fatec.les.nature.model.TipoResidencia;
 import br.com.fatec.les.nature.model.TipoTelefone;
 import br.com.fatec.les.nature.model.TipoUsuario;
+import br.com.fatec.les.nature.service.CompraService;
 import br.com.fatec.les.nature.service.ProdutoService;
 
 @Controller
@@ -31,6 +35,9 @@ public class HomeController {
 	//Service
 	@Autowired
 	ProdutoService pService;
+	
+	@Autowired
+	CompraService compraService;
 	
 	//Carrinho
 	@Autowired
@@ -180,13 +187,38 @@ public class HomeController {
 	 * @throws SQLException 
 	 */
 	@RequestMapping(value = "/admin")
-	public ModelAndView painelDeControleAdmin() throws SQLException {
+	public ModelAndView painelDeControleAdmin(Integer periodo) throws SQLException {
 		ModelAndView mView = new ModelAndView("dashboard-admin");
 	
 		Integer qtdClientes;
 		qtdClientes = DAOUsuario.getQtdUsuarios(TipoUsuario.ROLE_CLIENTE);
-	
+		
+		//Valor default para geração do gráfico
+		if(periodo == null) {
+			periodo = 6;
+		}
+		
+		//Map de associação entre o mês e a quantidade de vendas
+		Map<String, Integer> qtdComprasMensal = new LinkedHashMap<String, Integer>();
+		Map<String, Integer> qtdEntreguesMensal = new LinkedHashMap<String, Integer>();
+		Map<String, Integer> qtdCanceladasMensal = new LinkedHashMap<String, Integer>();
+		
+		//Populando Map´s
+		for (ComprasMensalDTO comprasMensal: compraService.obterQuantidadeComprasUltimosMeses(periodo)) {
+			qtdComprasMensal.put(comprasMensal.getMesTxt(), comprasMensal.getQtdCompras());
+		}
+		for (ComprasMensalDTO entreguesMensal: compraService.obterQuantidadeEntreguesUltimosMeses(periodo)) {
+			qtdEntreguesMensal.put(entreguesMensal.getMesTxt(), entreguesMensal.getQtdCompras());
+		}
+		for (ComprasMensalDTO canceladasMensal: compraService.obterQuantidadeCanceladasUltimosMeses(periodo)) {
+			qtdCanceladasMensal.put(canceladasMensal.getMesTxt(), canceladasMensal.getQtdCompras());
+		}
+		
 		mView.addObject("qtdClientes", qtdClientes);
+		mView.addObject("comprasMensal", qtdComprasMensal);
+		mView.addObject("entreguesMensal", qtdEntreguesMensal);
+		mView.addObject("canceladasMensal", qtdCanceladasMensal);
+		mView.addObject("selecionado", periodo);
 		
 		return mView;
 	}
