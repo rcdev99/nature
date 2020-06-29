@@ -120,7 +120,9 @@ public class CompraService {
 	 * @param qtdMeses Quantidade de meses do período solicitado
 	 * @return List<ComprasMensalDTO> Contendo lista com a quantidade de compras realizadas
 	 */
-	public List<ComprasMensalDTO> obterQuantidadeComprasUltimosMeses(int qtdMeses){
+	public List<ComprasMensalDTO> obterQuantidadeComprasUltimosMeses(Integer qtdMeses){
+		
+		qtdMeses = trataPeriodo(qtdMeses);
 		
 		StringBuilder sb = new StringBuilder();
 		
@@ -140,7 +142,9 @@ public class CompraService {
 	 * @param qtdMeses Quantidade de meses do periodo solicitado
 	 * @return List<ComprasMensalDTO> Contendo lista com a quantidade de compras entregues
 	 */
-	public List<ComprasMensalDTO> obterQuantidadeEntreguesUltimosMeses(int qtdMeses){
+	public List<ComprasMensalDTO> obterQuantidadeEntreguesUltimosMeses(Integer qtdMeses){
+		
+		qtdMeses = trataPeriodo(qtdMeses);
 		
 		StringBuilder sb = new StringBuilder();
 		
@@ -160,7 +164,9 @@ public class CompraService {
 	 * @param qtdMeses Quantidade de meses do periodo solicitado
 	 * @return List<ComprasMensalDTO> Contendo lista com a quantidade de compras canceladas
 	 */
-	public List<ComprasMensalDTO> obterQuantidadeCanceladasUltimosMeses(int qtdMeses){
+	public List<ComprasMensalDTO> obterQuantidadeCanceladasUltimosMeses(Integer qtdMeses){
+		
+		qtdMeses = trataPeriodo(qtdMeses);
 		
 		StringBuilder sb = new StringBuilder();
 		
@@ -232,4 +238,23 @@ public class CompraService {
 		return inverso;
 	}
 	
+	/**
+	 * Método utilizado para tratamento do periodo de pesquisa, visando evitar problemas de exibição do gráfico
+	 * @param i Integer que representa a quantidade de meses retroativos pesquisados
+	 * @return int valor válido para consulta
+	 */
+	private int trataPeriodo(Integer i) {
+		
+		if(i < 2) {
+			return 2;
+		}
+		if(i > 12 && i<24) {
+			return 12;
+		}
+		if(i > 24) {
+			return 24;
+		}
+		
+		return i;
+	}
 }

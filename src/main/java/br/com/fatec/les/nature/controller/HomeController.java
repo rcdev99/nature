@@ -187,13 +187,16 @@ public class HomeController {
 	 * @throws SQLException 
 	 */
 	@RequestMapping(value = "/admin")
-	public ModelAndView painelDeControleAdmin() throws SQLException {
+	public ModelAndView painelDeControleAdmin(Integer periodo) throws SQLException {
 		ModelAndView mView = new ModelAndView("dashboard-admin");
 	
 		Integer qtdClientes;
 		qtdClientes = DAOUsuario.getQtdUsuarios(TipoUsuario.ROLE_CLIENTE);
-	
-		int periodo = 6;
+		
+		//Valor default para geração do gráfico
+		if(periodo == null) {
+			periodo = 6;
+		}
 		
 		//Map de associação entre o mês e a quantidade de vendas
 		Map<String, Integer> qtdComprasMensal = new LinkedHashMap<String, Integer>();
@@ -215,6 +218,7 @@ public class HomeController {
 		mView.addObject("comprasMensal", qtdComprasMensal);
 		mView.addObject("entreguesMensal", qtdEntreguesMensal);
 		mView.addObject("canceladasMensal", qtdCanceladasMensal);
+		mView.addObject("selecionado", periodo);
 		
 		return mView;
 	}
