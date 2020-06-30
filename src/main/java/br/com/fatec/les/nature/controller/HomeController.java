@@ -105,6 +105,7 @@ public class HomeController {
 		List<Produto> produtos = pService.getAllProducts();
 		
 		mView.addObject("produtos", produtos);
+		mView.addObject("em_geral", true);
 		mView.addObject("tiposProduto", TipoProduto.values());
 		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
 		

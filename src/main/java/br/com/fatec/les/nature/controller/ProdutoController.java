@@ -205,12 +205,15 @@ public class ProdutoController {
 	public ModelAndView produtosPorCategoria(@PathVariable("tipoProduto") String tipoProduto){
 		
 		ModelAndView mView = new ModelAndView("produtos");
-		TipoProduto tipo = TipoProduto.valueOf(tipoProduto);
+		TipoProduto tipo = TipoProduto.valueOf(tipoProduto.toUpperCase());
 		
 		List<Produto> produtos = pService.buscarPorCategoria(tipo);
 		
+		System.out.println(tipo.toString());
+		
 		mView.addObject("produtos", produtos);
 		mView.addObject("tiposProduto", TipoProduto.values());
+		mView.addObject("selecionado", tipo);
 		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
 		
 		return mView;
