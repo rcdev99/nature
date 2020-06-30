@@ -25,7 +25,7 @@
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a href="/admin">Painel de Controle</a></li>
-                                    <li><a href="/produto/listar">Produtos</a></li>
+                                    <li><a href="/produto/adm/listar">Produtos</a></li>
                                     <li class="active">Editar</li>
                                 </ol>
                             </div>
@@ -44,7 +44,7 @@
                     </div>  	
                     <div class="card-body">
                     <!--Dados Cadastrais #Produto-->
-                        <form action="/produto/editar" th:object="${produto}" method="post" class="billing-form">
+                        <form action="/produto/adm/editar" th:object="${produto}" method="post" class="billing-form">
                             <div class="card-body">
 	                    		<th:block th:each="erro : ${#fields.detailedErrors()}">
 	                    			<div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">

@@ -81,9 +81,9 @@
                                            <td th:text="${produto.tipo.descricao}"></td>
                                            <td th:text="|R$ ${produto.valor} (${produto.tipoPreco.descricao})|"></td>
                                            <td align="center">
-			                                   	<a th:href="@{/produto/detalhes/{id}(id=${produto.id})}"> Detalhes <i class="ti-search"> </i></a>
-	                                            <a th:href="@{/produto/editar/{id}(id=${produto.id})}"> | Editar <i class="ti-pencil"> </i></a>
-	                                            <a th:href="@{/produto/excluir/{id}(id=${produto.id})}"> | Excluir <i class="ti-trash"> </i></a>
+			                                   	<a th:href="@{/produto/adm/detalhes/{id}(id=${produto.id})}"> Detalhes <i class="ti-search"> </i></a>
+	                                            <a th:href="@{/produto/adm/editar/{id}(id=${produto.id})}"> | Editar <i class="ti-pencil"> </i></a>
+	                                            <a th:href="@{/produto/adm/excluir/{id}(id=${produto.id})}"> | Excluir <i class="ti-trash"> </i></a>
                                            </td>  
 	                                    </tr>	                                 
                                     </tbody>    
