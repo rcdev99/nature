@@ -30,6 +30,33 @@ public class Carrinho {
 		this.itens = itens;
 	}
 	
+	//Methods
+	/**
+	 * Método para obtenção do valor de frete de uma venda
+	 * @return
+	 */
+	public BigDecimal getFrete() {
+		
+		this.frete = new BigDecimal(11.87);
+		BigDecimal margemFrete = new BigDecimal(50);
+		
+		if (valorProdutos().compareTo(margemFrete) >= 0 || valorProdutos().compareTo(new BigDecimal(0)) <= 0 ) {
+			this.frete = BigDecimal.valueOf(0);
+		}
+		
+		this.frete = frete.setScale(2, RoundingMode.HALF_EVEN);
+		
+		return frete;
+	}
+
+	/**
+	 * Método para inserção de um valor de frete
+	 * @param frete valor do frete a ser inserido
+	 */
+	public void setFrete(BigDecimal frete) {
+		this.frete = frete;
+	}
+	
 	/**
 	 * Método responsável pela inserção de um item na lista de ItensCompra
 	 * @param item Elemento a ser adicionado na lista
@@ -141,32 +168,6 @@ public class Carrinho {
 	public void limparCarrinho() {
 		
 		itens.clear();
-	}
-
-	/**
-	 * Método para obtenção do valor de frete de uma venda
-	 * @return
-	 */
-	public BigDecimal getFrete() {
-		
-		this.frete = new BigDecimal(11.87);
-		BigDecimal margemFrete = new BigDecimal(50);
-		
-		if (valorProdutos().compareTo(margemFrete) >= 0 || valorProdutos().compareTo(new BigDecimal(0)) <= 0 ) {
-			this.frete = BigDecimal.valueOf(0);
-		}
-		
-		this.frete = frete.setScale(2, RoundingMode.HALF_EVEN);
-		
-		return frete;
-	}
-
-	/**
-	 * Método para inserção de um valor de frete
-	 * @param frete valor do frete a ser inserido
-	 */
-	public void setFrete(BigDecimal frete) {
-		this.frete = frete;
 	}
 	
 }

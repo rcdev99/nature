@@ -41,6 +41,9 @@
 							      </tr>
 							    </thead>
 							    <tbody>
+							    	<tr th:if="${carrinho.getQtdProdutos() == 0}">
+							    		<td colspan="6"><h5><span>Seu carrinho está vazio</span></h5></td>
+							    	</tr>
 							      <th:block class="bloco_produto" th:each="item : ${carrinho.itens}">
 								      <tr class="produto">
 								        <td class="product-remove"><a th:href="@{/carrinho/rmv/{id}(id=${item.produto.id})}"><span class="ion-ios-close"></span></a></td>
