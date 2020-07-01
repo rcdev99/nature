@@ -56,7 +56,6 @@ public class CarrinhoController {
 			mView.addObject("mensagem", "Produto adicionado ao carrinho");
 		}
 		
-		
 		mView.addObject("carrinho", carrinho);
 		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
 		
