@@ -6,7 +6,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout/LayoutPadraoNature">
 <head>
-	<title>NaturÊ | Produtos</title>
+	<title>NaturÊ | Carrinho</title>
 </head>
 <body class="goto-here">
 	<section layout:fragment="conteudo">	
@@ -26,8 +26,11 @@
 					<div class="row">
 	    			<div class="col-md-12 ftco-animate">
 	    				<div class="cart-list">
-	    					<div align=center>
-								<span th:text="${mensagem}">Mensagem</span>
+							<div class="alert alert-success alert-dismissible fade show" role="alert" th:if="not ${#strings.isEmpty(mensagem)}">
+							  <span th:text="${mensagem}"></span>
+							  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							    <span aria-hidden="true">&times;</span>
+							  </button>
 							</div>
 		    				<table class="table">
 							    <thead class="thead-primary">
@@ -120,7 +123,7 @@
 	    						<span class="totalVenda">R$ 0.00</span>
 	    					</p>
 	    				</div>
-	    				<p><a href="#validacao" class="btn btn-primary py-3 px-4" onclick="validandoCompra()">Validar Compra</a></p>
+	    				<p><a href="#validacao" class="btn btn-primary py-3 px-4" th:onclick="'validandoCompra('+${logado}+')'">Validar Compra</a></p>
 	    			</div>
 	    		</div>
 				</div>

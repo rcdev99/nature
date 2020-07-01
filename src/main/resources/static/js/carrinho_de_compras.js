@@ -222,7 +222,13 @@ function calcularDesconto(){
  * Funções para validação da compra
  */
 
-function validandoCompra(){
+function validandoCompra(logado){
+	
+	if(!logado){
+		alert("Para prosseguir com a compra, faça login ou cadastre-se");
+		window.location = "/login";
+		return;
+	}
 	
 	var produtos = document.getElementsByClassName("produto");
 	produtosCarrinho = [];
@@ -249,16 +255,15 @@ function validandoCompra(){
 }
 
 function prepararCompra(){
-
+	
 	if(produtosCarrinho == 0){
 		alert("O carrinho está vázio, insira ao menos um produto para prosseguir com a compra");
 	}else{
-
 		var produtos = JSON.stringify(produtosCarrinho);
 		var cuponsDesc = JSON.stringify(cupons);
 		
 		//Requisiçao Ajax para envio dos dados da compra
-		$.ajax({
+		const register = $.ajax({
 		    url: '/rest/checkout',
 		    type: 'post',
 		    data: {'produtos': produtos,
