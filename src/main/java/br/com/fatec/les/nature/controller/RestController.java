@@ -239,6 +239,21 @@ public class RestController {
 		return qtdProdutos.toString();
 	}
 	
+	@RequestMapping(value="/add/item/{id.produto}/{quantidade}", method = RequestMethod.POST)
+	public String adicionarItemComQuantidade(@PathVariable("id.produto") Long id, @PathVariable("quantidade") Double qtd) {
+	
+		Produto produto = new Produto();
+		produto = pService.findById(id);
+		
+		if(produto != null) {
+			ItensCompra item = new ItensCompra(produto, qtd);
+			carrinho.adicionarItem(item);
+		}
+		
+		return "OK";
+	}
+	
+	
 	@RequestMapping(value = "/alterar/situacao/compra/{situacao}/{id}", method = RequestMethod.POST)
 	public @ResponseBody String atualizarStatusPedido(@PathVariable SituacaoCompra situacao, @PathVariable Long id) {
 		

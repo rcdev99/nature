@@ -27,51 +27,53 @@
 	    			<div class="col-lg-6 mb-5 ftco-animate">
 	    				<a href="/images/mockup1.jpg" class="image-popup"><img th:src="${produto.url}" class="img-fluid" alt="Colorlib Template"/></a>
 	    			</div>
-	    			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
-	    				<h3><span th:text="${produto.nome}"></span></h3>
-	    				<p class="price"><span th:text="|R$ ${produto.valor}|">Valor</span></p>
-	    				<p>
-							<span th:text="${produto.descricao}"></span>
-						</p>
+		    			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
+		    				<h3><span th:text="${produto.nome}"></span></h3>
+		    				<p class="price"><span th:text="|R$ ${produto.valor} (${produto.tipoPreco.descricao})|">Valor</span></p>
+		    				<p>
+								<span th:text="${produto.descricao}"></span>
+							</p>
 							<div class="row mt-4">
-								
 								<div class="w-100"></div>
-								<div class="input-group col-md-6 d-flex mb-3">
-		             	<span class="input-group-btn mr-2">
-		                	<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
-		                   <i class="ion-ios-remove"></i>
-		                	</button>
-		            		</span>
-		             	<input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
-		             	<span class="input-group-btn ml-2">
-		                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-		                     <i class="ion-ios-add"></i>
-		                 </button>
-		             	</span>
-		          	</div>
-		          	<div class="w-100"></div>
-	          	</div>
-	          	<p><a href="/carrinho.html" class="btn btn-black py-3 px-5">Adicionar ao carrinho</a></p>
-	    			</div>
+									<div class="input-group col-md-6 d-flex mb-3">
+					             	<span class="input-group-btn mr-2">
+					                	<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
+					                   		<i class="ion-ios-remove"></i>
+					                	</button>
+					            	</span>
+					             	<input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" th:min="${produto.step}" disabled>
+					             	<input type="hidden" id="id_produto" th:value="${produto.id}">
+					             	<span class="input-group-btn ml-2">
+					                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
+					                    	<i class="ion-ios-add"></i>
+					                 	</button>
+					             	</span>
+					          	</div>
+					            <div class="w-100"></div>
+	          				</div>
+	          				<p><a class="btn btn-black py-3 px-5" onclick="addProdutoQuantidade()">Adicionar ao carrinho</a></p>
+		    			</div>
 	    		</div>
 	    	</div>
 	    </section>
 	</section>
 	 <th:block layout:fragment="javascript-extra">
-	    <script>
+	 	<script src="/js/produto.js"></script>
+	    <script th:inline="javascript">
 			$(document).ready(function(){
-	
 			var quantitiy=0;
+			var step = [[${produto.step}]];
+			
 			   $('.quantity-right-plus').click(function(e){
 			        
 			        // Stop acting like a button
 			        e.preventDefault();
 			        // Get the field name
-			        var quantity = parseInt($('#quantity').val());
+			        var quantity = parseFloat($('#quantity').val());
 			        
 			        // If is not undefined
 			            
-			            $('#quantity').val(quantity + 1);
+			            $('#quantity').val((quantity + step).toFixed(1));
 	
 			          
 			            // Increment
@@ -82,13 +84,13 @@
 			        // Stop acting like a button
 			        e.preventDefault();
 			        // Get the field name
-			        var quantity = parseInt($('#quantity').val());
+			        var quantity = parseFloat($('#quantity').val());
 			        
 			        // If is not undefined
 			      
 			            // Increment
-			            if(quantity>0){
-			            $('#quantity').val(quantity - 1);
+			            if(quantity>step){
+			            $('#quantity').val((quantity - step).toFixed(1));
 			            }
 			    });
 			    

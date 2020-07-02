@@ -67,9 +67,12 @@ public class Carrinho {
 		index = varrerLista(item.getProduto().getId());
 		
 		if(index < 0) {
-			
-			item.incrementarQtdProduto();
+			if(item.getQuantidade().equals(0.0)) {
+				item.incrementarQtdProduto();
+			}
 			itens.add(item);
+		}else {
+			itens.get(index).setQuantidade(item.getQuantidade());
 		}
 		
 	}

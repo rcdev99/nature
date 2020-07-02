@@ -58,11 +58,11 @@
 								        	<p><span th:text-align="left" th:text="${item.produto.descricao}"></span></p>
 								        </td>
 								        
-								        <td class="price"><span class="valorProduto" id="valorProduto" th:value="${item.produto.valor}"  th:text="|R$ ${item.produto.valor}|"></span></td>
+								        <td class="price"><span class="valorProduto" id="valorProduto" th:value="${item.produto.valor}"  th:text="|R$ ${item.produto.valor} (${item.produto.tipoPreco.descricao})|"></span></td>
 								        
 								        <td class="quantity">
 								        	<div class="input-group mb-2">
-							             		<input th:type="number" name="quantidade" id="quantidade" class="quantity form-control input-number" onchange="calcularTotalProduto()" th:value="${item.quantidade}" min="1" max="100">
+							             		<input th:type="number" name="quantidade" id="quantidade" class="quantity form-control input-number" onchange="calcularTotalProduto()" th:value="${item.quantidade}" th:step="${item.produto.step}" th:min="${item.produto.step}">
 							          		</div>
 							         	</td>
 								      	<td class="total"><span class="totalProduto"></span></td>

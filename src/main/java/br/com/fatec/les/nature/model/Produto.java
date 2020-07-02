@@ -55,6 +55,9 @@ public class Produto {
 	@Transient
 	private String url;
 	
+	@Transient
+	private Double step;
+	
 	//Getters and Setters
 	public String getUrl() {
 		return url;
@@ -118,6 +121,21 @@ public class Produto {
 
 	public void setTipoPreco(TipoPrecificacao tipoPreco) {
 		this.tipoPreco = tipoPreco;
+	}
+	
+	public Double getStep() {
+		
+		if(this.tipoPreco.equals(TipoPrecificacao.LITRO) || this.tipoPreco.equals(TipoPrecificacao.QUILOGRAMA)) {
+			this.step = 0.10;
+		}else {
+			this.step = 1.0;
+		}
+		
+		return step;
+	}
+
+	public void setStep(Double step) {
+		this.step = step;
 	}
 	
 	//Métodos
