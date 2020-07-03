@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -112,8 +110,6 @@ public class RestController {
 	@RequestMapping(value = "/checkout", method = RequestMethod.POST)
 	public @ResponseBody String validarCompra(@RequestParam String produtos, @RequestParam String cupons) {
 	
-		System.out.println("user: " + obterUsuarioLogado());
-		
 		ArrayList<ItensCompra> itensCompra = new ArrayList<ItensCompra>();
 		
 		Type itemType = new TypeToken<List<ItemCompraDTO>>() {}.getType();
@@ -169,9 +165,10 @@ public class RestController {
 		compra.setCupons(carteira.getCupons());
 		compra.setItens(carrinho.getItens());
 		compra.setTotal(carrinho.totalCompra(carteira.totalDescontos()));
+		compra.setFrete(carrinho.getFrete());
 		compra.setIdCliente(clienteId);
 		compra.setIdEndereco(end.getId_endereco());
-		
+				
 		if(estoqueService.validarDisponibilidadeItens(compra.getItens())){
 			
 			estoqueService.baixarItens(compra.getItens());
@@ -301,21 +298,6 @@ public class RestController {
 		}
 		
 		return itensCompra;
-	}
-	
-	private String obterUsuarioLogado() {
-		
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		String userName;    
-
-		if (principal instanceof UserDetails) {
-			userName = ((UserDetails)principal).getUsername();
-		} else {
-			userName = principal.toString();
-		}
-		
-		return userName;
 	}
 	
 }

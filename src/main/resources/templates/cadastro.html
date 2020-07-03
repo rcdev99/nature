@@ -18,7 +18,7 @@
 				</div>
 				<div class="row justify-content-center">			
 					<div class="col-xl-7 ftco-animate">
-						<form action="/cliente/cadastrar" method="POST" class="billing-form">
+						<form action="/cliente/cadastrar" id="form-cadastro" method="POST" class="billing-form">
 							<h3 class="mb-4 billing-heading">Cadastro</h3>
 							<div class="row align-items-end">
 								<legend>Informações Pessoais</legend>
@@ -70,18 +70,24 @@
 										<input type="email" name="email" id="email" class="form-control" th:field="*{cliente.email}" placeholder="Exemplo: email@dominio.com.br" required>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-5">
 									<div class="form-group">
 										<label for="senha">Senha</label>
-										<input type="password" name="senha" id="senha" class="form-control" required>
+										<input type="password" name="senha" id="senha" class="form-control" minlength="8" maxlength="25" onkeyup="validarSenha()" required>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-1" id="check-senha" style="padding: 0px"></div>
+								<div class="col-md-5">
 									<div class="form-group">
 										<label for="conf_senha">Confirmar Senha</label>
-										<input type="password" name="conf_senha" id="conf_senha" class="form-control" required>
+										<input type="password" name="conf_senha" id="conf_senha" class="form-control" minlength="8" maxlength="25" onkeyup="confirmarSenha()" required>
 									</div>
 								</div>
+								<div class="col-md-1" id="check-confirmar-senha" style="padding: 0px 15px"></div>
+								<div class="col-md-12" id="senha-info" style="padding: 0px">
+									<p id="senha-msg">A senha deve ser composta de no mínimo 8 caracteres contendo letras e números</p>
+								</div>
+								
 								<legend>Endereço</legend>
 								<div class="col-md-6">
 									<div class="form-group">
@@ -211,5 +217,8 @@
 			</div>
 		</section>	
 	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script src="/js/cadastro.js"></script>
+ 	</th:block>
   </body>
 </html>

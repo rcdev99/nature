@@ -57,7 +57,9 @@ public class Endereco extends EntidadeDominio{
 		this.logradouro = logradouro;
 		this.numero = Integer.valueOf(endDto.getNumero());
 		this.bairro = endDto.getBairro();
+		this.cep = endDto.getCep();
 		this.cidade = cidade;
+		this.descricao = endDto.getDescricao();
 		
 	}
 	

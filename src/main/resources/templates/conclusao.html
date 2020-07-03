@@ -73,6 +73,10 @@
 														</select>
 													</div>
 												</div>
+												<div class="form-group col-md-12" id="hidden-descricao" style="display: none">
+													<label for="logradouro">Descrição</label>
+													<input type="text" name="descricao" id="descricao" class="form-control" minlength="3">
+												</div>
 												<div class="form-group col-md-6">
 													<label for="logradouro">Logradouro</label>
 													<input type="text" name="logradouro" id="logradouro" class="form-control" minlength="3" disabled required>
@@ -85,17 +89,21 @@
 													<label for="streetaddress">Tipo de Residência</label>	
 													<input type="text" id="tipoRes" class="form-control" required disabled>
 												</div>
-												<div class="form-group col-md-5">
+												<div class="form-group col-md-8">
+													<label for="bairro">Bairro</label>
+													<input type="text" id="bairro" class="form-control" required disabled>
+												</div>
+												<div class="form-group col-md-4">
+													<label for="cep">CEP</label>
+													<input type="text" id="cep" class="form-control" onkeypress="mascara(this,'#####-###')" required disabled>
+												</div>
+												<div class="form-group col-md-8">
 													<label for="cidade">Cidade</label>
 													<input type="text" id="cidade" class="form-control" required disabled>
 												</div>
-												<div class="form-group col-md-2">
+												<div class="form-group col-md-4">
 													<label for="estado">Estado</label>
 													<input type="text" id="estado" class="form-control" required disabled>
-												</div>
-												<div class="form-group col-md-5">
-													<label for="bairro">Bairro</label>
-													<input type="text" id="bairro" class="form-control" required disabled>
 												</div>
 												<div class="form-group col-md-12">
 													<div class="radio">
@@ -142,7 +150,7 @@
 												</div>
 												<div class="form-group col-md-12">
 													<label for="numeroCartao">Nº do cartão</label>
-													<input type="text" name="numeroCartao" id="numeroCartao" class="form-control" placeholder="Número do cartão" required>
+													<input type="text" name="numeroCartao" id="numeroCartao" class="form-control" onkeypress="mascara(this,'####.####.####.####')" placeholder="Número do cartão"  maxlength="19" required>
 												</div>
 												<div class="form-group col-md-6">
 													<label for="vencimento">Vencimento</label>
