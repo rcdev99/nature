@@ -294,6 +294,48 @@ function prepararCompra(){
 	}
 }
 
+function salvarQtdItensNoCarrinho(){
+	
+	var produtos = document.getElementsByClassName("produto");
+	produtosCarrinho = [];
+	
+	for(pos = 0; pos < produtos.length; pos++){
+		
+		//Obtendo id do produto
+		var idDoProduto = produtos[pos].getElementsByClassName("produtoId");
+		var id = idDoProduto[0].value;
+		//Obtendo quantidade de produto
+		var quantidadeDeProduto = produtos[pos].getElementsByClassName("quantity form-control input-number");
+		var quantidadeTxt = quantidadeDeProduto[0].value;
+		var quantidade = textToFloat(quantidadeTxt);
+		
+		var itemCompra = new Object();
+		
+		itemCompra.id = id;
+		itemCompra.quantidade = quantidade;
+		
+		produtosCarrinho.push(itemCompra);
+	}
+	
+	console.log(produtosCarrinho.length);
+	
+	if(produtosCarrinho.length > 0){
+	
+		var produtos = JSON.stringify(produtosCarrinho);
+		
+		$.ajax({
+		    url: '/rest/atualizar/carrinho',
+		    type: 'post',
+		    data: {'produtos': produtos
+		    	},
+		    success: function(result) {
+		    	console.log(result);
+		    }
+		  });
+	}
+	
+}
+
 /**
  * Funcionalidades de cunho geral
  */
@@ -330,5 +372,7 @@ function onDocumentLoad(){
 window.onload = onDocumentLoad;
 //Executar a função antes da tela ser fechada ou alterada
 window.addEventListener("beforeunload", function (event) {
-	  event = console.log("eureca!");	
+	  //event = console.log("eureca!");	
+	  event = salvarQtdItensNoCarrinho();
+	  
 });
