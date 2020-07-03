@@ -9,20 +9,35 @@
 
 
     $('#bootstrap-data-table').DataTable({
-        lengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]],
+        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+			
+			"language": {
+	            "lengthMenu": "Mostrando _MENU_ registros por página",
+	            "zeroRecords": "Nenhum registro encontrado",
+	            "info": "Página _PAGE_ de _PAGES_ de um total de _TOTAL_ registros",
+	            "infoEmpty": "Nenhum registro disponível",
+	            "infoFiltered": "(filtrado a partir de _MAX_ registros)",
+	            "search": "Pesquisar",
+	            "paginate": {
+	                "previous": "Anterior",
+	                "next": "Próximo"
+	              }
+	        },        
+        
     });
 
 
 
     $('#bootstrap-data-table-export').DataTable({
         dom: 'lBfrtip',
-        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
 	
-	$('#row-select').DataTable( {
+	$('#row-select').DataTable({
+		
 			initComplete: function () {
 				this.api().columns().every( function () {
 					var column = this;

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-br" 	xmlns="http://www.w3.org/1999/xhtml"
+					xmlns:th="https://thymeleaf.org"  
+					xmlns:s="http://www.springframework.org/tags"  
+					xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+					layout:decorator="layout/LayoutPadraoDashboard">
+<head>
+	<title>NaturÊ | Detalhes do pedido</title>
+</head>					
+<body>
+	<section layout:fragment="conteudo">
+		<!-- Navegação -->
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Painel de Controle</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a href="/admin">Painel de Controle</a></li>
+                                    <li><a href="/pedidos/adm/acompanhar">Pedidos</a></li>
+                                    <li class="active">Detalhes</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.navegação-->
+        <!-- Modal -->
+       	<div class="modal fade" id="modal_gerenciar_status" tabindex="-1" role="dialog" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">Gerenciar status do pedido</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		      	<form class="billing-form">
+		      		<div class="col-md-12">
+						<div class="row align-items-end">
+		      				<label class="form-control-label" for="situacao">Situação atual</label>
+		      				<select class="form-control" name="situacao" id="situacao">
+			      				<option th:value="${pedido.situacao}" th:text="${pedido.situacao.descricao}" class="selected"></option>
+			      				<th:block th:each="situacao : ${pedidoSituacao}">
+			      					<option th:value="${situacao}" th:text="${situacao.descricao}" th:if="not (${situacao.descricao} == ${pedido.situacao.descricao})"></option>	
+			      				</th:block>
+			      			</select>	
+			      			<input type="hidden" id="id_compra" th:value="${pedido.id}"></input>
+		      			</div>
+		      		</div>	
+		      	</form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+		        <button type="button" class="btn btn-primary" onclick="teste()">Salvar mudanças</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+        <!-- ./modal -->	
+		<!-- Principal-->
+        <div class="content">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 style="font-weight: bold">
+ 							<span th:text="|#Pedido ${pedido.id}|"></span> 
+ 							<span><a href="#" data-toggle="modal" data-target="#modal_gerenciar_status"><i class="ti-settings"></i></a></span>                     
+                        </h4>
+                    </div>
+                    <div class="row" style="padding : 20px 20px 0px">	
+	                    <!-- Card cliente -->
+	                    <div class="col-lg-6" style="padding: 10px">
+		                    <div class="card">
+		                   		<div class="card-header">
+		                   			<h5 style="text-align: center">Cliente</h5>
+		                   		</div>
+		                   		<div class="card-body">
+		                   			<p class="card-text" th:text="|${cliente.nome} ${cliente.sobrenome} |"></p>
+		                   			<p class="card-text" th:text="|CPF: ${cliente.cpf}|"></p>
+		                   		</div>
+		                    </div>
+	                    </div>
+	                    <!-- ./cliente -->
+	                    <!-- Card Endereco-->
+	                    <div class="col-lg-6" style="padding: 10px">
+		                    <div class="card">
+		                   		<div class="card-header">
+		                   			<h5 style="text-align: center">Endereco de entrega</h5>
+		                   		</div>
+		                   		<div class="card-body">
+		                   			<p class="card-text" th:text="|${endereco.logradouro.logradouro} , ${endereco.numero}|"></p>
+								    <p class="card-text" th:text="|${endereco.bairro}, ${endereco.cidade.cidade} - ${endereco.cidade.estado.sigla}|"></p>
+		                   		</div>
+		                    </div>
+	                    </div>
+	                    <!-- ./endereco -->
+                    </div>
+                    <div class="card-body">
+                    	<div class="card">
+	                    	<div class="card-header" style="padding: 10px; text-align: center">Produtos</div>
+	                    	<div class="card-body">
+	                    	<table id="bootstrap-data-table" class="table table-striped table-bordered" style="padding: 10px">
+	                        	<thead>
+	                        		<tr>
+	                                	<th scope="col" style=" text-align: center">Código</th>
+	                                	<th scope="col" style=" text-align: center">Produto</th>
+	                                	<th scope="col" style=" text-align: center">Quantidade</th>
+	                                	<th scope="col" style=" text-align: center">Tipo</th>
+	                                	<th scope="col" style=" text-align: center">Valor Unitário</th>
+	                                	<th scope="col" style=" text-align: center">Sub Total</th>
+	                                </tr>	
+	                        	</thead>
+	                        	<tbody>
+	                        	  <th:block th:each= "itemCompra : ${pedido.itens}">
+	                        		<tr>	
+	                        			<td th:text="|#${itemCompra.produto.id}|"></td>
+	                        			<td th:text="${itemCompra.produto.nome}"></td>
+	                        			<td th:text="|${itemCompra.quantidade} (${itemCompra.produto.tipoPreco.descricao})|" style="text-align: center"></td>
+	                        			<td th:text="${itemCompra.produto.tipo.descricao}"></td>
+	                        			<td th:text="|R$ ${itemCompra.produto.valor} (${itemCompra.produto.tipoPreco.descricao})|"></td>
+	                        			<td th:text="|R$ ${itemCompra.total}|"></td>
+	                        		</tr>
+	                        	  </th:block>
+	                        	</tbody>
+	                        	<tfoot>
+	                        		<tr>
+	                        			<td colspan="2" align="center">
+							    			<span><b>Valor da compra: </b></span>
+							    		</td>
+							    		<td align="center" style="padding: 10px 10px">
+							    			<span th:text="Produtos" style="color: black; font-weight: bold"></span>
+							    			<span th:text="|R$ ${pedido.valorItens}|" style="text-decoration: underline"></span>
+							    		</td>
+							    		<td align="center" style="padding: 10px 10px">
+							    			<span th:text="Frete" style="color: black; font-weight: bold"></span>
+							    			<span th:text="|R$ ${pedido.frete}|" style="text-decoration: underline"></span>
+							    		</td>
+							    		<td align="center" style="padding: 10px 10px">
+							    			<span th:text="Desconto" style="color: black; font-weight: bold"></span>
+							    			<span th:text="|R$ ${pedido.valorDescontos}|" style="text-decoration: underline"></span>
+							    		</td>
+							    		<td align="center" style="padding: 10px 10px">
+							    			<span th:text="Total " style="color: black; font-weight: bold"></span>
+							    			<span th:text="|R$ ${pedido.total}|" style="text-decoration: underline"></span>
+							    		</td>		
+	                        		</tr>
+	                        	</tfoot>
+	                        </table>
+	                        </div>
+                        </div>
+                    </div>
+               </div>
+            </div> 
+        </div>
+        <!-- /.principal --> 
+    </section>
+<th:block layout:fragment="javascript-extra">
+ <script src="/js/gerenciar.status.pedido.js"></script>
+</th:block>
+</body>
+</html>             

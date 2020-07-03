@@ -1,8 +1,8 @@
 package br.com.fatec.les.nature;
 
 import java.sql.SQLException;
-
 import java.time.LocalDate;
+import java.util.Calendar;
 
 import br.com.fatec.les.nature.model.Cartao;
 import br.com.fatec.les.nature.model.Cidade;
@@ -19,7 +19,6 @@ import br.com.fatec.les.nature.model.TipoResidencia;
 import br.com.fatec.les.nature.model.TipoTelefone;
 import br.com.fatec.les.nature.model.TipoUsuario;
 import br.com.fatec.les.nature.negocio.ValidadorDadosObrigatoriosCliente;
-import br.com.fatec.les.nature.util.FormataData;
 
 public class TesteCliente {
 
@@ -34,8 +33,6 @@ public class TesteCliente {
 		
 		//Validadores
 		ValidadorDadosObrigatoriosCliente validador = new ValidadorDadosObrigatoriosCliente();
-		
-		FormataData fd = new FormataData(); 
 		
 		//Estado
 		estado.setNomeEstado("São Paulo");
@@ -99,23 +96,23 @@ public class TesteCliente {
 		telefone2.setTipo(TipoTelefone.RESIDENCIAL);		
 						
 		//Instancia de data para atribuir ao vencimento do cartão
-		LocalDate data = LocalDate.parse("03/04/2020", fd.getFormato());
+		Calendar data = Calendar.getInstance();
 		
 		//Cartao1
-		Cartao cartao1 = new Cartao();
+		Cartao cartao1 = new Cartao(1l);
 		cartao1.setTitular("Ricardo");
 		cartao1.setNumCartao("0000.0000.0000.0000");
 		cartao1.setBandeira(TipoBandeira.MASTERCARD);
 		cartao1.setCvv(123);
-		cartao1.setDtVenc(data);		
+		cartao1.setDataVencimento(data);		
 
 		//Cartão2
-		Cartao cartao2 = new Cartao();
+		Cartao cartao2 = new Cartao(1l);
 		cartao2.setTitular("Odracir");
 		cartao2.setNumCartao("0000.0000.0000.0000");
 		cartao2.setBandeira(TipoBandeira.VISA);
 		cartao2.setCvv(321);
-		cartao2.setDtVenc(data);
+		cartao2.setDataVencimento(data);
 		
 		//Atribuindo Endreços ao Cliente
 		endereco1.setIdPessoa(cliente.getId());

@@ -2,8 +2,9 @@ package br.com.fatec.les.nature.model;
 
 public enum TipoProduto {
 
+	ESPECIARIA("Especiaria"),
 	FRUTA("Fruta"),
-	GRAO("Grão"),
+	GRAO("Grãos"),
 	LEGUMES("Legumes"),
 	SUCO("Suco"),
 	VEGETAL("Vegetal");
@@ -19,7 +20,4 @@ public enum TipoProduto {
 		this.descricao = descricao;
 	}
 
-	
-	
-	
 }

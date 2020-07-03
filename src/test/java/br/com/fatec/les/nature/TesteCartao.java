@@ -1,25 +1,23 @@
 package br.com.fatec.les.nature;
 
-import java.time.LocalDate;
+import java.util.Calendar;
 
 import br.com.fatec.les.nature.model.Cartao;
 import br.com.fatec.les.nature.model.TipoBandeira;
-import br.com.fatec.les.nature.util.FormataData;
 
 public class TesteCartao {
 
 	public static void main(String args[]) {
 	
-		FormataData formato = new FormataData();
-		LocalDate data = LocalDate.parse("20/06/2020", formato.getFormato());
+		Calendar data = Calendar.getInstance();
 			
-		Cartao cartao = new Cartao();
+		Cartao cartao = new Cartao(1l);
 			
 		cartao.setTitular("Ricardo");
 		cartao.setNumCartao("0000.0000.0000.0000");
 		cartao.setBandeira(TipoBandeira.MASTERCARD);
 		cartao.setCvv(123);
-		cartao.setDtVenc(data);
+		cartao.setDataVencimento(data);
 		
 		System.out.println(cartao);
 	}

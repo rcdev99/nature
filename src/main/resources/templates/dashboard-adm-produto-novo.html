@@ -131,7 +131,8 @@
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a href="/admin">Painel de Controle</a></li>
-                                    <li class="active">Produtos</li>
+                                    <li><a href="/produto/listar">Produtos</a></li>
+                                    <li class="active">Novo Produto</li>
                                 </ol>
                             </div>
                         </div>
@@ -198,6 +199,28 @@
                                                 <div class="input-group">
                                                     <div class="input-group-addon"><i class="fa fa-money"></i></div>
                                                     <input type="number" name="valor" id="valor" th:field="*{valor}" class="form-control" min="0" step="0.01" placeholder="Ex.: 9,99" th:classappend="${#fields.hasErrors('valor')} ? is-invalid">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="tipoProduto">Precificação</label>
+                                                <div class="input-group">    
+                                                    <div class="input-group-addon"><i class="fa fa-tag"></i></div>
+                                                    <select name="tipoProduto" id="tipoProduto" th:field="*{tipoPreco}" class="form-control" required>
+                                                        <th:block th:each="tipo : ${tiposPrecificacao}">
+                                                            <option th:value="${tipo}" th:text="|${tipo} (${tipo.descricao})|"></option>
+                                                        </th:block>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="has-warning form-group">
+                                                <label for="valor" class="form-control-label">Quantidade</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-plus-square"></i></div>
+                                                    <input type="number" name="quantidade" id="quantidade" class="form-control" min="0" step="0.01" placeholder="Quantidade em estoque" required>
                                                 </div>
                                             </div>
                                         </div>

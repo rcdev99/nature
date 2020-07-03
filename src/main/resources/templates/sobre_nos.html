@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="https://thymeleaf.org">
   <head>
     <title>NaturÊ | Sobre nós</title>
     <meta charset="utf-8">
@@ -60,14 +60,13 @@
 				<div class="dropdown-menu" aria-labelledby="dropdown04">
 					<a class="dropdown-item" href="/produtos">Produtos</a>
 					<a class="dropdown-item" href="/lista_de_desejos">Lista de Desejos</a>
-					<a class="dropdown-item" href="/produto">Produto</a>
 					<a class="dropdown-item" href="/carrinho">Carrinho</a>
 					<a class="dropdown-item" href="/conclusao">Concluir compra</a>
 				</div>
 				</li>
 				<li class="nav-item active"><a href="/sobre_nos" class="nav-link">Sobre nós</a></li>
 				<li class="nav-item"><a href="/contato" class="nav-link">Contate-nos</a></li>
-				<li class="nav-item cta cta-colored"><a href="/carrinho" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+				<li class="nav-item cta cta-colored"><a href="/carrinho" class="nav-link"><span class="icon-shopping_cart" th:text="| [${qtdProduto}]|"></span></a></li>
 				<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="icon-user"></span></a>
 				<div class="dropdown-menu" aria-labelledby="dropdown04">

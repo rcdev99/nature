@@ -43,9 +43,9 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dados"> <i class="menu-icon fa fa-table"></i>Dados</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-users"></i><a href="#">Clientes</a></li>
+                            <li><i class="fa fa-users"></i><a href="/cliente/listar">Clientes</a></li>
                             <li><i class="fa fa-truck"></i><a href="#">Fornecedores</a></li>
-                            <li><i class="fa fa-leaf"></i><a href="#">Produtos</a></li>
+                            <li><i class="fa fa-leaf"></i><a href="/produto/listar">Produtos</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
@@ -173,6 +173,12 @@
                                                 <div class="form-group">
                                                     <label for="valor">Valor</label>
                                                     <input type="text" name="valor" id="valor" th:field="*{produto.valor}" class="form-control" maxlength="11" pattern="[0-9]+$" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="valor">Precificação</label>
+                                                    <input type="text" name="valor" id="valor" th:field="*{produto.tipoPreco}" class="form-control" maxlength="11" pattern="[0-9]+$" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
