@@ -105,6 +105,7 @@ public class HomeController {
 		List<Produto> produtos = pService.getAllProducts();
 		
 		mView.addObject("produtos", produtos);
+		mView.addObject("em_geral", true);
 		mView.addObject("tiposProduto", TipoProduto.values());
 		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
 		
@@ -131,7 +132,7 @@ public class HomeController {
 	@RequestMapping(value = "/lista_de_desejos")
 	public ModelAndView exibirListaDeDesejos() {
 		
-		ModelAndView mView = new ModelAndView("lista_desejos");
+		ModelAndView mView = new ModelAndView("carrinho");
 		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
 		
 		return mView;
@@ -190,8 +191,6 @@ public class HomeController {
 	public ModelAndView painelDeControleAdmin(Integer periodo) throws SQLException {
 		ModelAndView mView = new ModelAndView("dashboard-admin");
 	
-		Integer qtdClientes;
-		qtdClientes = DAOUsuario.getQtdUsuarios(TipoUsuario.ROLE_CLIENTE);
 		
 		//Valor default para geração do gráfico
 		if(periodo == null) {
@@ -214,7 +213,9 @@ public class HomeController {
 			qtdCanceladasMensal.put(canceladasMensal.getMesTxt(), canceladasMensal.getQtdCompras());
 		}
 		
-		mView.addObject("qtdClientes", qtdClientes);
+		mView.addObject("qtdClientes", DAOUsuario.getQtdUsuarios(TipoUsuario.ROLE_CLIENTE));
+		mView.addObject("qtdCompras", compraService.quantidadeCompras());
+		mView.addObject("qtdProdutos", pService.quantidadeProdutosCadastrados());
 		mView.addObject("comprasMensal", qtdComprasMensal);
 		mView.addObject("entreguesMensal", qtdEntreguesMensal);
 		mView.addObject("canceladasMensal", qtdCanceladasMensal);

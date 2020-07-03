@@ -34,7 +34,7 @@ public class ItensCompra {
 	public ItensCompra(Produto p) {
 		
 		this.produto = p;
-		this.quantidade = 0.0;	
+		this.quantidade = 1.0;	
 	}
 	
 	public ItensCompra() {

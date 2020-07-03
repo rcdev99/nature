@@ -8,20 +8,24 @@ public class EnderecoDTO {
 	private String estado;
 	private String cidade;
 	private String bairro;
+	private String cep;
 	private String logradouro;
 	private String tipoResidencia;
+	private String descricao;
 	private String numero;
 	
 	//Constructor	
-	public EnderecoDTO(Integer id, String estado, String cidade, String bairro, String logradouro, String tipoResidencia,
-			String numero) {
+	public EnderecoDTO(Integer id, String estado, String cidade, String bairro, String cep, String logradouro, String tipoResidencia,
+			String descricao, String numero) {
 		super();
 		this.id = id;
 		this.estado = estado;
 		this.cidade = cidade;
 		this.bairro = bairro;
+		this.cep = cep;
 		this.logradouro = logradouro;
 		this.tipoResidencia = tipoResidencia;
+		this.descricao = descricao;
 		this.numero = numero;
 	}
 	
@@ -45,8 +49,10 @@ public class EnderecoDTO {
 		this.estado = endereco.getCidade().getEstado().getSigla();
 		this.cidade = endereco.getCidade().getCidade();
 		this.bairro = endereco.getBairro();
+		this.cep = endereco.getCep();
 		this.logradouro = endereco.getLogradouro().getLogradouro();
 		this.tipoResidencia = endereco.getTipoResidencia().getDescricao();
+		this.descricao = endereco.getDescricao();
 		this.numero = endereco.getNumero().toString(); 
 
 	}
@@ -94,5 +100,19 @@ public class EnderecoDTO {
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
-	
+	public String getCep() {
+		return cep;
+	}
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
 }

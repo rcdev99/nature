@@ -23,10 +23,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/login",
 			"/home",
 			"/produto",
+			"/produto/**",
 			"/produtos",
 			"/sobre_nos",
 			"/contato",
 			"/cadastro",
+			"/carrinho/**",
+			"/rest/add/item/**",
+			"/rest/validar/cupom/**",
 			"/cliente/cadastrar",
 			"/produto/categoria/**"
 			
@@ -38,7 +42,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.csrf().disable().authorizeRequests()
 					.antMatchers(AUTH_LIST)
 						.permitAll()
-					.antMatchers("/admin","/cupom/**","/produto/**","/cliente/**","/pedidos/adm/**")
+					.antMatchers("/admin",
+								 "/cupom/**",
+								 "/estoque/**",
+								 "/produto/adm/**",
+								 "/cliente/**",
+								 "/pedidos/adm/**")
 						.hasAnyRole("ADMINISTRATIVO","DESENVOLVEDOR")	
 					.anyRequest()
 						.authenticated()

@@ -100,6 +100,14 @@ public class ProdutoService {
 		return allProducts;
 	}
 	
+	/**
+	 * Método utilizado para realizar a contagem da quantidade de produtos cadastrados
+	 * @return Long Quantidade de produtos cadastrados
+	 */
+	public Long quantidadeProdutosCadastrados() {
+		return produtos.count();
+	}
+	
 	public List<Produto> buscarPorCategoria(TipoProduto tipo){
 		
 		//Instancia de lista de produtos
