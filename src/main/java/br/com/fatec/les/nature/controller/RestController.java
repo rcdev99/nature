@@ -173,6 +173,15 @@ public class RestController {
 			
 			estoqueService.baixarItens(compra.getItens());
 			msgRetorno = compraService.salvar(compra);
+			
+			//Valor da compra é inferior ao dos cupons utilizados ?
+			if(carrinho.geraNovoCupom(carteira.totalDescontos())) {
+				String descricao = "Cupom gerado em decorrência de resíduos do cupom utilizado em compras"; 
+				CupomDesconto cupom = new CupomDesconto(compra.getIdCliente(), carrinho.valorNovoCupom(carteira.totalDescontos()), descricao);
+				cService.salvar(cupom);
+				cService.inativarCuponsDeTrocaUtilizados(carteira.getCupons());
+			}
+			
 			carrinho.limparCarrinho();
 			carteira.esvaziarCarteira();
 			

@@ -57,9 +57,16 @@ public class CompraService {
 			compra.validarPagamento();
 		}
 		
-		cRepository.save(compra);
+		Compra confere = new Compra(); 
+		confere = cRepository.save(compra);
 		
-		return "Compra realizada !";
+		if(confere != null) {
+			return "Compra realizada !";
+		}else {
+			return "Desculpe, tivemos alguns problemas ao registrar a compra.";
+		}
+		
+		
 	}
 	
 	/**

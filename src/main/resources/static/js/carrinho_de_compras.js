@@ -136,6 +136,19 @@ function validarCep(){
  */
 //Função que realiza requisição via REST e retorna um cupom caso ele exista
 function validarCupom(){
+	
+	
+	var desconto = document.getElementsByClassName("desconto");
+	var totalProdutos = document.getElementsByClassName("totalProdutos");
+
+	desconto = textToFloat(desconto[0].innerHTML);
+	totalProdutos = textToFloat(totalProdutos[0].innerHTML);
+	
+	if(desconto > totalProdutos){
+		alert("O cupom inserido já cobre o valor total dos produtos");
+		return;
+	}
+	
 	//Obtém o código do cupom
 	var codigo = document.getElementById("cupom_codigo");
 	//Requisiçao Ajax para validação do cupom
