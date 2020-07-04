@@ -6,6 +6,11 @@
 					layout:decorator="layout/LayoutPadraoDashboard">
 <head>
 	<title>NaturÊ | Produtos</title>
+	
+   <link rel="stylesheet" href="/vendor/uikit/css/upload.min.css">
+   <link rel="stylesheet" href="/css/produto.css">
+   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.24.0/css/components/upload.css">
+   
 </head>
 <body>
 	<section layout:fragment="conteudo">
@@ -142,6 +147,12 @@
         </div>
         <!--/.principal-->
         <div class="clearfix"></div>
-    </section>    
+    </section>
+  <th:block layout:fragment="javascript-extra">
+  	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.24.0/js/uikit.min.js"></script>	
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.24.0/js/components/upload.min.js"></script>
+	<script src="/js/produto.upload-foto.js"></script>
+ </th:block>       
 </body>
 </html>

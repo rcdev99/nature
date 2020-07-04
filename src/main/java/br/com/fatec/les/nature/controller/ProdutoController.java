@@ -209,8 +209,6 @@ public class ProdutoController {
 		
 		List<Produto> produtos = pService.buscarPorCategoria(tipo);
 		
-		System.out.println(tipo.toString());
-		
 		mView.addObject("produtos", produtos);
 		mView.addObject("tiposProduto", TipoProduto.values());
 		mView.addObject("selecionado", tipo);
