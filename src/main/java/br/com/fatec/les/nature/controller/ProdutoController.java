@@ -61,6 +61,7 @@ public class ProdutoController {
 	 * @param produto Objeto para preenchimento dos campos caso tenha sifo feita tentativa inválida de cadastro
 	 * @return mView View para cadastro de produtos.
 	 */
+	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/adm/cadastro")
 	public ModelAndView formProduto(Produto produto) {
 		
@@ -69,6 +70,7 @@ public class ProdutoController {
 		mView.addObject("tiposProduto", TipoProduto.values());
 		mView.addObject("tiposPrecificacao", TipoPrecificacao.values());
 		mView.addObject("produto", produto);
+		mView.addObject("qtd", new Double(0));
 		
 		return mView;
 	}

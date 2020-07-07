@@ -19,8 +19,6 @@ function concluirCompra(){
 		    	   'idCliente': idCliente
 		    	},
 		    success: function(result) {
-		    	
-		      alert(result);
 		      window.location = "/pedidos/meus";
 		    }
 		});
@@ -363,7 +361,6 @@ function mascara(t, mask){
 //Desabilita submit do formulario de cartões
 document.getElementById('form_card').onsubmit= function(e){
 	e.preventDefault();
-	
 	var valor =  textToFloat(document.getElementById("valor").value);
 	if (validarValorInserido(valor)){
 		adicionarCartao();
