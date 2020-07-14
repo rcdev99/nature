@@ -58,17 +58,12 @@ public class PedidosController {
 		cliente = DAOCliente.consultaById(obterIdCliente());
 		
 		List<Compra>compras = new ArrayList<Compra>();
-		boolean temCompras = false;
 		
 		compras = compraService.buscarCompraPorCliente(cliente.getId());
-		
-		if(compras.size() > 0) {
-			temCompras = true;
-		}
 
 		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
 		mView.addObject("compras", compras);
-		mView.addObject("temCompras", temCompras);
+		mView.addObject("temCompras", !compras.isEmpty());
 		
 		return mView;
 	}

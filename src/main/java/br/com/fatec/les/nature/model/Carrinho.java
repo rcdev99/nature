@@ -30,6 +30,33 @@ public class Carrinho {
 		this.itens = itens;
 	}
 	
+	//Methods
+	/**
+	 * Método para obtenção do valor de frete de uma venda
+	 * @return
+	 */
+	public BigDecimal getFrete() {
+		
+		this.frete = new BigDecimal(11.87);
+		BigDecimal margemFrete = new BigDecimal(50);
+		
+		if (valorProdutos().compareTo(margemFrete) >= 0 || valorProdutos().compareTo(new BigDecimal(0)) <= 0 ) {
+			this.frete = BigDecimal.valueOf(0);
+		}
+		
+		this.frete = frete.setScale(2, RoundingMode.HALF_EVEN);
+		
+		return frete;
+	}
+
+	/**
+	 * Método para inserção de um valor de frete
+	 * @param frete valor do frete a ser inserido
+	 */
+	public void setFrete(BigDecimal frete) {
+		this.frete = frete;
+	}
+	
 	/**
 	 * Método responsável pela inserção de um item na lista de ItensCompra
 	 * @param item Elemento a ser adicionado na lista
@@ -40,9 +67,12 @@ public class Carrinho {
 		index = varrerLista(item.getProduto().getId());
 		
 		if(index < 0) {
-			
-			item.incrementarQtdProduto();
+			if(item.getQuantidade().equals(0.0)) {
+				item.incrementarQtdProduto();
+			}
 			itens.add(item);
+		}else {
+			itens.get(index).setQuantidade(item.getQuantidade());
 		}
 		
 	}
@@ -126,6 +156,38 @@ public class Carrinho {
 	}
 	
 	/**
+	 * Verifica se o valor dos descontos é maior que o valor total da compra.
+	 * @param desconto
+	 * @return
+	 */
+	public Boolean geraNovoCupom(BigDecimal desconto) {
+		
+		BigDecimal totalCompra = new BigDecimal(0);
+		
+		totalCompra = ((valorProdutos().add(getFrete())).subtract(desconto));
+		
+		if(totalCompra.compareTo(new BigDecimal(0)) < 0){	
+			return true;				
+		}else {
+			return false;
+		}
+	}
+	
+	public BigDecimal valorNovoCupom(BigDecimal desconto) {
+		
+		BigDecimal totalCompra = new BigDecimal(0);
+		
+		totalCompra = ((valorProdutos().add(getFrete())).subtract(desconto));
+		
+		if(totalCompra.compareTo(new BigDecimal(0)) < 0){	
+			totalCompra = totalCompra.multiply(new BigDecimal(-1));
+		}
+		
+		return totalCompra;
+	}
+	
+	
+	/**
 	 * Método utilizado para obter a quantidade de produtos no carrinho
 	 * @return
 	 */
@@ -141,32 +203,6 @@ public class Carrinho {
 	public void limparCarrinho() {
 		
 		itens.clear();
-	}
-
-	/**
-	 * Método para obtenção do valor de frete de uma venda
-	 * @return
-	 */
-	public BigDecimal getFrete() {
-		
-		this.frete = new BigDecimal(11.87);
-		BigDecimal margemFrete = new BigDecimal(50);
-		
-		if (valorProdutos().compareTo(margemFrete) >= 0 || valorProdutos().compareTo(new BigDecimal(0)) <= 0 ) {
-			this.frete = BigDecimal.valueOf(0);
-		}
-		
-		this.frete = frete.setScale(2, RoundingMode.HALF_EVEN);
-		
-		return frete;
-	}
-
-	/**
-	 * Método para inserção de um valor de frete
-	 * @param frete valor do frete a ser inserido
-	 */
-	public void setFrete(BigDecimal frete) {
-		this.frete = frete;
 	}
 	
 }

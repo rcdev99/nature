@@ -19,9 +19,7 @@ function concluirCompra(){
 		    	   'idCliente': idCliente
 		    	},
 		    success: function(result) {
-		    	
-		      alert(result);
-		      window.location = "/home";
+		      window.location = "/pedidos/meus";
 		    }
 		});
 		
@@ -202,9 +200,11 @@ function habilitarOutroEndereco(){
 	
 	if($("#check_endereco").is(':checked')){
 		document.getElementById("hidden-button-addres").style.display = "block";
+		document.getElementById("hidden-descricao").style.display = "block";
 		enderecoValido = false;
 	}else{
 		document.getElementById("hidden-button-addres").style.display = "none";
+		document.getElementById("hidden-descricao").style.display = "none";
 	}
 	
 	habilitarCampo();
@@ -219,8 +219,10 @@ function enderecoSelecionado(){
 		endereco.estado = document.getElementById("estado").value;
 		endereco.cidade = document.getElementById("cidade").value;
 		endereco.bairro = document.getElementById("bairro").value;
+		endereco.cep = document.getElementById("cep").value;
 		endereco.logradouro = document.getElementById("logradouro").value;
 		endereco.tipoResidencia = document.getElementById("tipoRes").value;
+		endereco.descricao = document.getElementById("descricao").value;
 		endereco.numero = document.getElementById("numero").value;
 
 	}
@@ -235,6 +237,7 @@ function escreverEndereco(endereco){
 	document.getElementById("cidade").value = endereco.cidade;
 	document.getElementById("estado").value = endereco.estado;
 	document.getElementById("bairro").value = endereco.bairro;
+	document.getElementById("cep").value = endereco.cep;
 }
 
 function limparCampos(){
@@ -245,6 +248,8 @@ function limparCampos(){
 	document.getElementById("cidade").value = "";
 	document.getElementById("estado").value = "";
 	document.getElementById("bairro").value = "";
+	document.getElementById("cep").value = "";
+	document.getElementById("descricao").value = "";
 	 
 }
 
@@ -256,6 +261,7 @@ function habilitarCampo(){
 	document.form_addres.cidade.disabled = (document.form_addres.cidade.disabled) ? 0 : 1;
 	document.form_addres.estado.disabled = (document.form_addres.estado.disabled) ? 0 : 1;
 	document.form_addres.bairro.disabled = (document.form_addres.bairro.disabled) ? 0 : 1;
+	document.form_addres.cep.disabled = (document.form_addres.cep.disabled) ? 0 : 1;
 	document.form_addres.pre_cadastrado.disabled = (document.form_addres.pre_cadastrado.disabled) ? 0 : 1;
 	
 	if(document.form_addres.logradouro.disabled == 1){
@@ -339,6 +345,15 @@ function floatToText(valor){
 	return text.substr(0, text.length - 2) + "," + text.substr(-2);
 }
 
+function mascara(t, mask){
+	 var i = t.value.length;
+	 var saida = mask.substring(1,0);
+	 var texto = mask.substring(i)
+	 if (texto.substring(0,1) != saida){
+		 t.value += texto.substring(0,1);
+	 }
+}
+
 /**
  * Configurações relacionadas aos formulários
  */
@@ -346,7 +361,6 @@ function floatToText(valor){
 //Desabilita submit do formulario de cartões
 document.getElementById('form_card').onsubmit= function(e){
 	e.preventDefault();
-	
 	var valor =  textToFloat(document.getElementById("valor").value);
 	if (validarValorInserido(valor)){
 		adicionarCartao();

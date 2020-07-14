@@ -9,7 +9,6 @@
 </head>					
 <body>
 	<section layout:fragment="conteudo">
-	
 		<!-- Navegação -->
         <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
@@ -96,8 +95,7 @@
                                            <td th:text="${cupom.tipoCupom.descricao}"></td>
                                            <td th:text="${cupom.status}"></td>
                                            <td align="center">
-			                                   	<a th:href="@{/cupom/detalhes/{id}(id=${cupom.id})}"> Detalhes <i class="ti-search"> </i></a>
-	                                            <a th:href="@{/cupom/editar/{id}(id=${cupom.id})}"> | Editar <i class="ti-pencil"> </i></a>
+	                                            <a th:href="@{/cupom/editar/{id}(id=${cupom.id})}"> Editar <i class="ti-pencil"> </i></a>
 	                                            <a th:href="@{/cupom/excluir/{id}(id=${cupom.id})}"> | Excluir <i class="ti-trash"> </i></a>
                                            </td>  
 	                                    </tr>	                                 
@@ -111,7 +109,6 @@
             </div>        
         </div>
         <!--/.principal-->
-	
 	</section>
 </body>
 </html>					

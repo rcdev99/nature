@@ -136,6 +136,19 @@ function validarCep(){
  */
 //Função que realiza requisição via REST e retorna um cupom caso ele exista
 function validarCupom(){
+	
+	
+	var desconto = document.getElementsByClassName("desconto");
+	var totalProdutos = document.getElementsByClassName("totalProdutos");
+
+	desconto = textToFloat(desconto[0].innerHTML);
+	totalProdutos = textToFloat(totalProdutos[0].innerHTML);
+	
+	if(desconto > totalProdutos){
+		alert("O cupom inserido já cobre o valor total dos produtos");
+		return;
+	}
+	
 	//Obtém o código do cupom
 	var codigo = document.getElementById("cupom_codigo");
 	//Requisiçao Ajax para validação do cupom
@@ -222,7 +235,13 @@ function calcularDesconto(){
  * Funções para validação da compra
  */
 
-function validandoCompra(){
+function validandoCompra(logado){
+	
+	if(!logado){
+		alert("Para prosseguir com a compra, faça login ou cadastre-se");
+		window.location = "/login";
+		return;
+	}
 	
 	var produtos = document.getElementsByClassName("produto");
 	produtosCarrinho = [];
@@ -249,16 +268,15 @@ function validandoCompra(){
 }
 
 function prepararCompra(){
-
+	
 	if(produtosCarrinho == 0){
 		alert("O carrinho está vázio, insira ao menos um produto para prosseguir com a compra");
 	}else{
-
 		var produtos = JSON.stringify(produtosCarrinho);
 		var cuponsDesc = JSON.stringify(cupons);
 		
 		//Requisiçao Ajax para envio dos dados da compra
-		$.ajax({
+		const register = $.ajax({
 		    url: '/rest/checkout',
 		    type: 'post',
 		    data: {'produtos': produtos,
@@ -274,6 +292,48 @@ function prepararCompra(){
 		    }
 		  });
 	}
+}
+
+function salvarQtdItensNoCarrinho(){
+	
+	var produtos = document.getElementsByClassName("produto");
+	produtosCarrinho = [];
+	
+	for(pos = 0; pos < produtos.length; pos++){
+		
+		//Obtendo id do produto
+		var idDoProduto = produtos[pos].getElementsByClassName("produtoId");
+		var id = idDoProduto[0].value;
+		//Obtendo quantidade de produto
+		var quantidadeDeProduto = produtos[pos].getElementsByClassName("quantity form-control input-number");
+		var quantidadeTxt = quantidadeDeProduto[0].value;
+		var quantidade = textToFloat(quantidadeTxt);
+		
+		var itemCompra = new Object();
+		
+		itemCompra.id = id;
+		itemCompra.quantidade = quantidade;
+		
+		produtosCarrinho.push(itemCompra);
+	}
+	
+	console.log(produtosCarrinho.length);
+	
+	if(produtosCarrinho.length > 0){
+	
+		var produtos = JSON.stringify(produtosCarrinho);
+		
+		$.ajax({
+		    url: '/rest/atualizar/carrinho',
+		    type: 'post',
+		    data: {'produtos': produtos
+		    	},
+		    success: function(result) {
+		    	console.log(result);
+		    }
+		  });
+	}
+	
 }
 
 /**
@@ -312,5 +372,7 @@ function onDocumentLoad(){
 window.onload = onDocumentLoad;
 //Executar a função antes da tela ser fechada ou alterada
 window.addEventListener("beforeunload", function (event) {
-	  event = console.log("eureca!");	
+	  //event = console.log("eureca!");	
+	  event = salvarQtdItensNoCarrinho();
+	  
 });

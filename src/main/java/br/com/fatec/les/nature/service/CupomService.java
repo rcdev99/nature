@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fatec.les.nature.model.CupomDesconto;
+import br.com.fatec.les.nature.model.TipoCupom;
 import br.com.fatec.les.nature.repository.CuponsRepository;
 
 @Repository
@@ -73,5 +74,15 @@ public class CupomService {
 		cupons = cRepository.findAll();
 		
 		return cupons;
+	}
+	
+	public void inativarCuponsDeTrocaUtilizados(List<CupomDesconto> cupons){
+		
+		for (CupomDesconto cupom : cupons) {
+			if(cupom.getTipoCupom().equals(TipoCupom.TROCA)) {
+				cupom.setAtivo(false);
+				cRepository.save(cupom);
+			}
+		}
 	}
 }

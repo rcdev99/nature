@@ -136,6 +136,23 @@ public class RestController {
 		}
 	}
 	
+	@RequestMapping(value = "/atualizar/carrinho", method = RequestMethod.POST)
+	public String atualizarQtdItensCarrinho(@RequestParam String produtos) {
+		
+		ArrayList<ItensCompra> itensCompra = new ArrayList<ItensCompra>();
+		Type itemType = new TypeToken<List<ItemCompraDTO>>() {}.getType();
+		ArrayList<ItemCompraDTO> itens = gson.fromJson(produtos, itemType);
+		
+		//Populando o array de itensCompra com os itens recebidos
+		itensCompra = (ArrayList<ItensCompra>) obtemItens(itens);
+		
+		//Adiciona os produtos e suas respectivas quantidades no carrinho
+		carrinho.limparCarrinho();
+		carrinho.setItens(itensCompra);
+		
+		return"OK";
+	}
+	
 	@RequestMapping(value = "/compra/concluir", method = RequestMethod.POST)
 	public @ResponseBody String concluirCompra(@RequestParam String endereco, @RequestParam String cartoes, @RequestParam String idCliente) throws SQLException{
 		
@@ -165,13 +182,23 @@ public class RestController {
 		compra.setCupons(carteira.getCupons());
 		compra.setItens(carrinho.getItens());
 		compra.setTotal(carrinho.totalCompra(carteira.totalDescontos()));
+		compra.setFrete(carrinho.getFrete());
 		compra.setIdCliente(clienteId);
 		compra.setIdEndereco(end.getId_endereco());
-		
+				
 		if(estoqueService.validarDisponibilidadeItens(compra.getItens())){
 			
 			estoqueService.baixarItens(compra.getItens());
 			msgRetorno = compraService.salvar(compra);
+			
+			//Valor da compra é inferior ao dos cupons utilizados ?
+			if(carrinho.geraNovoCupom(carteira.totalDescontos())) {
+				String descricao = "Cupom gerado em decorrência de resíduos do cupom utilizado em compras"; 
+				CupomDesconto cupom = new CupomDesconto(compra.getIdCliente(), carrinho.valorNovoCupom(carteira.totalDescontos()), descricao);
+				cService.salvar(cupom);
+				cService.inativarCuponsDeTrocaUtilizados(carteira.getCupons());
+			}
+			
 			carrinho.limparCarrinho();
 			carteira.esvaziarCarteira();
 			
@@ -218,6 +245,37 @@ public class RestController {
 		
 		return msg;
 	}
+	
+	@RequestMapping(value="/add/item/{id.produto}", method = RequestMethod.POST)
+	public String adicionarItemAoCarrinho(@PathVariable("id.produto") Long id) {
+	
+		Produto produto = new Produto();
+		produto = pService.findById(id);
+		
+		if(produto != null) {
+			ItensCompra item = new ItensCompra(produto);
+			carrinho.adicionarItem(item);
+		}
+		
+		Integer qtdProdutos = carrinho.getQtdProdutos(); 
+		
+		return qtdProdutos.toString();
+	}
+	
+	@RequestMapping(value="/add/item/{id.produto}/{quantidade}", method = RequestMethod.POST)
+	public String adicionarItemComQuantidade(@PathVariable("id.produto") Long id, @PathVariable("quantidade") Double qtd) {
+	
+		Produto produto = new Produto();
+		produto = pService.findById(id);
+		
+		if(produto != null) {
+			ItensCompra item = new ItensCompra(produto, qtd);
+			carrinho.adicionarItem(item);
+		}
+		
+		return "OK";
+	}
+	
 	
 	@RequestMapping(value = "/alterar/situacao/compra/{situacao}/{id}", method = RequestMethod.POST)
 	public @ResponseBody String atualizarStatusPedido(@PathVariable SituacaoCompra situacao, @PathVariable Long id) {

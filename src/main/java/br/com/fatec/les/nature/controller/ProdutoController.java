@@ -43,7 +43,7 @@ public class ProdutoController {
 	 * Método utilizado para direcionar o usuário administrativo ao painel de controle de produtos
 	 * @return
 	 */
-	@RequestMapping(value = "/listar")
+	@RequestMapping(value = "/adm/listar")
 	public ModelAndView getProdutos() {
 		
 		//Variavéis locais
@@ -61,7 +61,8 @@ public class ProdutoController {
 	 * @param produto Objeto para preenchimento dos campos caso tenha sifo feita tentativa inválida de cadastro
 	 * @return mView View para cadastro de produtos.
 	 */
-	@RequestMapping(value = "/cadastro")
+	@SuppressWarnings("deprecation")
+	@RequestMapping(value = "/adm/cadastro")
 	public ModelAndView formProduto(Produto produto) {
 		
 		ModelAndView mView = new ModelAndView("dashboard-adm-produto-novo");
@@ -69,6 +70,7 @@ public class ProdutoController {
 		mView.addObject("tiposProduto", TipoProduto.values());
 		mView.addObject("tiposPrecificacao", TipoPrecificacao.values());
 		mView.addObject("produto", produto);
+		mView.addObject("qtd", new Double(0));
 		
 		return mView;
 	}
@@ -80,7 +82,7 @@ public class ProdutoController {
 	 * @param redirectAttributes Mensagem de sucesso, caso os dados tenham sido inseridos corretamente
 	 * @return mView View para listagem de produtos caso a validação ocorra, ou redicionamento para a mesma página em caso de erro.
 	 */
-	@RequestMapping(value = "/novo", method=RequestMethod.POST)
+	@RequestMapping(value = "/adm/novo", method=RequestMethod.POST)
 	public ModelAndView cadastrarProduto(@Valid Produto produto, Double quantidade ,BindingResult result, RedirectAttributes redirectAttributes) {
 	
 		if(result.hasErrors()) {
@@ -105,7 +107,7 @@ public class ProdutoController {
 	 * @param id Identificador único do produto a ser exibido
 	 * @return mView View contendo os detalhes do produto
 	 */
-	@RequestMapping(value = "/detalhes/{produto.id}", method=RequestMethod.GET)
+	@RequestMapping(value = "/adm/detalhes/{produto.id}", method=RequestMethod.GET)
 	public ModelAndView exibirDetalhes(@PathVariable("produto.id") Long id){		
 	
 		ModelAndView mView = new ModelAndView("dashboard-adm-produto-detalhes");
@@ -118,7 +120,7 @@ public class ProdutoController {
 		return mView;
 	}
 	
-	@RequestMapping(value = "/editar/{produto.id}")
+	@RequestMapping(value = "/adm/editar/{produto.id}")
 	public ModelAndView editarProduto(@PathVariable("produto.id") Long id) {
 		
 		ModelAndView mView = new ModelAndView("dashboard-adm-produto-editar");
@@ -143,7 +145,7 @@ public class ProdutoController {
 	 * @param redirectAttributes Mensagem de sucesso, caso os dados tenham sido alterados corretamente
 	 * @return mView View para listagem de produtos caso a validação ocorra, ou redicionamento para a mesma página em caso de erro.
 	 */
-	@RequestMapping(value = "/editar", method=RequestMethod.POST)
+	@RequestMapping(value = "/adm/editar", method=RequestMethod.POST)
 	public ModelAndView alterarProduto(@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes) {
 		
 		
@@ -151,7 +153,7 @@ public class ProdutoController {
 			return formProduto(produto);
 		}
 		
-		ModelAndView mView = new ModelAndView("redirect:/produto/listar");
+		ModelAndView mView = new ModelAndView("redirect:/produto/adm/listar");
 		
 		pService.salvar(produto);
 				
@@ -167,10 +169,10 @@ public class ProdutoController {
 	 * @param redirectAttributes Mensagem de conclusão da ação
 	 * @return mView Tela de listagem de produtos
 	 */
-	@RequestMapping(value="/excluir/{produto.id}")
+	@RequestMapping(value="/adm/excluir/{produto.id}")
 	public ModelAndView excluirProduto(@PathVariable("produto.id") Long id, RedirectAttributes redirectAttributes) {
 		
-		ModelAndView mView = new ModelAndView("redirect:/produto/listar");
+		ModelAndView mView = new ModelAndView("redirect:/produto/adm/listar");
 		
 		pService.excluir(id);
 		redirectAttributes.addFlashAttribute("delete", "Item excluido !");
@@ -205,12 +207,13 @@ public class ProdutoController {
 	public ModelAndView produtosPorCategoria(@PathVariable("tipoProduto") String tipoProduto){
 		
 		ModelAndView mView = new ModelAndView("produtos");
-		TipoProduto tipo = TipoProduto.valueOf(tipoProduto);
+		TipoProduto tipo = TipoProduto.valueOf(tipoProduto.toUpperCase());
 		
 		List<Produto> produtos = pService.buscarPorCategoria(tipo);
 		
 		mView.addObject("produtos", produtos);
 		mView.addObject("tiposProduto", TipoProduto.values());
+		mView.addObject("selecionado", tipo);
 		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
 		
 		return mView;

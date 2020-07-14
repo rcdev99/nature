@@ -1,395 +1,257 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="https://thymeleaf.org">
-  <head>
-    <title>NaturÊ | Conclusão da compra</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
-	<!--Bootstrap-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-	<!-- Importando CSS e estilos diversos -->    
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="/css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="/css/animate.css">
-    
-    <link rel="stylesheet" href="/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/css/magnific-popup.css">
-
-    <link rel="stylesheet" href="/css/ionicons.min.css">
-
-    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="/css/jquery.timepicker.css">
-
-    
-    <link rel="stylesheet" href="/css/flaticon.css">
-    <link rel="stylesheet" href="/css/icomoon.css">
-    <link rel="stylesheet" href="/css/style.css">
-  </head>
+<html lang="pt-br" 	
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://thymeleaf.org"  
+	xmlns:s="http://www.springframework.org/tags"  
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadraoNature">
+<head>
+	<title>NaturÊ | Produtos</title>
+</head>
 <body class="goto-here">
-	<!-- Cabeçalho da página-->
-	<header>
-		<div class="py-1 bg-primary">
-		<div class="container">
-			<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
-			<div class="col-lg-12 d-block">
-				<div class="row d-flex">
-				
-				</div>
-			</div>
-			</div>
-		</div>
-		</div>
-		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	<section layout:fragment="conteudo">
+		<!--Banner--> 
+	    <div class="hero-wrap hero-bread" style="background-image: url('/images/bg_1.jpg');">
+	      <div class="container">
+	        <div class="row no-gutters slider-text align-items-center justify-content-center">
+	          <div class="col-md-9 ftco-animate text-center">
+	            <h1 class="mb-0 bread">Detalhes da Venda</h1>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+		<!--Conteúdo principal da página-->
+	    <section class="ftco-section">
 			<div class="container">
-				<a class="navbar-brand" href="/home">
-					<img src="\images\logos\nature\nature_logo3.png" alt="Logo NaturÊ">
-				</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="oi oi-menu"></span> Menu
-				</button>
-				<div class="collapse navbar-collapse" id="ftco-nav">
-					<ul class="navbar-nav ml-auto">
-						<li class="nav-item"><a href="/home" class="nav-link">Início</a></li>
-						<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Produtos</a>
-						<div class="dropdown-menu" aria-labelledby="dropdown04">
-							<a class="dropdown-item" href="/produtos">Produtos</a>
-							<a class="dropdown-item" href="/lista_de_desejos">Lista de Desejos</a>
-							<a class="dropdown-item" href="/carrinho">Carrinho</a>
-							<a class="dropdown-item" href="/conclusao">Concluir compra</a>
-						</div>
-						</li>
-						<li class="nav-item active"><a href="/sobre_nos" class="nav-link">Sobre nós</a></li>
-						<li class="nav-item"><a href="/contato" class="nav-link">Contate-nos</a></li>
-						<li class="nav-item cta cta-colored"><a href="/carrinho" class="nav-link"><span class="icon-shopping_cart" th:text="| [${qtdProduto}]|"></span></a></li>
-						<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="icon-user"></span></a>
-						<div class="dropdown-menu" aria-labelledby="dropdown04">
-							<a class="dropdown-item" href="/logout">Sair</a>
-						</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</header> 
-	<!--Banner--> 
-    <div class="hero-wrap hero-bread" style="background-image: url('/images/bg_1.jpg');">
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-          <div class="col-md-9 ftco-animate text-center">
-            <h1 class="mb-0 bread">Detalhes da Venda</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-	<!--Conteúdo principal da página-->
-    <section class="ftco-section">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-xl-7 ftco-animate">
-						<h3 class="mb-4 billing-heading">Detalhes da Venda</h3>
-						<div class="accordion" id="accordionExample">
-							<div class="card">
-								<div class="card-header" id="headingOne">
-									<h5 class="mb-0" >
-										<button class="btn btn-link" style="color: green;" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-											Cliente
-										</button>
-									</h5>
-								</div>
-								<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-									<form action="#" id="form_client" name="form_client" class="billing-form">
-										<div class="form-row" style="padding: 10px;">
-											<div class="form-group col-md-6">
-											  <label for="nome">Nome</label>
-											  <input type="text" class="form-control" th:field="*{cliente.nome}" placeholder="Nome do cliente" disabled>
-											</div>
-											<div class="form-group col-md-6">
-											  <label for="sobrenome">Sobrenome</label>
-											  <input type="text" class="form-control" th:field="*{cliente.sobrenome}"  placeholder="Sobrenome" disabled>
-											</div>
-											  <input type="hidden" id="idCliente" th:value="${cliente.id}">
-										</div>
-									</form>			
-								</div>
-							</div>	
-							<div class="card">
-								<div class="card-header" id="headingTwo">
-									<h5 class="mb-0">
-										<button class="btn btn-link collapsed" style="color: green;" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-											Endereço de entrega
-										</button>
-									</h5>
-								</div>
-								<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-									<form action="#" id="form_addres" name="form_addres" class="billing-form">
-										<div class="form-row" style="padding: 10px;">
-											<div class="form-group col-md-12">
-												<label for="endereco">Endereço</label>
-												<div class="select-wrap">
-													<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-													<select name="pre_cadastrado" id="pre_cadastrado" class="form-control" onchange="obterEndereco()">
-														<th:block th:each="endereco : ${enderecos}">
-															<option th:id="select-endereco" th:value="${endereco.id_endereco}" th:text="${endereco.descricao}"></option>
-													    </th:block>
-													</select>
+				<div class="row justify-content-center">
+					<div class="col-xl-7 ftco-animate">
+							<h3 class="mb-4 billing-heading">Detalhes da Venda</h3>
+							<div class="accordion" id="accordionExample">
+								<div class="card">
+									<div class="card-header" id="headingOne">
+										<h5 class="mb-0" >
+											<button class="btn btn-link" style="color: green;" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+												Cliente
+											</button>
+										</h5>
+									</div>
+									<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+										<form action="#" id="form_client" name="form_client" class="billing-form">
+											<div class="form-row" style="padding: 10px;">
+												<div class="form-group col-md-6">
+												  <label for="nome">Nome</label>
+												  <input type="text" class="form-control" th:field="*{cliente.nome}" placeholder="Nome do cliente" disabled>
 												</div>
-											</div>
-											<div class="form-group col-md-6">
-												<label for="logradouro">Logradouro</label>
-												<input type="text" name="logradouro" id="logradouro" class="form-control" minlength="3" disabled required>
-											</div>
-											<div class="form-group col-md-2">
-												<label for="numero">Nº</label>	
-												<input type="number" id="numero" class="form-control" min="0" step="1" required disabled>
-											</div>
-											<div class="form-group col-md-4">
-												<label for="streetaddress">Tipo de Residência</label>	
-												<input type="text" id="tipoRes" class="form-control" required disabled>
-											</div>
-											<div class="form-group col-md-5">
-												<label for="cidade">Cidade</label>
-												<input type="text" id="cidade" class="form-control" required disabled>
-											</div>
-											<div class="form-group col-md-2">
-												<label for="estado">Estado</label>
-												<input type="text" id="estado" class="form-control" required disabled>
-											</div>
-											<div class="form-group col-md-5">
-												<label for="bairro">Bairro</label>
-												<input type="text" id="bairro" class="form-control" required disabled>
-											</div>
-											<div class="form-group col-md-12">
-												<div class="radio">
-													<label><input type="checkbox" id="check_endereco" onclick="habilitarOutroEndereco()"> Entregar em outro endereço</label>
+												<div class="form-group col-md-6">
+												  <label for="sobrenome">Sobrenome</label>
+												  <input type="text" class="form-control" th:field="*{cliente.sobrenome}"  placeholder="Sobrenome" disabled>
 												</div>
+												  <input type="hidden" id="idCliente" th:value="${cliente.id}">
 											</div>
-											<div class="form-group col-md-12" id="hidden-button-addres" style="display: none">
-												<p>
-													<button type="submit" form="form_addres" class="btn btn-primary py-3 px-4">
-														<span id="icon_button_addres"></span>
-														Confirmar endereço de entrega
-													</button>
-												</p>
-											</div>
-										</div>
-									</form>
-								</div>
-							</div>
-							<div class="card">
-								<div class="card-header" id="headingThree">
-									<h5 class="mb-0">
-										<button class="btn btn-link collapsed" style="color: green;" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-											Forma de pagamento
-										</button>
-									</h5>
-								</div>
-								<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-									<form name="form_card" id="form_card" class="billing-form">
-										<div class="form-row" style="padding: 10px;">
-											<div class="form-group col-md-12">
-												<label for="bandeira">Bandeira</label>
-												<div class="select-wrap">
-													<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-													<select name="bandeira" id="bandeira" class="form-control">
-														<th:block th:each="bandeira : ${tiposBandeira}">
-															<option th:id="select-bandeira" th:value="${bandeira}" th:text="${bandeira.descricao}"></option>
-													    </th:block>
-													</select>
-												</div>
-											</div>
-											<div class="form-group col-md-12">
-												<label for="titulat">Titular</label>
-												<input type="text" name="titular" id="titular" class="form-control" minlength="3" placeholder="Titular do cartão" required>
-											</div>
-											<div class="form-group col-md-12">
-												<label for="numeroCartao">Nº do cartão</label>
-												<input type="text" name="numeroCartao" id="numeroCartao" class="form-control" placeholder="Número do cartão" required>
-											</div>
-											<div class="form-group col-md-6">
-												<label for="vencimento">Vencimento</label>
-												<input type="month" name="vencimento" id="vencimento" class="form-control" placeholder="MM/AA" required>
-											</div>
-											<div class="form-group col-md-6">
-												<label for="cvv">CVV</label>
-												<input type="text" name="cvv" id="cvv" class="form-control" placeholder="Ex.: 534" minlength="3" maxlength="3"  required>
-											</div>
-											<div class="form-group col-md-8">
-												<label for="valor">Valor</label>
-												<div class="input-group">
-													<div class="input-group-prepend">
-													  <span class="input-group-text" id="inputGroupPrepend3">R$</span>
-													</div>
-													<input type="number" class="form-control is-invalid" id="valor" th:value="${totalCompra}" min="0.01" step="0.01" placeholder="Valor á ser pago com este cartão" aria-describedby="inputGroupPrepend3" required disabled>
-												</div>
-											</div>
-											<div class="form-group col-md-12">
-												<div class="radio">
-													<label><input type="checkbox" id="add_card" onclick="habilitarInserirCartao()"> Pagar com mais de um cartão</label>
-												</div>
-												<div class="radio">
-													<label><input type="checkbox" id="save_card"> Salvar cartão para futuras transações</label>
-												</div>
-											</div>
-											<div class="form-group col-md-12" id="button-card" align="center">
-												<p>
-													<button type="submit" form="form_card" class="btn btn-primary py-3 px-4">
-														<span class="icon-add_circle"></span>
-														Validar cartão
-													</button>
-												</p>
-											</div>
-											<div class="form-group col-md-12" id="hidden-button-card" align="center" style="display: none">
-												<p>
-													<button type="submit" form="form_card" class="btn btn-primary py-3 px-4">
-														<span class="icon-add_circle"></span>
-														Adicionar mais um cartão
-													</button>
-												</p>
-											</div>
-										</div>
-									</form>	
-								</div>
-							</div>
-						</div>
-					
-				</div>
-				<div class="col-xl-5">
-					<div class="row mt-5 pt-3">
-						<div class="col-md-12 d-flex mb-5">
-							<div class="cart-detail cart-total p-3 p-md-4" align="center">
-								<h3 class="billing-heading mb-4">Total da Compra</h3>
-								<p class="d-flex">
-									<span>Produtos</span>
-									<span id="valor_produtos" th:text="|R$ ${totalProdutos}|">R$00.00</span>
-								</p>
-								<p class="d-flex">
-									<span>Entrega</span>
-									<span th:text="|R$ ${frete}|">R$00.00</span>
-								</p>
-								<p class="d-flex">
-									<span>Desconto</span>
-									<span th:text="|R$ ${desconto}|">R$0.00</span>
-								</p>	
-								<hr>
-								<p class="d-flex total-price">
-									<span>Total</span>
-									<span id="total" th:text="|R$ ${totalCompra}|">R$0.00</span>
-								</p>
-								<p><button type="submit" class="btn btn-primary py-3 px-4" onclick="concluirCompra()">Concluir</button></p>
-							</div>
-						</div>
-					</div>
-					
-					<div class="row mt-5 pt-3">
-						<div class="col-md-12 d-flex mb-5">
-							<div class="cart-detail cart-total p-3 p-md-4" align="center">
-								<h3 class="billing-heading mb-4">Cartões utilizados</h3>
-								<p class="d-flex">
-									
-									<span>Final</span>
-									<span>Valor</span>
-									<span>Bandeira</span>
-									<span></span>
-								</p>
-								<div id="cartoes_adicionados">	
-									
+										</form>			
+									</div>
 								</div>	
-								<hr>
-								<p class="d-flex total-price" align="center">
-									<span>&nbsp Total</span>
-									<span id="total_card">R$0.00</span>
-								</p>
+								<div class="card">
+									<div class="card-header" id="headingTwo">
+										<h5 class="mb-0">
+											<button class="btn btn-link collapsed" style="color: green;" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+												Endereço de entrega
+											</button>
+										</h5>
+									</div>
+									<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+										<form action="#" id="form_addres" name="form_addres" class="billing-form">
+											<div class="form-row" style="padding: 10px;">
+												<div class="form-group col-md-12">
+													<label for="endereco">Endereço</label>
+													<div class="select-wrap">
+														<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+														<select name="pre_cadastrado" id="pre_cadastrado" class="form-control" onchange="obterEndereco()">
+															<th:block th:each="endereco : ${enderecos}">
+																<option th:id="select-endereco" th:value="${endereco.id_endereco}" th:text="${endereco.descricao}"></option>
+														    </th:block>
+														</select>
+													</div>
+												</div>
+												<div class="form-group col-md-12" id="hidden-descricao" style="display: none">
+													<label for="logradouro">Descrição</label>
+													<input type="text" name="descricao" id="descricao" class="form-control" minlength="3">
+												</div>
+												<div class="form-group col-md-6">
+													<label for="logradouro">Logradouro</label>
+													<input type="text" name="logradouro" id="logradouro" class="form-control" minlength="3" disabled required>
+												</div>
+												<div class="form-group col-md-2">
+													<label for="numero">Nº</label>	
+													<input type="number" id="numero" class="form-control" min="0" step="1" required disabled>
+												</div>
+												<div class="form-group col-md-4">
+													<label for="streetaddress">Tipo de Residência</label>	
+													<input type="text" id="tipoRes" class="form-control" required disabled>
+												</div>
+												<div class="form-group col-md-8">
+													<label for="bairro">Bairro</label>
+													<input type="text" id="bairro" class="form-control" required disabled>
+												</div>
+												<div class="form-group col-md-4">
+													<label for="cep">CEP</label>
+													<input type="text" id="cep" class="form-control" onkeypress="mascara(this,'#####-###')" required disabled>
+												</div>
+												<div class="form-group col-md-8">
+													<label for="cidade">Cidade</label>
+													<input type="text" id="cidade" class="form-control" required disabled>
+												</div>
+												<div class="form-group col-md-4">
+													<label for="estado">Estado</label>
+													<input type="text" id="estado" class="form-control" required disabled>
+												</div>
+												<div class="form-group col-md-12">
+													<div class="radio">
+														<label><input type="checkbox" id="check_endereco" onclick="habilitarOutroEndereco()"> Entregar em outro endereço</label>
+													</div>
+												</div>
+												<div class="form-group col-md-12" id="hidden-button-addres" style="display: none">
+													<p>
+														<button type="submit" form="form_addres" class="btn btn-primary py-3 px-4">
+															<span id="icon_button_addres"></span>
+															Confirmar endereço de entrega
+														</button>
+													</p>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="card">
+									<div class="card-header" id="headingThree">
+										<h5 class="mb-0">
+											<button class="btn btn-link collapsed" style="color: green;" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+												Forma de pagamento
+											</button>
+										</h5>
+									</div>
+									<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+										<form name="form_card" id="form_card" class="billing-form">
+											<div class="form-row" style="padding: 10px;">
+												<div class="form-group col-md-12">
+													<label for="bandeira">Bandeira</label>
+													<div class="select-wrap">
+														<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+														<select name="bandeira" id="bandeira" class="form-control">
+															<th:block th:each="bandeira : ${tiposBandeira}">
+																<option th:id="select-bandeira" th:value="${bandeira}" th:text="${bandeira.descricao}"></option>
+														    </th:block>
+														</select>
+													</div>
+												</div>
+												<div class="form-group col-md-12">
+													<label for="titulat">Titular</label>
+													<input type="text" name="titular" id="titular" class="form-control" minlength="3" placeholder="Titular do cartão" required>
+												</div>
+												<div class="form-group col-md-12">
+													<label for="numeroCartao">Nº do cartão</label>
+													<input type="text" name="numeroCartao" id="numeroCartao" class="form-control" onkeypress="mascara(this,'####.####.####.####')" placeholder="Número do cartão"  maxlength="19" required>
+												</div>
+												<div class="form-group col-md-6">
+													<label for="vencimento">Vencimento</label>
+													<input type="month" name="vencimento" id="vencimento" class="form-control" placeholder="MM/AA" required>
+												</div>
+												<div class="form-group col-md-6">
+													<label for="cvv">CVV</label>
+													<input type="text" name="cvv" id="cvv" class="form-control" placeholder="Ex.: 534" minlength="3" maxlength="3"  required>
+												</div>
+												<div class="form-group col-md-8">
+													<label for="valor">Valor</label>
+													<div class="input-group">
+														<div class="input-group-prepend">
+														  <span class="input-group-text" id="inputGroupPrepend3">R$</span>
+														</div>
+														<input type="number" class="form-control is-invalid" id="valor" th:value="${totalCompra}" min="0.01" step="0.01" placeholder="Valor á ser pago com este cartão" aria-describedby="inputGroupPrepend3" required disabled>
+													</div>
+												</div>
+												<div class="form-group col-md-12">
+													<div class="radio">
+														<label><input type="checkbox" id="add_card" onclick="habilitarInserirCartao()"> Pagar com mais de um cartão</label>
+													</div>
+													<div class="radio">
+														<label><input type="checkbox" id="save_card"> Salvar cartão para futuras transações</label>
+													</div>
+												</div>
+												<div class="form-group col-md-12" id="button-card" align="center">
+													<p>
+														<button type="submit" form="form_card" class="btn btn-primary py-3 px-4">
+															<span class="icon-add_circle"></span>
+															Validar cartão
+														</button>
+													</p>
+												</div>
+												<div class="form-group col-md-12" id="hidden-button-card" align="center" style="display: none">
+													<p>
+														<button type="submit" form="form_card" class="btn btn-primary py-3 px-4">
+															<span class="icon-add_circle"></span>
+															Adicionar mais um cartão
+														</button>
+													</p>
+												</div>
+											</div>
+										</form>	
+									</div>
+								</div>
+							</div>
+					</div>
+					<div class="col-xl-5">
+						<div class="row mt-5 pt-3">
+							<div class="col-md-12 d-flex mb-5">
+								<div class="cart-detail cart-total p-3 p-md-4" align="center">
+									<h3 class="billing-heading mb-4">Total da Compra</h3>
+									<p class="d-flex">
+										<span>Produtos</span>
+										<span id="valor_produtos" th:text="|R$ ${totalProdutos}|">R$00.00</span>
+									</p>
+									<p class="d-flex">
+										<span>Entrega</span>
+										<span th:text="|R$ ${frete}|">R$00.00</span>
+									</p>
+									<p class="d-flex">
+										<span>Desconto</span>
+										<span th:text="|R$ ${desconto}|">R$0.00</span>
+									</p>	
+									<hr>
+									<p class="d-flex total-price">
+										<span>Total</span>
+										<span id="total" th:text="|R$ ${totalCompra}|">R$0.00</span>
+									</p>
+									<p><button type="submit" class="btn btn-primary py-3 px-4" onclick="concluirCompra()">Concluir</button></p>
+								</div>
 							</div>
 						</div>
-					</div>
-					
-				</div> <!-- .col-md-8 -->
-			</div>
-		</div>
-    </section> <!-- .section -->
-
-	<!--Rodapé-->
-	<footer class="ftco-footer ftco-section">
-		<div class="container">
-			<div class="row">
-				<div class="mouse">
-					<a href="#" class="mouse-icon">
-						<div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
-					</a>
-				</div>
-			</div>
-			<div class="row mb-5">
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">NaturÊ</h2>
-						<p align="left">
-						A NaturÊ é uma das lojas virtuais do grupo Natureza em foco LTDA, empresa que tem ganhado espaço
-						no cenário nacional devido a qualidade de seus produtos e preocupação com o meio ambiente.
-						</p>
-						<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-							<li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4 ml-md-5">
-						<h2 class="ftco-heading-2">Menu</h2>
-						<ul class="list-unstyled">
-							<li><a href="/produtos" class="py-2 d-block">Produtos</a></li>
-							<li><a href="/sobre_nos" class="py-2 d-block">Sobre nós</a></li>
-							<li><a href="/home" class="py-2 d-block">Página inicial</a></li>
-							<li><a href="/cadastro" class="py-2 d-block">Cadastre-se</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">Onde nos encontrar?</h2>
-						<div class="block-23 mb-3">
-							<ul>
-								<li><span class="icon icon-map-marker"></span><span class="text">Rua Antônio Bóz Vidas, 94, Jd. Bela Vista</span></li>
-								<li><a href="#"><span class="icon icon-phone"></span><span class="text">+55 11 4744-4447</span></a></li>
-								<li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@nature.com.br</span></a></li>
-							</ul>
+						<div class="row mt-5 pt-3">
+							<div class="col-md-12 d-flex mb-5">
+								<div class="cart-detail cart-total p-3 p-md-4" align="center">
+									<h3 class="billing-heading mb-4">Cartões utilizados</h3>
+									<p class="d-flex">
+										<span>Final</span>
+										<span>Valor</span>
+										<span>Bandeira</span>
+										<span></span>
+									</p>
+									<div id="cartoes_adicionados">
+									</div>	
+									<hr>
+									<p class="d-flex total-price" align="center">
+										<span>&nbsp Total</span>
+										<span id="total_card">R$0.00</span>
+									</p>
+								</div>
+							</div>
 						</div>
-					</div>
+					</div> <!-- .col-md-8 -->
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-12 text-center">
-					<a href="/home">
-						<img src="\images\logos\nature\nature_logo1.png" alt="Logo da Naturê">
-					</a>
-					<p class="copyright">&copy; Copyright Naturê - 2020</p>
-				</div>
-			</div>
-		</div>
-	</footer>		
-  <!-- loader -->
-  <script src="/js/jquery.min.js"></script>
-  <script src="/js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="/js/popper.min.js"></script>
-  <script src="/js/bootstrap.min.js"></script>
-  <script src="/js/jquery.easing.1.3.js"></script>
-  <script src="/js/jquery.waypoints.min.js"></script>
-  <script src="/js/jquery.stellar.min.js"></script>
-  <script src="/js/owl.carousel.min.js"></script>
-  <script src="/js/jquery.magnific-popup.min.js"></script>
-  <script src="/js/aos.js"></script>
-  <script src="/js/jquery.animateNumber.min.js"></script>
-  <script src="/js/bootstrap-datepicker.js"></script>
-  <script src="/js/scrollax.min.js"></script>
-  <script src="/js/main.js"></script>
-  <script src="/js/conclusao.compra.js"></script>
-
+	    </section>
+	</section>    
+ <th:block layout:fragment="javascript-extra">
+	<script src="/js/conclusao.compra.js"></script>
+ </th:block>    
 </body>
 </html>

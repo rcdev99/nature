@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.fatec.les.nature.conf.Autentication;
 import br.com.fatec.les.nature.model.Carrinho;
 import br.com.fatec.les.nature.model.ItensCompra;
 import br.com.fatec.les.nature.model.Produto;
@@ -33,6 +34,7 @@ public class CarrinhoController {
 		
 		mView.addObject("carrinho", carrinho);
 		mView.addObject("qtdProduto", carrinho.getQtdProdutos());
+		mView.addObject("logado", Autentication.isLogged());
 		
 		return mView;
 		
@@ -55,7 +57,6 @@ public class CarrinhoController {
 			carrinho.adicionarItem(item);
 			mView.addObject("mensagem", "Produto adicionado ao carrinho");
 		}
-		
 		
 		mView.addObject("carrinho", carrinho);
 		mView.addObject("qtdProduto", carrinho.getQtdProdutos());

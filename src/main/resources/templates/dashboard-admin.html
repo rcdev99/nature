@@ -94,7 +94,7 @@
 			                                    </div>
 			                                    <div class="stat-content">
 			                                        <div class="text-left dib">
-			                                            <div class="stat-text"><span class="count">100</span></div>
+			                                            <div class="stat-text"><span th:text="${qtdCompras}"></span></div>
 			                                            <div class="stat-heading">Vendas</div>
 			                                        </div>
 			                                    </div>
@@ -128,7 +128,7 @@
 			                                    </div>
 			                                    <div class="stat-content">
 			                                        <div class="text-left dib">
-			                                            <div class="stat-text"><span class="count">30</span></div>
+			                                            <div class="stat-text"><span th:text="${qtdProdutos}"></span></div>
 			                                            <div class="stat-heading">Produtos</div>
 			                                        </div>
 			                                    </div>
@@ -144,29 +144,23 @@
 			                    <div class="col-lg-12">
 			                        <div class="card">
 			                            <div class="row" style="padding: 20px">
-			                            	<div class="col-lg-2">
-				                            	<div class="form-group">
-	                                                <label for="periodo" style="font-weight: bold" class="form-control-label">Últimos</label>
-	                                           		<select name="periodo" id="periodo" class="form-control" required>
-                                                            <option value="2" th:selected="${selecionado == 2}">2 Meses</option>
-                                                            <option value="3" th:selected="${selecionado == 3}">3 Meses</option>
-                                                            <option value="4" th:selected="${selecionado == 4}">4 Meses</option>
-                                                            <option value="5" th:selected="${selecionado == 5}">5 Meses</option>
-                                                            <option value="6" th:selected="${selecionado == 6}">6 Meses</option>
-                                                            <option value="7" th:selected="${selecionado == 7}">7 Meses</option>
-                                                            <option value="8" th:selected="${selecionado == 8}">8 Meses</option>
-                                                            <option value="9" th:selected="${selecionado == 9}">9 Meses</option>
-                                                            <option value="10" th:selected="${selecionado == 10}">10 Meses</option>
-                                                            <option value="11" th:selected="${selecionado == 11}">11 Meses</option>
-                                                            <option value="12" th:selected="${selecionado == 12}">12 Meses</option>
-                                                            <option value="24" th:selected="${selecionado == 24}">2 Anos</option>
-                                                    </select>
-	                                            </div>                                        </div>
-	                                        <div class="col-lg-4" style="padding: 30px 5px 0px">
+			                            	<div class="col-lg-4">
+			                            		<div class="form-group">
+	                                                <label for="inicio" style="font-weight: bold" class="form-control-label">De:</label>
+	                                           		<input type="date" name="inicio" id="inicio" th:value="${inicio}" class="form-control" placeholder="dd/MM/AAAA" required>
+	                                            </div>
+			                            	</div>	
+			                            	<div class="col-lg-4">
+			                            		<div class="form-group">
+	                                                <label for="inicio" style="font-weight: bold" class="form-control-label">Até:</label>
+	                                           		<input type="date" name="fim" id="fim" th:value="${fim}" class="form-control" placeholder="dd/MM/AAAA" required>
+	                                            </div>
+			                            	</div>
+			                            	<div class="col-lg-4" style="padding: 30px 5px 0px">
 	                                            <div class="form-group">
 	                                            	<button type="submit" class="btn btn-outline-dark">Filtrar</button>
 	                                            </div>
-	                                         </div>       
+	                                         </div>
 			                            </div>
 			                            <div class="row">
 			                                <div class="col-lg-12">

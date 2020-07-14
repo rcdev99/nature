@@ -1,7 +1,7 @@
 package br.com.fatec.les.nature.model;
 
 /**
- * @author USER
+ * @author Ricardo
  *
  */
 public class Estado {
