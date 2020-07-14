@@ -4,7 +4,7 @@ aprovação na disciplina Laboratório de Engenharia de Software.
 
 # Descrição
 NaturÊ trata-se de um sistema web voltado ao comércio de alimentos e produtos orgânicos, o qual conta com recursos para viabilizar a aquisição de produtos e
-acompanhamentos das compras realizas no que tange a ações do cliente. Ao administrador, ficam disponíveis recursos para gerenciamento dos dados de clientes,
+acompanhamento das compras realizadas no que tange a ações do cliente. Ao administrador, ficam disponíveis recursos para gerenciamento dos dados de clientes,
 produtos, estoques, cupons de descontos, vendas e solicitações de troca. 
 O sistema descrito possui viés acadêmico e foi desenvolvido para validação dos conceitos e técnicas de programação abordadas durante o curso de Análise e Desenvolvimento
 de Sistema ministrado pela FATEC - MOGI DAS CRUZES.
@@ -34,8 +34,7 @@ de Sistema ministrado pela FATEC - MOGI DAS CRUZES.
 
 # Como configurar a aplicação
 
-Devido a utilização do Maven a configuração do ambiente para a aplicação torna-se bem simples, pois as principais dependência do projeto encontram-se no arquivo pom.xml do mesmo,
-bastando:
+Devido a utilização do Maven a configuração do ambiente para a aplicação torna-se bem simples, pois as principais dependências do projeto encontram-se no arquivo pom.xml do mesmo, bastando:
 
 <ul>
   <li>Clonar o projeto</li>
