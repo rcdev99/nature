@@ -55,7 +55,7 @@ public class ComprasMensalDTO {
 		GregorianCalendar dt_fim = new GregorianCalendar(Integer.valueOf(end[0]), (Integer.valueOf(end[1]) - 1), Integer.valueOf(end[2]));
 		//Obs.: É necessário decrementar uma unidade do mês, pois o range de meses deste objeto vai de 0 a 11
 		
-		while(dt_fim.compareTo(dt_inicio) > 0) {
+		while(dt_fim.compareTo(dt_inicio) >= 0) {
 			
 			boolean encontrou = false;
 			
