@@ -57,9 +57,16 @@ public class CompraService {
 			compra.validarPagamento();
 		}
 		
-		cRepository.save(compra);
+		Compra confere = new Compra(); 
+		confere = cRepository.save(compra);
 		
-		return "Compra realizada !";
+		if(confere != null) {
+			return "Compra realizada !";
+		}else {
+			return "Desculpe, tivemos alguns problemas ao registrar a compra.";
+		}
+		
+		
 	}
 	
 	/**
@@ -141,6 +148,65 @@ public class CompraService {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<ComprasMensalDTO> obterQuantidaComprasPeriodo(String inicio, String fim){
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("SELECT to_char(com_dt_data_compra,'YYYY/MM') as data, (COUNT (com_in_id)) as qtd_vendas ");
+		sb.append("FROM tbl_compra ");
+		sb.append("WHERE (com_dt_data_compra BETWEEN '");
+		sb.append(inicio);
+		sb.append("' AND '");
+		sb.append(fim);
+		sb.append("') GROUP BY to_char(com_dt_data_compra,'YYYY/MM') ORDER BY data");
+		
+		Query query = em.createNativeQuery(sb.toString());
+		Iterator<Object> queryResult = query.getResultList().iterator();
+		
+		return ComprasMensalDTO.comporListaPorPeriodo(inicio, fim, comporComprasMensalPorPeriodo(queryResult));
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ComprasMensalDTO> obterQuantidaComprasEntreguesPeriodo(String inicio, String fim){
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("SELECT to_char(com_dt_data_compra,'YYYY/MM') as data, (COUNT (com_in_id)) as qtd_vendas ");
+		sb.append("FROM tbl_compra ");
+		sb.append("WHERE (com_dt_data_compra BETWEEN '");
+		sb.append(inicio);
+		sb.append("' AND '");
+		sb.append(fim);
+		sb.append("') AND com_st_situacao = 'ENTREGUE' ");
+		sb.append("GROUP BY to_char(com_dt_data_compra,'YYYY/MM') ORDER BY data");
+		
+		Query query = em.createNativeQuery(sb.toString());
+		Iterator<Object> queryResult = query.getResultList().iterator();
+		
+		return ComprasMensalDTO.comporListaPorPeriodo(inicio, fim, comporComprasMensalPorPeriodo(queryResult));
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ComprasMensalDTO> obterQuantidaComprasCanceladasPeriodo(String inicio, String fim){
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("SELECT to_char(com_dt_data_compra,'YYYY/MM') as data, (COUNT (com_in_id)) as qtd_vendas ");
+		sb.append("FROM tbl_compra ");
+		sb.append("WHERE (com_dt_data_compra BETWEEN '");
+		sb.append(inicio);
+		sb.append("' AND '");
+		sb.append(fim);
+		sb.append("') AND com_st_situacao = 'CANCELADO' ");
+		sb.append("GROUP BY to_char(com_dt_data_compra,'YYYY/MM') ORDER BY data");
+		
+		Query query = em.createNativeQuery(sb.toString());
+		Iterator<Object> queryResult = query.getResultList().iterator();
+		
+		return ComprasMensalDTO.comporListaPorPeriodo(inicio, fim, comporComprasMensalPorPeriodo(queryResult));
+	}
+	
+	@SuppressWarnings("unchecked")
 	/**
 	 * Método utilizado para obter a quantidade de compras entregues por mês durante um período
 	 * @param qtdMeses Quantidade de meses do periodo solicitado
@@ -218,6 +284,21 @@ public class CompraService {
 			//Construindo obeto de retorno
 			ComprasMensalDTO qtdMensal = new ComprasMensalDTO(qtd, mes, ano);			
 			comprasMensal.add(qtdMensal);
+		}
+		
+		return comprasMensal;
+	}
+	
+	public List<ComprasMensalDTO> comporComprasMensalPorPeriodo(Iterator<Object> queryResult){
+		
+		List<ComprasMensalDTO> comprasMensal = new ArrayList<ComprasMensalDTO>();
+		
+		while (queryResult.hasNext()) {	
+			
+			Object[] obj = (Object[]) queryResult.next();
+			
+			ComprasMensalDTO compras = new ComprasMensalDTO(Integer.valueOf(obj[1].toString()), obj[0].toString());
+			comprasMensal.add(compras);
 		}
 		
 		return comprasMensal;

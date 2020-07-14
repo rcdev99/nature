@@ -136,6 +136,23 @@ public class RestController {
 		}
 	}
 	
+	@RequestMapping(value = "/atualizar/carrinho", method = RequestMethod.POST)
+	public String atualizarQtdItensCarrinho(@RequestParam String produtos) {
+		
+		ArrayList<ItensCompra> itensCompra = new ArrayList<ItensCompra>();
+		Type itemType = new TypeToken<List<ItemCompraDTO>>() {}.getType();
+		ArrayList<ItemCompraDTO> itens = gson.fromJson(produtos, itemType);
+		
+		//Populando o array de itensCompra com os itens recebidos
+		itensCompra = (ArrayList<ItensCompra>) obtemItens(itens);
+		
+		//Adiciona os produtos e suas respectivas quantidades no carrinho
+		carrinho.limparCarrinho();
+		carrinho.setItens(itensCompra);
+		
+		return"OK";
+	}
+	
 	@RequestMapping(value = "/compra/concluir", method = RequestMethod.POST)
 	public @ResponseBody String concluirCompra(@RequestParam String endereco, @RequestParam String cartoes, @RequestParam String idCliente) throws SQLException{
 		
@@ -173,6 +190,15 @@ public class RestController {
 			
 			estoqueService.baixarItens(compra.getItens());
 			msgRetorno = compraService.salvar(compra);
+			
+			//Valor da compra é inferior ao dos cupons utilizados ?
+			if(carrinho.geraNovoCupom(carteira.totalDescontos())) {
+				String descricao = "Cupom gerado em decorrência de resíduos do cupom utilizado em compras"; 
+				CupomDesconto cupom = new CupomDesconto(compra.getIdCliente(), carrinho.valorNovoCupom(carteira.totalDescontos()), descricao);
+				cService.salvar(cupom);
+				cService.inativarCuponsDeTrocaUtilizados(carteira.getCupons());
+			}
+			
 			carrinho.limparCarrinho();
 			carteira.esvaziarCarteira();
 			

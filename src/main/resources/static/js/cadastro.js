@@ -28,11 +28,15 @@ function confirmarSenha(){
 		var div = document.getElementById('check-confirmar-senha').innerHTML;
 		div = '<span class="oi oi-circle-check" style="color: green"></span>';
 		document.getElementById('check-confirmar-senha').innerHTML = div;
+		return true;
+		
 	}else{
 		
 		var div = document.getElementById('check-confirmar-senha').innerHTML;
 		div = '<span class="oi oi-circle-x" style="color: red"></span>';
 		document.getElementById('check-confirmar-senha').innerHTML = div;
+		return true;
+		
 	}
 	
 }

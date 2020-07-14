@@ -30,6 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/cadastro",
 			"/carrinho/**",
 			"/rest/add/item/**",
+			"/rest/atualizar/carrinho",
 			"/rest/validar/cupom/**",
 			"/cliente/cadastrar",
 			"/produto/categoria/**"

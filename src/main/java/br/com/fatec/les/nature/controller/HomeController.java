@@ -1,6 +1,8 @@
 package br.com.fatec.les.nature.controller;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -188,13 +190,19 @@ public class HomeController {
 	 * @throws SQLException 
 	 */
 	@RequestMapping(value = "/admin")
-	public ModelAndView painelDeControleAdmin(Integer periodo) throws SQLException {
+	public ModelAndView painelDeControleAdmin(Integer periodo, String inicio, String fim) throws SQLException {
 		ModelAndView mView = new ModelAndView("dashboard-admin");
 	
-		
 		//Valor default para geração do gráfico
-		if(periodo == null) {
-			periodo = 6;
+		if(inicio == null || fim == null) {
+			
+			GregorianCalendar atual = new GregorianCalendar();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			
+			fim = sdf.format(atual.getTimeInMillis());
+			
+			atual.add(GregorianCalendar.MONTH, -6);
+			inicio = sdf.format(atual.getTimeInMillis());
 		}
 		
 		//Map de associação entre o mês e a quantidade de vendas
@@ -203,13 +211,13 @@ public class HomeController {
 		Map<String, Integer> qtdCanceladasMensal = new LinkedHashMap<String, Integer>();
 		
 		//Populando Map´s
-		for (ComprasMensalDTO comprasMensal: compraService.obterQuantidadeComprasUltimosMeses(periodo)) {
+		for (ComprasMensalDTO comprasMensal: compraService.obterQuantidaComprasPeriodo(inicio, fim)) {
 			qtdComprasMensal.put(comprasMensal.getMesTxt(), comprasMensal.getQtdCompras());
 		}
-		for (ComprasMensalDTO entreguesMensal: compraService.obterQuantidadeEntreguesUltimosMeses(periodo)) {
+		for (ComprasMensalDTO entreguesMensal: compraService.obterQuantidaComprasEntreguesPeriodo(inicio, fim)) {
 			qtdEntreguesMensal.put(entreguesMensal.getMesTxt(), entreguesMensal.getQtdCompras());
 		}
-		for (ComprasMensalDTO canceladasMensal: compraService.obterQuantidadeCanceladasUltimosMeses(periodo)) {
+		for (ComprasMensalDTO canceladasMensal: compraService.obterQuantidaComprasCanceladasPeriodo(inicio, fim)) {
 			qtdCanceladasMensal.put(canceladasMensal.getMesTxt(), canceladasMensal.getQtdCompras());
 		}
 		
@@ -219,7 +227,8 @@ public class HomeController {
 		mView.addObject("comprasMensal", qtdComprasMensal);
 		mView.addObject("entreguesMensal", qtdEntreguesMensal);
 		mView.addObject("canceladasMensal", qtdCanceladasMensal);
-		mView.addObject("selecionado", periodo);
+		mView.addObject("inicio", inicio);
+		mView.addObject("fim", fim);
 		
 		return mView;
 	}

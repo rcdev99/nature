@@ -156,6 +156,38 @@ public class Carrinho {
 	}
 	
 	/**
+	 * Verifica se o valor dos descontos é maior que o valor total da compra.
+	 * @param desconto
+	 * @return
+	 */
+	public Boolean geraNovoCupom(BigDecimal desconto) {
+		
+		BigDecimal totalCompra = new BigDecimal(0);
+		
+		totalCompra = ((valorProdutos().add(getFrete())).subtract(desconto));
+		
+		if(totalCompra.compareTo(new BigDecimal(0)) < 0){	
+			return true;				
+		}else {
+			return false;
+		}
+	}
+	
+	public BigDecimal valorNovoCupom(BigDecimal desconto) {
+		
+		BigDecimal totalCompra = new BigDecimal(0);
+		
+		totalCompra = ((valorProdutos().add(getFrete())).subtract(desconto));
+		
+		if(totalCompra.compareTo(new BigDecimal(0)) < 0){	
+			totalCompra = totalCompra.multiply(new BigDecimal(-1));
+		}
+		
+		return totalCompra;
+	}
+	
+	
+	/**
 	 * Método utilizado para obter a quantidade de produtos no carrinho
 	 * @return
 	 */
